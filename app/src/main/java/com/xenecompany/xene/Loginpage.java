@@ -22,6 +22,17 @@ public class Loginpage extends Activity {
         sendOtpButton=(Button)findViewById(R.id.sendotpbutton);
         userNumber.addTextChangedListener(loginTextWatcher);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SessionManager sessionManager= new SessionManager(Loginpage.this);
+        if(sessionManager.checkLogin()){
+            Intent intent = new Intent(Loginpage.this , HomePage.class);
+            intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
     private TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

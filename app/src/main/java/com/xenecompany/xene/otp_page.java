@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.executor.TaskExecutor;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,11 +27,12 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
-public class otp_page extends AppCompatActivity {
+public class otp_page extends Activity {
 
-    PinView otpEntered;
-    String verificationCodeBySystem;
-    ProgressBar progressBar;
+    private PinView otpEntered;
+    private  String verificationCodeBySystem;
+    private ProgressBar progressBar;
+    private String phoneNo;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class otp_page extends AppCompatActivity {
         progressBar=(ProgressBar)findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
         mAuth= FirebaseAuth.getInstance();
-        String phoneNo=getIntent().getStringExtra("phoneNo");
+        phoneNo=getIntent().getStringExtra("phoneNo");
         sendVerificationCodeToUser(phoneNo);
     }
 
@@ -88,6 +90,11 @@ public class otp_page extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     Toast.makeText(otp_page.this , "successful" , Toast.LENGTH_SHORT).show();
+                    SessionManager sessionManager=new SessionManager(otp_page.this);
+                    sessionManager.createLoginSession(phoneNo);
+                    Intent intent=new Intent(otp_page.this , HomePage.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(otp_page.this , task.getException().getMessage() , Toast.LENGTH_SHORT).show();

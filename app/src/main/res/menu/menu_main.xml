@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/wishlist"
+        app:showAsAction="always"
+        app:actionLayout="@layout/toolbar_heart"
+        android:title="wishlist"
+        />
+    <item
+        android:id="@+id/notification"
+        app:showAsAction="always"
+        app:actionLayout="@layout/toolbar_notification"
+        android:title="wishlist" />
+    <item
+        android:id="@+id/message"
+        app:showAsAction="always"
+        app:actionLayout="@layout/toolbar_message"
+        android:title="wishlist" />
+</menu>
