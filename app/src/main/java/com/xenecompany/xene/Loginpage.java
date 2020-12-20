@@ -17,7 +17,7 @@ public class Loginpage extends Activity {
     private Button sendOtpButton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loginpage);
+        setContentView(R.layout.activity_navigation_drawer);
         userNumber=(EditText)findViewById(R.id.userNumber);
         sendOtpButton=(Button)findViewById(R.id.sendotpbutton);
         userNumber.addTextChangedListener(loginTextWatcher);
