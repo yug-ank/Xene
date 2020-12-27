@@ -24,4 +24,22 @@
     <string name="slide_bar_menu_1">Edit Profile</string>
     <string name="slide_bar_menu_2">My Deals</string>
     <string name="slide_bar_menu_3">Help</string>
+    <string name="layout_pg_pictures_likeButton_description">add to favourate button</string>
+    <string name="layout_pg_pictures_name">Name of pg</string>
+    <string name="layout_pg_pictures_area">Area of pg</string>
+    <string name="layout_pg_pictures_rent_text">Rent per Month</string>
+    <string name="layout_pg_pictures_rent">4000/-</string>
+    <string name="layout_pg_pictures_utilities">Utilities :</string>
+    <string name="layout_pg_pictures_book">Book</string>
+
+    <string name="layout_pg_description_filler_text"><![CDATA[<this is filler text> Premium – Exclusive (PG) Co Living Acommodations in Bungalow Building Contemporary Planned Spacious Rooms Calm and Peaceful, Professionally Designed Luxurious Accommodation for Corporate Working Men. \n\nConceptually designed 4 Spacious (140–170 Sq. Ft. Carpet) Rooms on twin Sharing Basis. \n\n# Power bill will be borne by the Paying Guest* \n\n# Easy access to Local Market Streets, Restaurants, Gym, ATM, Metro Station, Airport ETC. \n\n# Rent includes Repair and Maintenance of the all appliances including the AC. (). \n\n# Bed sheet washing and changing. (Free of Cost) \n\n# Only for Verified Responsible and Disciplined Corporate Room-mates. \n\n# Plush upholstery with Marble flooring / Vitrified Tiles.]]></string>
+    <string name="layout_pg_description_description">Description :</string>
+
+    <string name="layout_pg_location_location">Location of pg :</string>
+
+    <string name="layout_pg_review_data_name">yashwant tejwani</string>
+    <string name="layout_pg_review_data_filler_text"><![CDATA[<this is filler text> saw this property , nice place to live the environment is peacful tu study.\nI strongly recommend this pg]]></string>
+
+    <string name="layout_pg_reviews_reviews">Reviews :</string>
+
 </resources>

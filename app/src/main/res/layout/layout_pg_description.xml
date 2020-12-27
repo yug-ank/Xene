@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="Description :"
+        android:text="@string/layout_pg_description_description"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -48,13 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="<this is filler text> Premium - Exclusive (PG) Co Living Acommodations in Bungalow Building Contemporary Planned Spacious Rooms Calm and Peaceful, Professionally Designed Luxurious Accommodation for Corporate Working Men. \n\nConceptually designed 4 Spacious (140-170 Sq. Ft. Carpet) Rooms on twin Sharing Basis.
-\n\n#  Power bill will be borne by the Paying Guest*
-\n\n# Easy access to Local Market Streets, Restaurants, Gym, ATM, Metro Station, Airport ETC.
-\n\n# Rent includes Repair and Maintenance of the all appliances including the AC. ().
-\n\n# Bed sheet washing and changing. (Free of Cost)
-\n\n# Only for Verified Responsible and Disciplined Corporate Room-mates.
-\n\n# Plush upholstery with Marble flooring / Vitrified Tiles."
+                android:text="@string/layout_pg_description_filler_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#000000" />
 

@@ -13,8 +13,8 @@
         app:layout_constraintEnd_toEndOf="@id/viewPager22"
         app:layout_constraintTop_toTopOf="@id/viewPager22"
         android:layout_marginTop="40dp"
-        android:layout_marginRight="40dp"
-        android:contentDescription="add to favourate button"
+        android:layout_marginEnd="40dp"
+        android:contentDescription="@string/layout_pg_pictures_likeButton_description"
         />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -47,13 +47,14 @@
         app:layout_constraintEnd_toEndOf="@+id/viewPager22"
         app:layout_constraintStart_toStartOf="@+id/viewPager22" />
 
-    <EditText
+    <TextView
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:text="Name of pg"
+        android:text="@string/layout_pg_pictures_name"
+        android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,8 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:inputType="textPostalAddress"
-        android:text="Area of pg"
+        android:text="@string/layout_pg_pictures_area"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
-        android:text="Rent per Month"
+        android:text="@string/layout_pg_pictures_rent_text"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,20 +96,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="4000/-"
+        android:text="@string/layout_pg_pictures_rent"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <EditText
+    <TextView
         android:id="@+id/editTextTextPersonName3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
-        android:text="Utilities :"
+        android:text="@string/layout_pg_pictures_utilities"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
@@ -136,19 +137,22 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@drawable/bed" />
+                android:src="@drawable/bed"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@drawable/bed" />
+                android:src="@drawable/bed"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@drawable/bed" />
+                android:src="@drawable/bed"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -157,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/book_button_background"
-        android:text="Book"
+        android:text="@string/layout_pg_pictures_book"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="@+id/textView6"
