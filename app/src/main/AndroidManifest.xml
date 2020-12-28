@@ -11,6 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".pgDetails"></activity>
         <activity android:name=".otp_page"></activity>
+        <activity android:name=".HomePage"></activity>
+
         <activity
             android:name=".Loginpage"
             android:windowSoftInputMode="adjustResize">

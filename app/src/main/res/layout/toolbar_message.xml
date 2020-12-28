@@ -11,6 +11,7 @@
         android:layout_height="@dimen/menu_item_icon_size"
         android:layout_gravity="center"
         android:src="@drawable/toolbar_message_selector"
+        android:scaleType="fitCenter"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
     <FrameLayout

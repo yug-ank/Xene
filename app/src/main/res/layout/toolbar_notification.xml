@@ -10,6 +10,7 @@
         android:layout_height="@dimen/menu_item_icon_size"
         android:layout_gravity="center"
         android:src="@drawable/toolbar_notification"
+        android:scaleType="fitCenter"
         android:layout_marginLeft="10dp"
         />
     <FrameLayout
