@@ -6,9 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".HomePage"
     android:orientation="vertical">
-    <include
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:elevation="5dp" />
     <EditText
         android:id="@+id/search_input"
         android:layout_width="0dp"
@@ -24,12 +28,14 @@
         android:drawableLeft="@drawable/search_texticon"
         app:layout_constraintRight_toRightOf="parent"
         />
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homePageParentRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/search_input"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

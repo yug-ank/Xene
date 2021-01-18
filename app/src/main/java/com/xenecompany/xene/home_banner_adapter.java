@@ -21,7 +21,7 @@ public class home_banner_adapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-             View view = LayoutInflater.from(container.getContext()).inflate(R.layout.home_banner_slider_dataview , container , false);
+            View view = LayoutInflater.from(container.getContext()).inflate(R.layout.home_banner_slider_dataview , container , false);
             ImageView banner =view.findViewById(R.id.home_banner_imageview);
             banner.setImageResource(modelClassList.get(position).getBanner());
             container.addView(view  , 0);

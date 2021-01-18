@@ -4,18 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
     android:layout_height="200dp"
-    app:cardCornerRadius="5dp"
-    android:elevation="5dp"
-    android:background="#dcdcdc"
-    android:layout_marginRight="20dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp">
+    android:backgroundTint="#f6f6f6"
+    >
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="190dp"
-        android:layout_height="190dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#FFFFFF"
-        android:layout_gravity="center">
-
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:elevation="5dp">
         <ImageView
             android:id="@+id/hostel_image"
             android:layout_marginTop="5dp"

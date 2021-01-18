@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/wishlist"
+        android:id="@+id/toolbar_wishlist"
         app:showAsAction="always"
         app:actionLayout="@layout/toolbar_heart"
         android:title="wishlist"
         />
     <item
-        android:id="@+id/notification"
+        android:id="@+id/toolbar_notification"
         app:showAsAction="always"
         app:actionLayout="@layout/toolbar_notification"
-        android:title="wishlist" />
+        android:title="notification" />
     <item
-        android:id="@+id/message"
+        android:id="@+id/toolbar_message"
         app:showAsAction="always"
         app:actionLayout="@layout/toolbar_message"
-        android:title="wishlist" />
+        android:title="message" />
 </menu>

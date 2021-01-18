@@ -1,5 +1,7 @@
 package com.xenecompany.xene;
 
+import android.app.Activity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,23 +10,29 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class hostel_view_adapter extends RecyclerView.Adapter<hostel_view_adapter.hostel_view_holder> {
 
-    private ArrayList<hostel_cardview_model> items;
-
-    public hostel_view_adapter(ArrayList<hostel_cardview_model> items) {
+    private List<hostel_cardview_model> items;
+    int screenwidth;
+    public hostel_view_adapter(List<hostel_cardview_model> items , int screenwidth) {
         this.items = items;
+        this.screenwidth=screenwidth;
     }
 
     @NonNull
     @Override
     public hostel_view_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
             View view;
             view= LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view , parent , false);
+            ConstraintLayout.LayoutParams layoutParams=new ConstraintLayout.LayoutParams(screenwidth/2 , screenwidth/2);
+            view.setLayoutParams(layoutParams);
             hostel_view_holder hostelViewHolder=new hostel_view_holder(view);
             return hostelViewHolder;
     }
