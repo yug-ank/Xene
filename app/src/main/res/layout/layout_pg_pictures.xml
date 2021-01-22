@@ -6,51 +6,39 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-
-    <com.like.LikeButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/viewPager22"
-        app:layout_constraintTop_toTopOf="@id/viewPager22"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:contentDescription="@string/layout_pg_pictures_likeButton_description"
-        />
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager22"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:elevation="3dp"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal"
+        app:layout_constraintDimensionRatio="4:3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout2"
-        android:layout_width="match_parent"
-
-        app:tabBackground="@drawable/default_dot"
-        app:tabIndicator="@drawable/selected_dot"
-        android:background="@null"
-        android:animateLayoutChanges="true"
-        app:tabGravity="center"
-        app:tabIndicatorGravity="center"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:animateLayoutChanges="true"
+        android:background="@null"
+        android:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/viewPager22"
         app:layout_constraintEnd_toEndOf="@+id/viewPager22"
-        app:layout_constraintStart_toStartOf="@+id/viewPager22" />
+        app:layout_constraintStart_toStartOf="@+id/viewPager22"
+        app:tabBackground="@drawable/default_dot"
+        app:tabIndicator="@drawable/selected_dot"
+        app:tabGravity="center"
+        app:tabIndicatorGravity="center" />
 
     <TextView
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="3dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="@string/layout_pg_pictures_name"
@@ -66,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/layout_pg_pictures_area"
+        android:elevation="3dp"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
@@ -76,12 +65,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:elevation="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
+        android:elevation="3dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
@@ -93,6 +84,7 @@
 
     <TextView
         android:id="@+id/textView7"
+        android:elevation="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
@@ -106,6 +98,7 @@
     <TextView
         android:id="@+id/editTextTextPersonName3"
         android:layout_width="wrap_content"
+        android:elevation="3dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
@@ -118,6 +111,7 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
+        android:elevation="3dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
@@ -130,43 +124,26 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3">
 
         <LinearLayout
+            android:id="@+id/pgPicturesUtilitiesLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@drawable/bed"
-                tools:ignore="ContentDescription" />
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bed"/>
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@drawable/bed"
-                tools:ignore="ContentDescription" />
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bed"/>
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@drawable/bed"
-                tools:ignore="ContentDescription" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bed"/>
         </LinearLayout>
     </HorizontalScrollView>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/book_button_background"
-        android:text="@string/layout_pg_pictures_book"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

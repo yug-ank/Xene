@@ -41,5 +41,10 @@
     <string name="layout_pg_review_data_filler_text"><![CDATA[<this is filler text> saw this property , nice place to live the environment is peacful tu study.\nI strongly recommend this pg]]></string>
 
     <string name="layout_pg_reviews_reviews">Reviews :</string>
+    <string name="faq_q1">your first question here ?</string>
+    <string name="faq_a1">ans here comes the answer of your first question mother fucker. now get out.</string>
+    <string name="notification_data_detail">filler text the pg you applied for gave reponse.\nclick here you check it out and start conversation with the owner.</string>
+    <string name="notification_data_heading">filler text you got response</string>
+    <string name="layoutFaqData_Q">Q :</string>
 
 </resources>

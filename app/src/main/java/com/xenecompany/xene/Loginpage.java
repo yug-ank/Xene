@@ -8,8 +8,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 public class Loginpage extends Activity {
 
@@ -17,7 +15,7 @@ public class Loginpage extends Activity {
     private Button sendOtpButton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation_drawer);
+        setContentView(R.layout.activity_loginpage);
         userNumber=(EditText)findViewById(R.id.userNumber);
         sendOtpButton=(Button)findViewById(R.id.sendotpbutton);
         userNumber.addTextChangedListener(loginTextWatcher);

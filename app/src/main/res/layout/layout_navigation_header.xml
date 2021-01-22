@@ -23,16 +23,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageButton
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/navimg1"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/akshay_kumar"
+        app:riv_oval="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/navigation_header_profilepic_description" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"

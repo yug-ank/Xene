@@ -4,30 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".HomePage">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:elevation="5dp" />
+        android:elevation="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/search_input"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent=".96"
-        app:layout_constraintHeight_percent=".08"
         android:background="@drawable/search_textfield"
-        android:hint="Search for tenants"
         android:drawableLeft="@drawable/search_texticon"
+        android:hint="Search for tenants"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".08"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent=".96" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homePageParentRecyclerView"
         android:layout_width="0dp"
@@ -38,4 +40,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_input"
         app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
