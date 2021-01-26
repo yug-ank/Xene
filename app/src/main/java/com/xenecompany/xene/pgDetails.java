@@ -1,6 +1,7 @@
 package com.xenecompany.xene;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,12 +25,20 @@ public class pgDetails extends AppCompatActivity {
     TabLayout tablayout;
     LayoutInflater inflater;
     LinearLayout linearly;
+    /////final variable
+    private String itemID;
+
+    /////final variable
     @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pg_details);
 
-    //////view pager setting /start
+
+        itemID = getIntent().getStringExtra("ItemId");
+     //////view pager setting /start
 
         data = new ArrayList<>(4);
         data.add(new pgDetailsModel(R.drawable.demo_hostel));
@@ -51,8 +60,8 @@ public class pgDetails extends AppCompatActivity {
         pager.setPageTransformer(transformer);
 
         tablayout = (TabLayout) findViewById(R.id.tabLayout2);
-        new TabLayoutMediator(tablayout ,pager ,
-                (tab , position) -> tab.select()).attach();
+        /*new TabLayoutMediator(tablayout ,pager ,
+                (tab , position) -> tab.select()).attach();*/
     //////vie pager setting /end
 
 /*

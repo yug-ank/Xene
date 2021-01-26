@@ -1,9 +1,14 @@
 package com.xenecompany.xene;
 
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -23,7 +28,17 @@ public class home_banner_adapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
             View view = LayoutInflater.from(container.getContext()).inflate(R.layout.home_banner_slider_dataview , container , false);
             ImageView banner =view.findViewById(R.id.home_banner_imageview);
-            banner.setImageResource(modelClassList.get(position).getBanner());
+            Picasso.get().load(modelClassList.get(position).getBanner()).fit().noFade().into(banner, new Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+                        Log.i("rectify" , ""+e);
+                }
+            });
             container.addView(view  , 0);
             return view;
     }

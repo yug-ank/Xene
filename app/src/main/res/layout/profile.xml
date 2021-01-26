@@ -87,7 +87,8 @@
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="@+id/profileImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:rippleColor="#dedede" />
+            app:rippleColor="#dedede"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,7 +103,9 @@
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible"
+        android:enabled="true"/>
 
     <TextView
         android:id="@+id/textView2"

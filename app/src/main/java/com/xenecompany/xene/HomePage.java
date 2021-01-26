@@ -1,33 +1,39 @@
 package com.xenecompany.xene;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+
+import android.os.Bundle;
+
+import android.util.DisplayMetrics;
+import android.util.Log;
+
+import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+
+import java.lang.ref.PhantomReference;
 import java.util.HashMap;
+
 
 public class HomePage extends Activity {
 
     private androidx.appcompat.widget.Toolbar toolbar;
-    Toolbar toolbar1;
     private RecyclerView parentRecyclerView;
-    private Context context;
     private int width;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page_with_navigation_drawer);
+        setContentView(R.layout.activity_home_page);
         SessionManager sessionManager = new SessionManager(HomePage.this);
         HashMap<String , String> userdata=sessionManager.getUserDetailFromSession();
-
+        progressBar = (ProgressBar)findViewById(R.id.homepageProgressBar);
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
@@ -50,12 +56,8 @@ public class HomePage extends Activity {
                 return true;
             }
         });
-        toolbar.setTitle("XENE");
+        toolbar.setTitle("XINI");
         ////////toolbar
-
-
-
-
 
         ////////////parent recycler view
         DisplayMetrics displayMetrics= new DisplayMetrics();
@@ -66,7 +68,7 @@ public class HomePage extends Activity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         parentRecyclerView.setLayoutManager(linearLayoutManager);
         parentRecyclerView.setHasFixedSize(true);
-        homePageParentRecyclerView homePageParentRecyclerViewAdapter =new homePageParentRecyclerView(context , width);
+        homePageParentRecyclerView homePageParentRecyclerViewAdapter =new homePageParentRecyclerView(this , width , progressBar);
         homePageParentRecyclerViewAdapter.notifyDataSetChanged();
         parentRecyclerView.setAdapter(homePageParentRecyclerViewAdapter);
         ////////////parent recycler view

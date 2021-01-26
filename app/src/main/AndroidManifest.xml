@@ -11,20 +11,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".edit_profile" />
         <activity android:name=".profile">
+            </activity>
+        <activity android:name=".pgDetails">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".pgDetails" />
         <activity android:name=".otp_page" />
         <activity android:name=".HomePage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Loginpage"

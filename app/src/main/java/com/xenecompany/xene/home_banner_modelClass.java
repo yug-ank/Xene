@@ -5,17 +5,30 @@ public class home_banner_modelClass {
     /**
      * change int to string  for firebae contectivity
      */
-    private int banner;
+    private String banner;
+    private String id;
 
-    public home_banner_modelClass(int banner) {
+    public home_banner_modelClass() {
+    }
+
+    public home_banner_modelClass(String banner, String id) {
+        this.banner = banner;
+        this.id = id;
+    }
+
+    public void setBanner(String banner) {
         this.banner = banner;
     }
 
-    public int getBanner() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getBanner() {
         return banner;
     }
 
-    public void setBanner(int banner) {
-        this.banner = banner;
+    public String getId() {
+        return id;
     }
 }

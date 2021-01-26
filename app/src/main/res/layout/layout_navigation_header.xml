@@ -23,16 +23,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/navimg1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/akshay_kumar"
-        app:riv_oval="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
