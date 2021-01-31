@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <TextView
@@ -27,27 +27,26 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@id/scrollview2"
+        app:layout_constraintBottom_toTopOf="@id/layoutPgReviews_Scrollview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <ScrollView
-        android:id="@+id/scrollview2"
+        android:id="@+id/layoutPgReviews_Scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2">
-
         <LinearLayout
+            android:id="@+id/layoutPgReviews_LinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical" >
-
             <include layout="@layout/layout_pg_review_data"/>
             <include layout="@layout/layout_pg_review_data"/>
-
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

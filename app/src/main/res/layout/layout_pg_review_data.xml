@@ -7,29 +7,29 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/layoutPgReviewData_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/layout_pg_review_data_name"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintBottom_toBottomOf="@+id/layoutPgReviewData_UserProfilePic"
+        app:layout_constraintStart_toEndOf="@+id/layoutPgReviewData_UserProfilePic"
+        app:layout_constraintTop_toTopOf="@+id/layoutPgReviewData_UserProfilePic" />
 
     <RatingBar
-        android:id="@+id/ratingBar2"
+        android:id="@+id/layoutPgReviewData_RatingBar"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutPgReviewData_Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView10" />
+        app:layout_constraintTop_toTopOf="@+id/layoutPgReviewData_Name" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/layoutPgReviewData_UserProfilePic"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
@@ -40,16 +40,16 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/layoutPgReviewData_Review"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/layout_pg_review_data_filler_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ratingBar2"
+        app:layout_constraintEnd_toEndOf="@+id/layoutPgReviewData_RatingBar"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintStart_toStartOf="@+id/layoutPgReviewData_Name"
+        app:layout_constraintTop_toBottomOf="@+id/layoutPgReviewData_UserProfilePic" />
 
     <View
         android:id="@+id/divider3"

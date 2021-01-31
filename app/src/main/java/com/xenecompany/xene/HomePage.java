@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +23,7 @@ public class HomePage extends Activity {
     private RecyclerView parentRecyclerView;
     private Context context;
     private int width;
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,9 @@ public class HomePage extends Activity {
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle.syncState();
         toolbar.setOnMenuItemClickListener(new androidx.appcompat.widget.Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
