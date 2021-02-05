@@ -9,15 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".edit_profile" />
-        <activity android:name=".profile">
-            </activity>
-        <activity android:name=".pgDetails">
+        <activity android:name=".wishlist" />
+        <activity android:name=".profile"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".pgDetails">
+
         </activity>
         <activity android:name=".otp_page" />
         <activity android:name=".HomePage">

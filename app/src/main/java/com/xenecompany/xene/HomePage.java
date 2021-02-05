@@ -1,67 +1,73 @@
 package com.xenecompany.xene;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import android.util.DisplayMetrics;
+import android.util.Log;
+
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+import java.lang.ref.PhantomReference;
 import java.util.HashMap;
+
 
 public class HomePage extends Activity {
 
     private androidx.appcompat.widget.Toolbar toolbar;
-    Toolbar toolbar1;
     private RecyclerView parentRecyclerView;
-    private Context context;
     private int width;
-    private DrawerLayout drawer;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page_with_navigation_drawer);
+        setContentView(R.layout.activity_home_page);
         SessionManager sessionManager = new SessionManager(HomePage.this);
         HashMap<String , String> userdata=sessionManager.getUserDetailFromSession();
-
+        progressBar = (ProgressBar)findViewById(R.id.homepageProgressBar);
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.syncState();
-        toolbar.setOnMenuItemClickListener(new androidx.appcompat.widget.Toolbar.OnMenuItemClickListener() {
+        FrameLayout notificationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
+        notificationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(HomePage.this , "selected" , Toast.LENGTH_LONG).show();
-                switch (item.getItemId()){
-                    case R.id.toolbar_wishlist:
-                        Log.i("rectify" , "working");
-                        Toast.makeText(HomePage.this , "wishlist" , Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.toolbar_notification:
-                        Toast.makeText(HomePage.this , "notification" , Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.toolbar_message:
-                        Toast.makeText(HomePage.this , "message" , Toast.LENGTH_LONG).show();
-                        break;
-                }
-                return true;
+            public void onClick(View view) {
+               TextView textView=(TextView)view.findViewById(R.id.notificationCount);
+               textView.setText("0");
             }
         });
-        toolbar.setTitle("XENE");
+        FrameLayout wishlistLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_wishlist).getActionView();
+        wishlistLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(HomePage.this , wishlist.class);
+                startActivity(intent);
+            }
+        });
+        FrameLayout messageLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_message).getActionView();
+        messageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView textView=(TextView)view.findViewById(R.id.messageCount);
+                textView.setText("0");
+            }
+        });
         ////////toolbar
-
-
-
-
 
         ////////////parent recycler view
         DisplayMetrics displayMetrics= new DisplayMetrics();
@@ -72,7 +78,7 @@ public class HomePage extends Activity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         parentRecyclerView.setLayoutManager(linearLayoutManager);
         parentRecyclerView.setHasFixedSize(true);
-        homePageParentRecyclerView homePageParentRecyclerViewAdapter =new homePageParentRecyclerView(context , width);
+        homePageParentRecyclerView homePageParentRecyclerViewAdapter =new homePageParentRecyclerView(this , width , progressBar);
         homePageParentRecyclerViewAdapter.notifyDataSetChanged();
         parentRecyclerView.setAdapter(homePageParentRecyclerViewAdapter);
         ////////////parent recycler view

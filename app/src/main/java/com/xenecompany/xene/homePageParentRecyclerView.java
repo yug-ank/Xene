@@ -75,7 +75,7 @@ public class homePageParentRecyclerView extends RecyclerView.Adapter {
                     }
                 }
             });
-            ((adBanner)holder).setBannerSliderViewPager(modelClassList);
+         //   ((adBanner)holder).setBannerSliderViewPager(modelClassList);
         }
         //////////////ad banner
 

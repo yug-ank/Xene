@@ -5,8 +5,10 @@
     android:layout_width="65dp"
     android:layout_height="35dp"
     android:layout_gravity="center"
+    android:id="@+id/messageFrameLayout"
     >
     <ImageView
+        android:id="@+id/toolbarMessageImageView"
         android:layout_width="@dimen/menu_item_icon_size"
         android:layout_height="@dimen/menu_item_icon_size"
         android:layout_gravity="center"
@@ -23,7 +25,7 @@
         tools:visibility="visible"
         android:layout_marginRight="10dp">
         <TextView
-            android:id="@+id/red_circle"
+            android:id="@+id/messageCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

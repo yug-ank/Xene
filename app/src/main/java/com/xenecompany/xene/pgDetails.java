@@ -30,17 +30,17 @@ public class pgDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pg_details);
-        setViews();
-        setValues();
-        viewPagerConfig();
-        setUtilitiesIcon();
+    //    setViews();
+     //   setValues();
+     //   viewPagerConfig();
+     //   setUtilitiesIcon();
     }
 
-    private void setViews(){
+   /* private void setViews(){
         ratingBar = (RatingBar) findViewById(R.id.layoutPgPictures_RatingBar);
-        nameOfPg = (TextView) findViewById(R.id.layoutPgPictures_NameOfPg);
-        areaOfPg = (TextView) findViewById(R.id.layoutPgPictures_AreaOfPg);
-        rent = (TextView) findViewById(R.id.layoutPgPictures_Rent);
+     //   nameOfPg = (TextView) findViewById(R.id.layoutPgPictures_NameOfPg);
+       // areaOfPg = (TextView) findViewById(R.id.layoutPgPictures_AreaOfPg);
+        //rent = (TextView) findViewById(R.id.layoutPgPictures_Rent);
         description = (TextView) findViewById(R.id.layoutPgDescription_Description);
     }
 
@@ -85,7 +85,7 @@ public class pgDetails extends AppCompatActivity {
 
         tablayout = (TabLayout) findViewById(R.id.layoutPgPicturesTabLayout);
         new TabLayoutMediator(tablayout ,pager ,
-                (tab , position) -> tab.select()).attach();
-    }
+        //        (tab , position) -> tab.select()).attach();
+    }*/
 
 }
