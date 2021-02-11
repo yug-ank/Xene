@@ -81,7 +81,8 @@
         app:layout_constraintTop_toBottomOf="@+id/profileImageHolder"
         android:enabled="false"
         android:background="@null"
-        android:autoSizeTextType="uniform"/>
+        android:autoSizeTextType="uniform"
+        android:inputType="textPersonName"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emailContainer"
@@ -108,7 +109,7 @@
             app:layout_constraintWidth_percent=".1" />
 
         <EditText
-            android:id="@+id/emailInput"
+            android:id="@+id/profileEmail"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:hint="enter your email"
@@ -120,7 +121,8 @@
             android:enabled="false"
             android:background="@null"
             android:layout_marginBottom="5dp"
-            android:autoSizeTextType="uniform"/>
+            android:autoSizeTextType="uniform"
+            android:inputType="textEmailAddress"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contactContainer"
@@ -147,7 +149,7 @@
             app:layout_constraintWidth_percent=".1" />
 
         <EditText
-            android:id="@+id/contactInput"
+            android:id="@+id/profileContact"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:hint="enter your phone no."
@@ -159,7 +161,8 @@
             android:enabled="false"
             android:background="@null"
             android:layout_marginBottom="5dp"
-            android:autoSizeTextType="uniform"/>
+            android:autoSizeTextType="uniform"
+            android:inputType="phone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -224,7 +227,7 @@
             app:layout_constraintWidth_percent=".3" tools:targetApi="o"/>
 
         <EditText
-            android:id="@+id/instituteId"
+            android:id="@+id/profileInstituteId"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
@@ -240,7 +243,7 @@
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent=".7"
             app:layout_constraintHorizontal_bias=".001"
-            android:textAlignment="viewStart"/>
+            android:textAlignment="viewStart" />
 
         <TextView
             android:id="@+id/textView4"
@@ -261,7 +264,7 @@
             app:layout_constraintWidth_percent=".3" />
 
         <EditText
-            android:id="@+id/instituteName"
+            android:id="@+id/profileInstituteName"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -277,7 +280,8 @@
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView18"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent=".8" />
+            app:layout_constraintWidth_percent=".8"
+            />
 
         <TextView
             android:id="@+id/textView5"
@@ -298,7 +302,7 @@
             app:layout_constraintWidth_percent=".3" />
 
         <EditText
-            android:id="@+id/instituteAddress"
+            android:id="@+id/profileInstituteAddress"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -313,7 +317,8 @@
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent=".7" />
+            app:layout_constraintWidth_percent=".7"
+            android:inputType="textPostalAddress"/>
         <TextView
             android:id="@+id/textView7"
             android:layout_width="0dp"
@@ -348,6 +353,24 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent=".3" />
+        <EditText
+            android:id="@+id/profileAadharNo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:enabled="false"
+            android:hint="enter your aadhar no"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent=".09"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".7"
+            android:inputType="phone"/>
         <TextView
             android:id="@+id/textView9"
             android:layout_width="0dp"
@@ -427,7 +450,7 @@
             app:layout_constraintWidth_percent=".3" />
 
         <EditText
-            android:id="@+id/guardianName"
+            android:id="@+id/profileGuardianName"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
@@ -443,7 +466,8 @@
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent=".7"
             app:layout_constraintHorizontal_bias=".001"
-            android:textAlignment="viewStart"/>
+            android:textAlignment="viewStart"
+            android:inputType="textPersonName"/>
 
         <TextView
             android:id="@+id/textView12"
@@ -464,7 +488,7 @@
             app:layout_constraintWidth_percent=".3" />
 
         <EditText
-            android:id="@+id/guardianAddress"
+            android:id="@+id/profileGuardianAddress"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -480,7 +504,8 @@
             app:layout_constraintStart_toEndOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/textView11"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent=".8" />
+            app:layout_constraintWidth_percent=".8"
+            android:inputType="textPostalAddress"/>
 
         <TextView
             android:id="@+id/textView13"
@@ -501,7 +526,7 @@
             app:layout_constraintWidth_percent=".3" />
 
         <EditText
-            android:id="@+id/guardianContact"
+            android:id="@+id/profileGuardianContact"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -516,12 +541,14 @@
             app:layout_constraintStart_toEndOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent=".7" />
+            app:layout_constraintWidth_percent=".7"
+            android:inputType="phone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
@@ -531,6 +558,35 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="15dp"
+        app:fabSize="auto"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_verified"
+        app:fabSize="auto"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/clear_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_gravity="bottom|start"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_baseline_clear_24"
+        app:fabSize="auto"
         />
     <ImageView
         android:layout_width="35dp"

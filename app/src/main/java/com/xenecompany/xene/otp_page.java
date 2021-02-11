@@ -1,6 +1,7 @@
 package com.xenecompany.xene;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.executor.TaskExecutor;
 
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.chaos.view.PinView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
@@ -23,7 +26,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +45,7 @@ public class otp_page extends Activity {
     private  String verificationCodeBySystem;
     private ProgressBar progressBar;
     private String phoneNo;
+    private String userId;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +56,7 @@ public class otp_page extends Activity {
         progressBar.setVisibility(View.GONE);
         mAuth= FirebaseAuth.getInstance();
         phoneNo=getIntent().getStringExtra("phoneNo");
+        userId="+91"+phoneNo;
         sendVerificationCodeToUser(phoneNo);
     }
 
@@ -89,9 +103,50 @@ public class otp_page extends Activity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
-                    Toast.makeText(otp_page.this , "successful" , Toast.LENGTH_SHORT).show();
                     SessionManager sessionManager=new SessionManager(otp_page.this);
                     sessionManager.createLoginSession(phoneNo);
+                    final FirebaseFirestore db=FirebaseFirestore.getInstance();
+                    db.collection("Student").document(userId).addSnapshotListener(
+                            new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    if(value.exists()){
+                                        Toast.makeText(otp_page.this , "Login sucessful" , Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Map<String , Object> data=new HashMap<>();
+                                        data.put("name" , "");
+                                        data.put("phoneNo" , Long.parseLong("91"+phoneNo));
+                                        data.put("email" , "");
+                                        data.put("instituteId" ,"");
+                                        data.put("instituteName" , "");
+                                        data.put("instituteAddress" , "");
+                                        data.put("instituteIdCard" , "");
+                                        data.put("aadharId" , "");
+                                        data.put("aadharNo" , "");
+                                        data.put("gaurdianName" , "");
+                                        data.put("gaurdianAddress" , "");
+                                        data.put("gaurdianContactNo" ,"");
+                                        data.put("profilePicture" , "");
+                                        data.put("profileCompleted"  , false);
+                                        db.collection("Student").document(userId).set(data , SetOptions.merge())
+                                                .addOnSuccessListener(
+                                                        new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Toast.makeText(otp_page.this , "Account created" , Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                ).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(otp_page.this , ""+e , Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                    );
                     Intent intent=new Intent(otp_page.this , HomePage.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
