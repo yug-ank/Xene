@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.xenecompany.xene.adapter.pgDetailsAdapter;
 import com.xenecompany.xene.model.pgDetailsModel;
 
@@ -30,17 +29,17 @@ public class pgDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pg_details);
-    //    setViews();
-     //   setValues();
-     //   viewPagerConfig();
-     //   setUtilitiesIcon();
+        setViews();
+        setValues();
+        viewPagerConfig();
+        setUtilitiesIcon();
     }
 
-   /* private void setViews(){
+    private void setViews(){
         ratingBar = (RatingBar) findViewById(R.id.layoutPgPictures_RatingBar);
-     //   nameOfPg = (TextView) findViewById(R.id.layoutPgPictures_NameOfPg);
-       // areaOfPg = (TextView) findViewById(R.id.layoutPgPictures_AreaOfPg);
-        //rent = (TextView) findViewById(R.id.layoutPgPictures_Rent);
+        nameOfPg = (TextView) findViewById(R.id.layoutPgPictures_NameOfPg);
+        areaOfPg = (TextView) findViewById(R.id.layoutPgPictures_AreaOfPg);
+        rent = (TextView) findViewById(R.id.layoutPgPictures_Rent);
         description = (TextView) findViewById(R.id.layoutPgDescription_Description);
     }
 
@@ -83,9 +82,9 @@ public class pgDetails extends AppCompatActivity {
 //        });
 //        pager.setPageTransformer(transformer);
 
-        tablayout = (TabLayout) findViewById(R.id.layoutPgPicturesTabLayout);
-        new TabLayoutMediator(tablayout ,pager ,
-        //        (tab , position) -> tab.select()).attach();
-    }*/
+//        tablayout = (TabLayout) findViewById(R.id.layoutPgPicturesTabLayout);
+//        new TabLayoutMediator(tablayout ,pager ,
+//                (tab , position) -> tab.select()).attach();
+    }
 
 }

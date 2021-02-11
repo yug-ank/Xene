@@ -1,29 +1,20 @@
 package com.xenecompany.xene;
 
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-
-import android.content.Intent;
-import android.os.Bundle;
-
-import android.util.DisplayMetrics;
-import android.util.Log;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-
-import java.lang.ref.PhantomReference;
 import java.util.HashMap;
 
 
@@ -42,6 +33,8 @@ public class HomePage extends Activity {
         progressBar = (ProgressBar)findViewById(R.id.homepageProgressBar);
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toolbar.inflateMenu(R.menu.menu_main);
         FrameLayout notificationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
         notificationLayout.setOnClickListener(new View.OnClickListener() {

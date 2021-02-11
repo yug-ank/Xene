@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout2"
+        android:id="@+id/layoutPgPicturesTabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -35,7 +35,7 @@
         app:tabIndicatorGravity="center" />
 
     <TextView
-        android:id="@+id/name_pgdetails"
+        android:id="@+id/layoutPgPictures_NameOfPg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="3dp"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/viewPager22" />
 
     <TextView
-        android:id="@+id/area_pgdetails"
+        android:id="@+id/layoutPgPictures_AreaOfPg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -57,20 +57,20 @@
         android:elevation="3dp"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_pgdetails" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutPgPictures_NameOfPg" />
 
     <RatingBar
-        android:id="@+id/ratingBar_pgdetails"
+        android:id="@+id/layoutPgPictures_RatingBar"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:elevation="3dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/area_pgdetails" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutPgPictures_AreaOfPg" />
 
     <TextView
-        android:id="@+id/rent_pgdetails"
+        android:id="@+id/layoutPgPictures_Rent"
         android:layout_width="wrap_content"
         android:elevation="3dp"
         android:layout_height="wrap_content"
@@ -91,9 +91,9 @@
         android:text="@string/layout_pg_pictures_rent"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/rent_pgdetails"
-        app:layout_constraintStart_toStartOf="@+id/rent_pgdetails"
-        app:layout_constraintTop_toBottomOf="@+id/rent_pgdetails" />
+        app:layout_constraintEnd_toEndOf="@+id/layoutPgPictures_Rent"
+        app:layout_constraintStart_toStartOf="@+id/layoutPgPictures_Rent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutPgPictures_Rent" />
 
     <TextView
         android:id="@+id/editTextTextPersonName3"
@@ -107,7 +107,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar_pgdetails" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutPgPictures_RatingBar" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
