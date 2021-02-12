@@ -17,14 +17,15 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".pgDetails"/>
         <activity android:name=".otp_page"/>
-        <activity android:name=".HomePage"/>
-        <activity android:name=".Loginpage"
-            android:windowSoftInputMode="adjustResize">
+        <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Loginpage"
+            android:windowSoftInputMode="adjustResize"/>
+
     </application>
 
 </manifest>
