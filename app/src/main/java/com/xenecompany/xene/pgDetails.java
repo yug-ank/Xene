@@ -25,6 +25,9 @@ public class pgDetails extends AppCompatActivity {
     private TextView nameOfPg ,areaOfPg ,rent ,description;
     private RatingBar ratingBar;
     private ScrollView scrollView;
+    Integer[] icons={R.drawable.ic_bed,R.drawable.ic_cabinet,R.drawable.ic_desk,
+                     R.drawable.ic_revolving_chair,R.drawable.ic_washing_machine,
+                     R.drawable.ic_spoon};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

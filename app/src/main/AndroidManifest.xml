@@ -14,24 +14,18 @@
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".wishlist" />
         <activity android:name=".profile"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
-        <activity android:name=".pgDetails">
-
-        </activity>
-        <activity android:name=".otp_page" />
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".pgDetails"/>
+        <activity android:name=".otp_page"/>
         <activity android:name=".HomePage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity
-            android:name=".Loginpage"
-            android:windowSoftInputMode="adjustResize">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Loginpage"
+            android:windowSoftInputMode="adjustResize"/>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
     </application>
 
 </manifest>
