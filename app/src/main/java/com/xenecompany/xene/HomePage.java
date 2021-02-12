@@ -12,7 +12,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,21 +29,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomePage extends Activity {
+
+public class HomePage extends Activity implements NavigationView.OnNavigationItemSelectedListener {
 
     private androidx.appcompat.widget.Toolbar toolbar;
     private RecyclerView parentRecyclerView;
@@ -64,7 +64,7 @@ public class HomePage extends Activity {
         toggle.syncState();
         toolbar.inflateMenu(R.menu.menu_main);
         FrameLayout navigationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
-        NavigationView navigationView=findViewById(R.id.nav_view);
+        NavigationView navigationView=findViewById(R.id.activityHomePageWithNavigation_nav_view);
         View headerLayout=navigationView.getHeaderView(0);
         navigationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,18 +143,18 @@ public class HomePage extends Activity {
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.nav_gallery : {
+            case R.id.myDeals: {
                 Toast.makeText(this, "My Deals selected", Toast.LENGTH_LONG).show();
                 break;
             }
-            case R.id.nav_slideshow : {
+            case R.id.help: {
                 Toast.makeText(this, "Help selected", Toast.LENGTH_LONG).show();
                 break;
             }
             case R.id.activityMainDrawer_signOut : {
                 Toast.makeText(this, "Sign-Out selected", Toast.LENGTH_LONG).show();
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(this,Loginpage.class));
+                startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
             }
         }
