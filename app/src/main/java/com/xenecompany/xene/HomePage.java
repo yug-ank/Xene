@@ -27,14 +27,16 @@ public class HomePage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_home_page_with_navigation_drawer);
         SessionManager sessionManager = new SessionManager(HomePage.this);
         HashMap<String , String> userdata=sessionManager.getUserDetailFromSession();
         progressBar = (ProgressBar)findViewById(R.id.homepageProgressBar);
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
         toolbar.inflateMenu(R.menu.menu_main);
         FrameLayout notificationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
         notificationLayout.setOnClickListener(new View.OnClickListener() {
