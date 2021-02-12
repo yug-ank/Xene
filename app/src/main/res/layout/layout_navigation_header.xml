@@ -21,27 +21,38 @@
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <ImageView
-        android:id="@+id/navimg1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/navigationImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/akshay_kumar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent=".3"
+        app:layout_constraintHeight_percent=".6"/>
 
 
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/navigationName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:text="@string/navigation_header_name"
-        android:textSize="16sp"
+        android:textSize="20dp"
+        android:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navimg1" />
+        app:layout_constraintTop_toBottomOf="@+id/navigationImage"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintHeight_percent=".15"
+        android:gravity="center"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

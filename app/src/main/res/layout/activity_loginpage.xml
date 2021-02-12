@@ -57,48 +57,64 @@
         android:orientation="horizontal"
         android:background="#000000"
         >
+
         <TextView
             android:id="@+id/countrycode"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
             android:background="@null"
             android:text="@string/_91"
-            android:layout_marginTop="8dp"
             android:textColor="@color/colorAccent"
-            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".1" />
+
         <EditText
             android:id="@+id/userNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="39dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:autoSizeTextType="uniform"
             android:background="@drawable/login_textview_bottom_line"
             android:hint="Enter phone number"
             android:inputType="number"
             android:maxLength="10"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/secondary"
-            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent=".5"
             app:layout_constraintLeft_toRightOf="@id/countrycode"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".57"
+            android:layout_marginBottom="15dp"/>
 
         <Button
             android:id="@+id/sendotpbutton"
-            android:layout_width="110dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/sign_up_button_notactive"
             android:onClick="sendOtp"
             android:text="Send OTP"
             android:textAllCaps="false"
-            android:textSize="20dp"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent=".5"
+            app:layout_constraintHorizontal_bias="0.681"
             app:layout_constraintLeft_toRightOf="@id/userNumber"
             app:layout_constraintStart_toEndOf="@+id/userNumber"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.292"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".25" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
