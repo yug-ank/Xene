@@ -5,14 +5,23 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,23 +29,19 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import de.hdodenhof.circleimageview.CircleImageView;
-
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomePage extends Activity {
+
+public class HomePage extends Activity implements NavigationView.OnNavigationItemSelectedListener {
 
     private androidx.appcompat.widget.Toolbar toolbar;
     private RecyclerView parentRecyclerView;
     private int width;
     private ProgressBar progressBar;
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
     private TextView navigationName;
     private CircleImageView navigationImage;
     HashMap<String , String> sessionData;
@@ -47,16 +52,19 @@ public class HomePage extends Activity {
         SessionManager sessionManager = new SessionManager(HomePage.this);
         HashMap<String , String> userdata=sessionManager.getUserDetailFromSession();
         progressBar = (ProgressBar)findViewById(R.id.homepageProgressBar);
+        navigationView = (NavigationView) findViewById(R.id.activityHomePageWithNavigation_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         sessionData=sessionManager.getUserDetailFromSession();
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.activityHomePageWithNavigation_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         toolbar.inflateMenu(R.menu.menu_main);
         FrameLayout navigationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
-        NavigationView navigationView=findViewById(R.id.nav_view);
+        NavigationView navigationView=findViewById(R.id.activityHomePageWithNavigation_nav_view);
         View headerLayout=navigationView.getHeaderView(0);
         navigationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,5 +138,27 @@ public class HomePage extends Activity {
         homePageParentRecyclerViewAdapter.notifyDataSetChanged();
         parentRecyclerView.setAdapter(homePageParentRecyclerViewAdapter);
         ////////////parent recycler view
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.myDeals: {
+                Toast.makeText(this, "My Deals selected", Toast.LENGTH_LONG).show();
+                break;
+            }
+            case R.id.help: {
+                Toast.makeText(this, "Help selected", Toast.LENGTH_LONG).show();
+                break;
+            }
+            case R.id.activityMainDrawer_signOut : {
+                Toast.makeText(this, "Sign-Out selected", Toast.LENGTH_LONG).show();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                break;
+            }
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
