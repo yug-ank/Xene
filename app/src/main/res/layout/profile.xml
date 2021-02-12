@@ -45,7 +45,7 @@
             android:layout_height="173dp"
             android:layout_marginStart="36dp"
             android:layout_marginTop="32dp"
-            android:src="@drawable/demo_profile"
+            android:src="@drawable/ic_male_avatr"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

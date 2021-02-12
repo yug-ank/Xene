@@ -89,6 +89,9 @@ public class HomePage extends Activity {
                                     }
                                 });
                             }
+                            else{
+                                navigationImage.setImageResource(R.drawable.ic_male_avatr);
+                            }
                         }
                     }
                 });
