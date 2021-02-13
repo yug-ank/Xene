@@ -4,11 +4,9 @@
     android:id="@+id/faqDataLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
     android:animateLayoutChanges="true"
     android:background="@drawable/page_outline_rectangle"
     android:clickable="true"
-    android:elevation="10dp"
     android:focusable="true">
 
     <TextView
