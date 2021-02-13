@@ -35,8 +35,6 @@ public class contact_us extends AppCompatActivity {
         contact=(EditText)findViewById(R.id.contactUsContact);
         issue=(EditText)findViewById(R.id.contactUsIssue);
         send=(Button)findViewById(R.id.contactUsButton);
-        emailMatcher=emailPattern.matcher(contact.getText().toString().trim());
-        phoneMatcher=phonePattern.matcher(contact.getText().toString().trim());
         nameTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -64,6 +62,8 @@ public class contact_us extends AppCompatActivity {
                                     @Override
                                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                         if(issue.getText().toString().trim().length()>0){
+                                            emailMatcher=emailPattern.matcher(contact.getText().toString().trim());
+                                            phoneMatcher=phonePattern.matcher(contact.getText().toString().trim());
                                             if(emailMatcher.matches() || phoneMatcher.matches()) {
                                                 send.setEnabled(true);
                                                 send.setBackgroundResource(R.drawable.sign_up_button);
