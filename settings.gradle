@@ -1,2 +1,4 @@
+include ':xinihostel'
+include ':xiniStudent'
 include ':app'
 rootProject.name = "Xene"
