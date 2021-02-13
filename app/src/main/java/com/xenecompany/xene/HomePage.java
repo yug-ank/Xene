@@ -148,6 +148,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         switch (item.getItemId()){
             case R.id.myDeals: {
                 Toast.makeText(this, "My Deals selected", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this , my_deals.class));
                 break;
             }
             case R.id.help: {
@@ -161,6 +162,18 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
                 startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
             }
+            case R.id.about_us :
+            {
+                Toast.makeText(this, "About Us selected", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this , About_Us.class));
+                break;
+            }
+            case R.id.Contact_Us : {
+                Toast.makeText(this, "Contact Us selected", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this , contact_us.class));
+                break;
+            }
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

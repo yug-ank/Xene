@@ -12,36 +12,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".search"></activity>
+        <activity android:name=".my_deals"></activity>
+        <activity android:name=".search" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".wishlist" />
-        <activity android:name=".profile"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
-        <activity android:name=".pgDetails">
-
-        </activity>
+        <activity
+            android:name=".profile"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".pgDetails"></activity>
         <activity android:name=".otp_page" />
-        <activity android:name=".HomePage">
-        </activity>
+        <activity android:name=".HomePage"></activity>
         <activity
             android:name=".Loginpage"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-        <activity android:name=".contact_us"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".contact_us"
             android:windowSoftInputMode="adjustPan">
-
-        </activity>
-        <activity android:name=".faq">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".faq" />
     </application>
 
 </manifest>
