@@ -152,6 +152,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
             }
             case R.id.help: {
                 Toast.makeText(this, "Help selected", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this , faq.class));
                 break;
             }
             case R.id.activityMainDrawer_signOut : {
