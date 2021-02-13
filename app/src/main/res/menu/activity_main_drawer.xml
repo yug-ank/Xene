@@ -14,10 +14,6 @@
             android:title="@string/slide_bar_menu_3"
              />
         <item
-            android:id="@+id/activityMainDrawer_signOut"
-            android:icon="@drawable/ic_exit"
-            android:title="Sign-Out"/>
-        <item
             android:id="@+id/about_us"
             android:icon="@drawable/ic_information"
             android:title="About Us"
@@ -25,9 +21,12 @@
         <item
             android:id="@+id/Contact_Us"
             android:icon="@drawable/ic_phone"
-            android:title="About Us"
+            android:title="Contact Us"
             />
-
+        <item
+            android:id="@+id/activityMainDrawer_signOut"
+            android:icon="@drawable/ic_exit"
+            android:title="Sign-Out"/>
 
     </group>
 </menu>

@@ -10,12 +10,15 @@
     <include layout="@layout/activity_home_page"/>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/activityHomePageWithNavigation_nav_view"
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/colorAccent"
         app:headerLayout="@layout/layout_navigation_header"
         app:menu="@menu/activity_main_drawer"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/colorPrimaryDark">
+
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

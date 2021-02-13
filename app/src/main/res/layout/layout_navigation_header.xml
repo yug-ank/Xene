@@ -32,17 +32,20 @@
         android:id="@+id/navText1"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:autoSizeTextType="uniform"
         android:text="@string/xene"
+        android:textColor="@color/colorAccent"
         android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintHeight_default="percent"
+        app:layout_constraintVertical_bias="0.279"
         app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.4"
-        app:layout_constraintHeight_percent=".3"
-        android:autoSizeTextType="uniform"
-        />
+        app:layout_constraintWidth_percent="0.3" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/navigationImage"
         android:layout_width="0dp"
