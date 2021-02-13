@@ -138,6 +138,7 @@ public class profile extends AppCompatActivity {
                                 if(value.get("gaurdianName").toString().trim().length()>0){
                                     profileGuardianName.setText(value.get("gaurdianName").toString());
                                 }
+
                                 if(value.get("gaurdianContactNo").toString().trim().length()>0){
                                     profileGuardianContact.setText(value.get("gaurdianContactNo").toString());
                                 }

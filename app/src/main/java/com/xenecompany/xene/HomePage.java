@@ -52,7 +52,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         SessionManager sessionManager = new SessionManager(HomePage.this);
         HashMap<String , String> userdata=sessionManager.getUserDetailFromSession();
         progressBar = (ProgressBar)findViewById(R.id.homepageProgressBar);
-        navigationView = (NavigationView) findViewById(R.id.activityHomePageWithNavigation_nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         sessionData=sessionManager.getUserDetailFromSession();
@@ -64,7 +64,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         toggle.syncState();
         toolbar.inflateMenu(R.menu.menu_main);
         FrameLayout navigationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
-        NavigationView navigationView=findViewById(R.id.activityHomePageWithNavigation_nav_view);
+        NavigationView navigationView=findViewById(R.id.nav_view);
         View headerLayout=navigationView.getHeaderView(0);
         navigationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +96,9 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
                                         Toast.makeText(HomePage.this, "" + e, Toast.LENGTH_SHORT).show();
                                     }
                                 });
+                            }
+                            else{
+                                navigationImage.setImageResource(R.drawable.ic_male_avatr);
                             }
                         }
                     }

@@ -30,20 +30,27 @@
 
     <TextView
         android:id="@+id/navText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:autoSizeTextType="uniform"
         android:text="@string/xene"
         android:textColor="@color/colorAccent"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent=".2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.279"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.3" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/navigationImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/akshay_kumar"
+        android:src="@drawable/ic_male_avatr"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -71,6 +78,7 @@
         app:layout_constraintWidth_percent="0.5"
         app:layout_constraintHeight_percent=".15"
         android:gravity="center"
+        android:textColor="@color/colorAccent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
