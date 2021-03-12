@@ -352,57 +352,15 @@
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profileMap"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="2dp"
             tools:context=".MapLocationActivity"
             android:name="com.google.android.gms.maps.SupportMapFragment"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/edit_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:backgroundTint="@color/colorPrimaryDark"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_edit"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
-        app:fabSize="auto"
-        />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/save_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:visibility="gone"
-        android:src="@drawable/ic_verified"
-        app:fabSize="auto"
-        />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/clear_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_gravity="bottom|start"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="15dp"
-        android:visibility="gone"
-        android:src="@drawable/ic_baseline_clear_24"
-        app:fabSize="auto"
-        />
     <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
