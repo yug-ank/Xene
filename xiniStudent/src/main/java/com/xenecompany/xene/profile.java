@@ -470,13 +470,13 @@ public class profile extends AppCompatActivity {
                 Uri imageUri = result.getUri();
                 String name="";
                 if(PROFILE_PICTURE==1) {
-                    name = "profile" + auth.getCurrentUser().getUid()+"."+getExtension(imageUri);
+                    name = "profile" + "+91"+sessionData.get(SessionManager.Key_Phone_no)+"."+getExtension(imageUri);
                 }
                 if(AADHAR_ID==1){
-                    name = "aadhar" + auth.getCurrentUser().getUid()+"."+getExtension(imageUri);
+                    name = "aadhar" +"+91"+sessionData.get(SessionManager.Key_Phone_no)+"."+getExtension(imageUri);
                 }
                 if(INSTITUE_ID==1){
-                    name="institute"+auth.getCurrentUser().getUid()+"."+getExtension(imageUri);
+                    name="institute"+"+91"+sessionData.get(SessionManager.Key_Phone_no)+"."+getExtension(imageUri);
                 }
                 final StorageReference imgref=storageReference.child(name);
                 UploadTask uploadTask=imgref.putFile(imageUri);

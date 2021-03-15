@@ -78,7 +78,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         navigationName=(TextView)headerLayout.findViewById(R.id.navigationName);
         navigationImage=(CircleImageView)headerLayout.findViewById(R.id.navigationImage);
         FirebaseFirestore db=FirebaseFirestore.getInstance();
-        db.collection("Student").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(
+        db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(
                 new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -109,6 +109,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(HomePage.this , profile.class);
+                intent.putExtra("from" ,  "");
                 startActivity(intent);
             }
         });

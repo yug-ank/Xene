@@ -23,17 +23,22 @@
 
         <activity
             android:name=".Loginpage"
-            android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".otp_page" />
-        <activity android:name=".HomePage" />
-        <activity
-            android:name=".profile"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".otp_page" />
+        <activity android:name=".HomePage" />
+        <activity
+            android:name=".profile"
+            android:windowSoftInputMode="adjustPan">
+
         </activity>
     </application>
 

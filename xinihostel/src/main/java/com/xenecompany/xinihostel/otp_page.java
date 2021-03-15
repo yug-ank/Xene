@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -103,29 +104,39 @@ public class otp_page extends Activity {
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                                     if(value.exists()){
                                         Toast.makeText(otp_page.this , "Login sucessful" , Toast.LENGTH_SHORT).show();
+                                        Intent intent=new Intent(otp_page.this , HomePage.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
                                     }
                                     else{
                                         Map<String , Object> data=new HashMap<>();
                                         data.put("name" , "");
                                         data.put("phoneNo" , Long.parseLong("91"+phoneNo));
                                         data.put("email" , "");
-                                        data.put("instituteId" ,"");
-                                        data.put("instituteName" , "");
-                                        data.put("instituteAddress" , "");
-                                        data.put("instituteIdCard" , "");
-                                        data.put("aadharId" , "");
-                                        data.put("aadharNo" , "");
-                                        data.put("gaurdianName" , "");
-                                        data.put("gaurdianAddress" , "");
-                                        data.put("gaurdianContactNo" ,"");
+                                        data.put("hostelName" , "");
+                                        data.put("hostelAddress" , "");
+                                        data.put("hostelMou" , "");
+                                        data.put("hostelFacilities" , Arrays.asList(""));
+                                        data.put("hostelImage1" , "");
+                                        data.put("hostelImage2" , "");
+                                        data.put("hostelImage3" , "");
+                                        data.put("hostelImage4" , "");
+                                        data.put("lat" , "");
+                                        data.put("lot" , "");
                                         data.put("profilePicture" , "");
-                                        data.put("profileCompleted"  , false);
+                                        data.put("profileVerified"  , false);
+                                        data.put("price" , 0);
+                                        data.put("description" , "");
                                         db.collection("Hostels").document(userId).set(data , SetOptions.merge())
                                                 .addOnSuccessListener(
                                                         new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
                                                                 Toast.makeText(otp_page.this , "Account created" , Toast.LENGTH_SHORT).show();
+                                                                Intent intent=new Intent(otp_page.this , profile.class);
+                                                                intent.putExtra("from" , "otp");
+                                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                startActivity(intent);
                                                             }
                                                         }
                                                 ).addOnFailureListener(new OnFailureListener() {
@@ -138,9 +149,7 @@ public class otp_page extends Activity {
                                 }
                             }
                     );
-                    Intent intent=new Intent(otp_page.this , HomePage.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+
                 }
                 else{
                     Toast.makeText(otp_page.this , task.getException().getMessage() , Toast.LENGTH_SHORT).show();
