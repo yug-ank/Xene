@@ -24,7 +24,7 @@
             android:title="Contact Us"
             />
         <item
-            android:id="@+id/activityMainDrawer_signOut"
+            android:id="@+id/signOut"
             android:icon="@drawable/ic_exit"
             android:title="Sign-Out"/>
 

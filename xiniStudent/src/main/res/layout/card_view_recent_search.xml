@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cardViewRecentSearch"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/page_outline_round">
+
+
+    <ImageView
+        android:id="@+id/cardViewRecentSearch_pgImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/demo_hostel" />
+
+    <TextView
+        android:id="@+id/cardViewRecentSearch_pgName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name of pg"
+        android:textColor="@color/black"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toEndOf="@+id/cardViewRecentSearch_pgImage"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/cardViewRecentSearch_pgArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="Area of pg"
+        app:layout_constraintStart_toEndOf="@+id/cardViewRecentSearch_pgImage"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewRecentSearch_pgName" />
+</androidx.constraintlayout.widget.ConstraintLayout>

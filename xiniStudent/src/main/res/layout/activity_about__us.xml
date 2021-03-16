@@ -22,8 +22,8 @@
     <ImageView
         android:layout_width="569dp"
         android:layout_height="561dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="288dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="276dp"
         android:src="@drawable/lightcircle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -52,17 +52,17 @@
 
     <TextView
         android:id="@+id/textView19"
-        android:layout_width="372dp"
-        android:layout_height="374dp"
-        android:layout_marginBottom="116dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:justificationMode="inter_word"
-        android:paddingStart="20dp"
-        android:textColor="@color/colorPrimaryDark"
+        android:padding="15dp"
         android:text="It is an online platform which acts as a bridge between renters and tenants. Here is an easy way to find a place in an unknown city that fits your criteria. Now you don't have to loose your sweat visiting and finding hostels all day but you can search them through our app, connect with owners and book them with just one click."
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

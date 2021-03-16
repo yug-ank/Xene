@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.xenecompany.xene.R;
 import com.xenecompany.xene.model.pgDetailsModel;
 
@@ -32,7 +33,7 @@ public class pgDetailsAdapter extends RecyclerView.Adapter<pgDetailsAdapter.view
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        holder.img.setBackgroundResource(data.get(position).img);
+        Picasso.get().load(data.get(position).img).noFade().into(holder.img);
     }
 
     @Override

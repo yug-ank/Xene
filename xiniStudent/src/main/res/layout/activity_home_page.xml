@@ -14,21 +14,23 @@
         android:elevation="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <EditText
+    <TextView
         android:id="@+id/search_input"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/search_textfield"
         android:drawableLeft="@drawable/search_texticon"
-        android:hint="Search for tenants"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:text="Search for tenants"
+        android:textSize="18dp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent=".08"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent=".96"
-        android:enabled="false"/>
+        app:layout_constraintWidth_percent=".96" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homePageParentRecyclerView"

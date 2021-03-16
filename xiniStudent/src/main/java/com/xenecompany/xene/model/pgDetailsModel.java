@@ -1,8 +1,8 @@
 package com.xenecompany.xene.model;
 
 public class pgDetailsModel {
-    public int img;
-    public pgDetailsModel(int img){
+    public String img;
+    public pgDetailsModel(String img){
         this.img=img;
     }
 }

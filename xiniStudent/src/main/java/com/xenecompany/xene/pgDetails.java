@@ -7,10 +7,16 @@ import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.xenecompany.xene.adapter.pgDetailsAdapter;
 import com.xenecompany.xene.model.pgDetailsModel;
 
@@ -25,6 +31,7 @@ public class pgDetails extends AppCompatActivity {
     private TextView nameOfPg ,areaOfPg ,rent ,description;
     private RatingBar ratingBar;
     private ScrollView scrollView;
+    private DocumentReference db;
     Integer[] icons={R.drawable.ic_bed,R.drawable.ic_cabinet,R.drawable.ic_desk,
                      R.drawable.ic_revolving_chair,R.drawable.ic_washing_machine,
                      R.drawable.ic_spoon};
@@ -47,11 +54,20 @@ public class pgDetails extends AppCompatActivity {
     }
 
     private void setValues(){
-        ratingBar.setRating(2.5f);
-        nameOfPg.setText("XYZ");
-        areaOfPg.setText("area of pg");
-        rent.setText("4000/-");
-        description.setText(R.string.layout_pg_description_filler_text);
+
+        FirebaseFirestore.getInstance().collection("Hostels").document(getIntent().getStringExtra("ItemId")).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value.exists()){
+                    nameOfPg.setText(value.get("hostelName").toString());
+                    areaOfPg.setText(value.get("hostelAddress").toString());
+                    ratingBar.setRating(Float.parseFloat(value.get("rating").toString()));
+                    rent.setText(value.get("price").toString());
+                    description.setText(value.get("description").toString());
+                }
+            }
+        });
+
     }
 
     private void setUtilitiesIcon(){
@@ -66,10 +82,17 @@ public class pgDetails extends AppCompatActivity {
 
     private void viewPagerConfig(){
         data = new ArrayList<>(4);
-        data.add(new pgDetailsModel(R.drawable.demo_hostel));
-        data.add(new pgDetailsModel(R.drawable.demo_hostel));
-        data.add(new pgDetailsModel(R.drawable.demo_hostel));
-        data.add(new pgDetailsModel(R.drawable.demo_hostel));
+        FirebaseFirestore.getInstance().collection("Hostels").document(getIntent().getStringExtra("ItemId")).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value.exists()){
+                    data.add(new pgDetailsModel(value.get("hostelImage1").toString().trim()));
+                    data.add(new pgDetailsModel(value.get("hostelImage2").toString().trim()));
+                    data.add(new pgDetailsModel(value.get("hostelImage3").toString().trim()));
+                    data.add(new pgDetailsModel(value.get("hostelImage4").toString().trim()));
+                }
+            }
+        });
 
         pager = findViewById(R.id.viewPager22);
         pager.setAdapter(new pgDetailsAdapter(data,this));
