@@ -24,15 +24,20 @@
         <activity android:name=".otp_page" />
         <activity android:name=".HomePage">
         </activity>
-        <activity
+        <activity android:name=".chatCardView"></activity>
+        <activity android:name=".chatAll" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".ChatPersonal">
+
+        </activity>
             android:name=".Loginpage"
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".contact_us"
             android:windowSoftInputMode="adjustPan">
 
