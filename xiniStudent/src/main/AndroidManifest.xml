@@ -4,8 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,22 +23,30 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".pgDetails" />
         <activity android:name=".otp_page" />
-        <activity android:name=".HomePage"/>
-        <activity
+        <activity android:name=".HomePage">
+        </activity>
+        <activity android:name=".chatCardView"></activity>
+        <activity android:name=".chatAll" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".ChatPersonal">
+
+        </activity>
             android:name=".Loginpage"
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".contact_us"
+            android:windowSoftInputMode="adjustPan">
+
         </activity>
-        <activity
-            android:name=".contact_us"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".faq"/>
-        <activity android:name=".About_Us" />
-        <activity android:name=".my_deals" />
+        <activity android:name=".faq">
+        </activity>
+        <activity android:name=".About_Us"></activity>
+        <activity android:name=".my_deals"></activity>
     </application>
 
 </manifest>
