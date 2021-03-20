@@ -26,18 +26,18 @@
         </activity>
         <activity android:name=".chatCardView"></activity>
         <activity android:name=".chatAll" >
+        </activity>
+        <activity android:name=".ChatPersonal">
+
+        </activity>
+           <activity android:name=".Loginpage"
+            android:windowSoftInputMode="adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        </activity>
-        <activity android:name=".ChatPersonal">
-
-        </activity>
-            android:name=".Loginpage"
-            android:windowSoftInputMode="adjustResize">
-
+           </activity>
         <activity android:name=".contact_us"
             android:windowSoftInputMode="adjustPan">
 

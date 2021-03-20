@@ -13,16 +13,22 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,11 +43,14 @@ public class homePageParentRecyclerView extends RecyclerView.Adapter {
         this.context = context;
         this.width = width;
         this.progressBar=progressBar;
+        progressBar.setVisibility(View.GONE
+        );
+
     }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            if(viewType==0){
+        if(viewType==0){
                 View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.homepage_adbanner , parent , false);
                 return new adBanner(view);
             }
@@ -181,32 +190,49 @@ public class homePageParentRecyclerView extends RecyclerView.Adapter {
             super(itemView);
             recyclerView = (RecyclerView)itemView.findViewById(R.id.hostelRecyclerView);
         }
-        private void setRecyclerView(int width ,Context context , ProgressBar progressBar){
+        private void setRecyclerView(final int width , final Context context , final ProgressBar progressBar){
+            SessionManager sessionManager;
+            HashMap<String , String> sessionData;
+            sessionManager= new SessionManager(context);
+            sessionData=sessionManager.getUserDetailFromSession();
             recyclerView.setLayoutManager(new GridLayoutManager(context , 2));
             recyclerView.setHasFixedSize(false);
-            PagedList.Config config = new PagedList.Config.Builder()
+            final PagedList.Config config = new PagedList.Config.Builder()
                     .setInitialLoadSizeHint(10)
                     .setPageSize(10)
                     .build();
-            FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-            Query query = firebaseFirestore.collection("Student");
-            FirestorePagingOptions<StudentCardViewModel> options = new FirestorePagingOptions.Builder<StudentCardViewModel>()
-                    .setQuery(query, config, new SnapshotParser<StudentCardViewModel>() {
-                        @NonNull
+            final FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+            firebaseFirestore.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
+                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
-                        public StudentCardViewModel parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                            StudentCardViewModel hostelCardviewModel = snapshot.toObject(StudentCardViewModel.class);
-                            hostelCardviewModel.setItemID(snapshot.getId());
-                            return hostelCardviewModel;
+                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                             if(value.exists()) {
+                                 List<String> total = (List<String>) value.get("requested");
+                                 total.addAll((Collection<? extends String>) value.get("accepted"));
+                                 if (total.size() != 0) {
+                                     Query query = firebaseFirestore.collection("Student")
+                                             .whereIn(FieldPath.documentId(), total);
+                                     FirestorePagingOptions<StudentCardViewModel> options = new FirestorePagingOptions.Builder<StudentCardViewModel>()
+                                             .setQuery(query, config, new SnapshotParser<StudentCardViewModel>() {
+                                                 @NonNull
+                                                 @Override
+                                                 public StudentCardViewModel parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                                                     StudentCardViewModel hostelCardviewModel = snapshot.toObject(StudentCardViewModel.class);
+                                                     hostelCardviewModel.setItemID(snapshot.getId());
+                                                     return hostelCardviewModel;
+                                                 }
+                                             })
+                                             .build();
+                                     student_view_adapter hostelViewAdapter = new student_view_adapter(options);
+                                     hostelViewAdapter.startListening();
+                                     hostelViewAdapter.setScreenwidth(width);
+                                     hostelViewAdapter.setContext(context);
+                                     hostelViewAdapter.setProgressBar(progressBar);
+                                     recyclerView.setAdapter(hostelViewAdapter);
+                                 }
+                             }
                         }
-                    })
-                    .build();
-            student_view_adapter hostelViewAdapter = new student_view_adapter(options);
-            hostelViewAdapter.startListening();
-            hostelViewAdapter.setScreenwidth(width);
-            hostelViewAdapter.setContext(context);
-            hostelViewAdapter.setProgressBar(progressBar);
-            recyclerView.setAdapter(hostelViewAdapter);
+                    });
         }
     }
 }

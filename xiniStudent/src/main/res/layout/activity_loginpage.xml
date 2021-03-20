@@ -100,7 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/sign_up_button_notactive"
+            android:background="@drawable/sign_up_button"
             android:onClick="sendOtp"
             android:text="Send OTP"
             android:textAllCaps="false"
