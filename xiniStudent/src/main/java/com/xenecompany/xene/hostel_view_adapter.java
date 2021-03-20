@@ -11,20 +11,24 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.like.LikeButton;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.List;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_model , hostel_view_adapter.hostel_view_holder> {
@@ -33,6 +37,8 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
     Context context;
     ProgressBar progressBar;
     View view;
+    FirebaseFirestore db;
+    HashMap<String , String> sessionData;
     /**
      * Construct a new FirestorePagingAdapter from the given {@link FirestorePagingOptions}.
      *
@@ -44,6 +50,9 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
 
     public void setContext(Context context) {
         this.context = context;
+        SessionManager sessionManager=new SessionManager(context);
+        sessionData=sessionManager.getUserDetailFromSession();
+        db= FirebaseFirestore.getInstance();
     }
     public void setScreenwidth(int screenwidth) {
         this.screenwidth = screenwidth;
@@ -52,11 +61,11 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
         this.progressBar = progressBar;
     }
     @Override
-    protected void onBindViewHolder(@NonNull hostel_view_holder holder, int position, @NonNull final hostel_cardview_model model) {
+    protected void onBindViewHolder(@NonNull final hostel_view_holder holder, int position, @NonNull final hostel_cardview_model model) {
                         holder.hostelName.setText(model.getName());
-                        holder.hostelAddress.setText(model.getAddress());
+                        holder.hostelAddress.setText(model.getHostelAddress());
                         holder.hostelRating.setRating(model.getRating());
-                        Picasso.get().load(model.getBanner_image()).fit().into(holder.hostelImage, new Callback() {
+                        Picasso.get().load(model.getHostelImage1()).fit().into(holder.hostelImage, new Callback() {
                             @Override
                             public void onSuccess() {
 
@@ -75,6 +84,21 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
                                 context.startActivity(intent);
                             }
                         });
+                db.collection("Student").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).
+                    addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(value.exists()){
+                            List<String> wishlisted=(List<String>)(value.get("wishlist"));
+                            for(String i:wishlisted){
+                                if(i.equals(model.getItemID())){
+                                    holder.hostelLike.setLiked(true);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -114,12 +138,14 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
             TextView  hostelName;
             TextView hostelAddress;
             RatingBar hostelRating;
+            LikeButton hostelLike;
             public hostel_view_holder(@NonNull View itemView) {
                 super(itemView);
                 hostelImage=itemView.findViewById(R.id.hostel_image);
                 hostelName=itemView.findViewById(R.id.hostel_name);
                 hostelAddress=itemView.findViewById(R.id.hostel_address);
                 hostelRating=itemView.findViewById(R.id.hostel_rating);
+                hostelLike=itemView.findViewById(R.id.likeButton);
             }
         }
 }

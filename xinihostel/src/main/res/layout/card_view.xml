@@ -14,7 +14,7 @@
         android:layout_margin="10dp"
         android:elevation="5dp">
         <ImageView
-            android:id="@+id/hostel_image"
+            android:id="@+id/studentImage"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -37,14 +37,14 @@
             android:layout_height="2dp"
             android:src="@drawable/dotted_line"
             android:layout_marginTop="5dp"
-            app:layout_constraintTop_toBottomOf="@+id/hostel_image"
+            app:layout_constraintTop_toBottomOf="@+id/studentImage"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/hostel_name"
+            android:id="@+id/studentName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@string/card_view_name_of_pg"
+            android:text="Name of student"
             android:layout_marginStart="5dp"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="14dp"
@@ -53,34 +53,19 @@
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent=".11"/>
         <TextView
-            android:id="@+id/hostel_address"
+            android:id="@+id/studentInstituteName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@string/card_view_area_of_pg"
+            android:text="Institute Name"
             android:layout_marginStart="5dp"
             android:textColor="#FFD700"
             android:textSize="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hostel_name"
+            app:layout_constraintTop_toBottomOf="@+id/studentName"
             tools:ignore="SmallSp"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent=".08"/>
 
-
-        <RatingBar
-            android:id="@+id/hostel_rating"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="#00000000"
-            android:progressBackgroundTint="#5C5959"
-            app:layout_constraintTop_toBottomOf="@+id/hostel_address"
-            android:progressTint="#FFD700"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="5dp"
-            android:rating="0"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent=".1"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/likebuttonholder"

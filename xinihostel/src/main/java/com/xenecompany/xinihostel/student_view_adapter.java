@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_model , hostel_view_adapter.hostel_view_holder> {
+public class student_view_adapter extends FirestorePagingAdapter<StudentCardViewModel, student_view_adapter.hostel_view_holder> {
 
     int screenwidth;
     Context context;
@@ -33,7 +32,7 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
      *
      * @param options
      */
-    public hostel_view_adapter(@NonNull FirestorePagingOptions<hostel_cardview_model> options) {
+    public student_view_adapter(@NonNull FirestorePagingOptions<StudentCardViewModel> options) {
         super(options);
     }
 
@@ -47,29 +46,33 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
         this.progressBar = progressBar;
     }
     @Override
-    protected void onBindViewHolder(@NonNull hostel_view_holder holder, int position, @NonNull final hostel_cardview_model model) {
-                        holder.hostelName.setText(model.getName());
-                        holder.hostelAddress.setText(model.getAddress());
-                        holder.hostelRating.setRating(model.getRating());
-                        Picasso.get().load(model.getBanner_image()).fit().into(holder.hostelImage, new Callback() {
-                            @Override
-                            public void onSuccess() {
+    protected void onBindViewHolder(@NonNull hostel_view_holder holder, int position, @NonNull final StudentCardViewModel model) {
+                        holder.studentName.setText(model.getName());
+                        holder.studentInstituteName.setText(model.getInstituteName());
+                        if(model.getProfilePicture().length()>0) {
+                            Picasso.get().load(model.getProfilePicture()).fit().into(holder.studentImage, new Callback() {
+                                @Override
+                                public void onSuccess() {
 
-                            }
+                                }
 
-                            @Override
-                            public void onError(Exception e) {
-                                    Log.i("rectify" , ""+e);
-                            }
-                        });
-                        view.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(context , pgDetails.class);
-                                intent.putExtra("ItemId" , model.getItemID());
-                                context.startActivity(intent);
-                            }
-                        });
+                                @Override
+                                public void onError(Exception e) {
+                                    Log.i("rectify", "" + e);
+                                }
+                            });
+                            view.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(context, studentDetails.class);
+                                    intent.putExtra("ItemId", model.getItemID());
+                                    context.startActivity(intent);
+                                }
+                            });
+                        }
+                        else{
+                            Picasso.get().load(R.drawable.ic_male_avatr).fit().into(holder.studentImage);
+                        }
     }
 
     @Override
@@ -105,16 +108,14 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
     }
 
     public static class hostel_view_holder extends RecyclerView.ViewHolder {
-            ImageView hostelImage;
-            TextView  hostelName;
-            TextView hostelAddress;
-            RatingBar hostelRating;
+            ImageView studentImage;
+            TextView  studentName;
+            TextView studentInstituteName;
             public hostel_view_holder(@NonNull View itemView) {
                 super(itemView);
-                hostelImage=itemView.findViewById(R.id.hostel_image);
-                hostelName=itemView.findViewById(R.id.hostel_name);
-                hostelAddress=itemView.findViewById(R.id.hostel_address);
-                hostelRating=itemView.findViewById(R.id.hostel_rating);
+                studentImage=(ImageView)itemView.findViewById(R.id.studentImage);
+                studentName=(TextView)itemView.findViewById(R.id.studentName);
+                studentInstituteName=(TextView)itemView.findViewById(R.id.studentInstituteName);
             }
         }
 }

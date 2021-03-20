@@ -47,7 +47,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation 'com.chaos.view:pinview:1.4.4'
     implementation "androidx.browser:browser:1.2.0"
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -57,5 +56,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
     implementation 'com.google.firebase:firebase-firestore'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
 }

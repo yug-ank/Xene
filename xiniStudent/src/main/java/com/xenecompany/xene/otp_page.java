@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -119,6 +120,9 @@ public class otp_page extends Activity {
                                         data.put("gaurdianAddress" , "");
                                         data.put("gaurdianContactNo" ,"");
                                         data.put("profilePicture" , "");
+                                        data.put("wishlist" , Arrays.asList());
+                                        data.put("requested" , Arrays.asList());
+                                        data.put("accepted" , Arrays.asList());
                                         data.put("profileCompleted"  , false);
                                         db.collection("Student").document(userId).set(data , SetOptions.merge())
                                                 .addOnSuccessListener(

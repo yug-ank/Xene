@@ -198,38 +198,29 @@ public class profile extends AppCompatActivity {
         save_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String , Object> data=new HashMap<>();
-                data.put("name" , profileName.getText().toString());
-                if(emailPattern.matcher(profileEmail.getText().toString().trim()).matches()) {
-                    data.put("email", profileEmail.getText().toString());
-                }
-                else{
-                    data.put("email" , serverEmail);
+                if(!emailPattern.matcher(profileEmail.getText().toString().trim()).matches()) {
+                    profileEmail.setText(serverEmail);
                     errorMessage+="invalid user email address\n";
+
                 }
-                data.put("instituteId" ,profileInstituteId.getText().toString());
-                data.put("instituteName" , profileInstituteName.getText().toString());
-                data.put("instituteAddress" , profileInstituteAddress.getText().toString());
-                data.put("instituteIdCard" , serverInstituteIdPicture);
-                data.put("aadharId" , serverAadharCardPicture);
-                if(aadharPattern.matcher(profileAadharNo.getText().toString()).matches()) {
-                    data.put("aadharNo", profileAadharNo.getText().toString());
-                }
-                else{
-                    data.put("aadharNo" , serverAadharCardNo);
+                if(!aadharPattern.matcher(profileAadharNo.getText().toString()).matches()) {
+                    profileAadharNo.setText(serverAadharCardNo);
                     errorMessage+="invalid aadhar card no\n";
                 }
-                data.put("gaurdianName" , profileGuardianName.getText().toString());
-                data.put("gaurdianAddress" , profileGuardianAddress.getText().toString());
-                if(phonePattern.matcher(profileGuardianContact.getText().toString()).matches()){
-                    data.put("gaurdianContactNo" ,profileGuardianContact.getText().toString());
-                }else{
-                    data.put("gaurdianContactNo" , serverGaurdianContact);
+                if(!phonePattern.matcher(profileGuardianContact.getText().toString()).matches()){
+                    profileGuardianContact.setText(serverGaurdianContact);
                     errorMessage+="invalid gaurdian contact no\n";
                 }
-                data.put("profilePicture" , serverProfilePicture);
-                data.put("profileCompleted"  , false);
-                db.collection("Student").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).update(data)
+                db.collection("Student").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                        .update("name" , profileName.getText().toString() ,
+                                "email" , profileEmail.getText().toString() ,
+                                "instituteId" , profileInstituteId.getText().toString() ,
+                                "instituteName" , profileInstituteName.getText().toString() ,
+                                "instituteAddress" , profileInstituteAddress.getText().toString() ,
+                                "aadharNo" , profileAadharNo.getText().toString() ,
+                                "gaurdianName" , profileGuardianName.getText().toString() ,
+                                "gaurdianAddress" , profileGuardianAddress.getText().toString() ,
+                                "gaurdianContactNo" , profileGuardianContact.getText().toString())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

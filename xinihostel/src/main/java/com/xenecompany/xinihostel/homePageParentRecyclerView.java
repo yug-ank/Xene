@@ -189,19 +189,19 @@ public class homePageParentRecyclerView extends RecyclerView.Adapter {
                     .setPageSize(10)
                     .build();
             FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-            Query query = firebaseFirestore.collection("Hostels");
-            FirestorePagingOptions<hostel_cardview_model> options = new FirestorePagingOptions.Builder<hostel_cardview_model>()
-                    .setQuery(query, config, new SnapshotParser<hostel_cardview_model>() {
+            Query query = firebaseFirestore.collection("Student");
+            FirestorePagingOptions<StudentCardViewModel> options = new FirestorePagingOptions.Builder<StudentCardViewModel>()
+                    .setQuery(query, config, new SnapshotParser<StudentCardViewModel>() {
                         @NonNull
                         @Override
-                        public hostel_cardview_model parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                            hostel_cardview_model hostelCardviewModel = snapshot.toObject(hostel_cardview_model.class);
+                        public StudentCardViewModel parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                            StudentCardViewModel hostelCardviewModel = snapshot.toObject(StudentCardViewModel.class);
                             hostelCardviewModel.setItemID(snapshot.getId());
                             return hostelCardviewModel;
                         }
                     })
                     .build();
-            hostel_view_adapter hostelViewAdapter = new hostel_view_adapter(options);
+            student_view_adapter hostelViewAdapter = new student_view_adapter(options);
             hostelViewAdapter.startListening();
             hostelViewAdapter.setScreenwidth(width);
             hostelViewAdapter.setContext(context);

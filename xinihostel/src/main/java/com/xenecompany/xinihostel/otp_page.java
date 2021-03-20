@@ -116,7 +116,7 @@ public class otp_page extends Activity {
                                         data.put("hostelName" , "");
                                         data.put("hostelAddress" , "");
                                         data.put("hostelMou" , "");
-                                        data.put("hostelFacilities" , Arrays.asList(""));
+                                        data.put("hostelFacilities" , Arrays.asList());
                                         data.put("hostelImage1" , "");
                                         data.put("hostelImage2" , "");
                                         data.put("hostelImage3" , "");
@@ -127,6 +127,7 @@ public class otp_page extends Activity {
                                         data.put("profileVerified"  , false);
                                         data.put("price" , 0);
                                         data.put("description" , "");
+                                        data.put("rating" , 0);
                                         db.collection("Hostels").document(userId).set(data , SetOptions.merge())
                                                 .addOnSuccessListener(
                                                         new OnSuccessListener<Void>() {
