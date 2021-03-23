@@ -23,16 +23,6 @@ public class wishlist extends AppCompatActivity {
         ImageView imageView=(ImageView)wishlistLayout.findViewById(R.id.toolbarHeartImageView);
         imageView.setImageResource(R.drawable.toolbar_heart_selected);
 
-        FrameLayout notificationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
-        notificationLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView textView=(TextView)view.findViewById(R.id.notificationCount);
-                textView.setText("0");
-                ImageView imageView=(ImageView)findViewById(R.id.toolbarNotificationImageView);
-                imageView.setImageResource(R.drawable.toolbar_notification_selected);
-            }
-        });
 
         FrameLayout messageLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_message).getActionView();
         messageLayout.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.xenecompany.xinihostel;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,11 +17,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.List;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-import java.util.List;
+import static android.view.View.GONE;
 
 public class studentDetails extends AppCompatActivity {
     ImageView studentDetailImage;
@@ -42,7 +45,9 @@ public class studentDetails extends AppCompatActivity {
         studentInstituteCard=(ImageView)findViewById(R.id.studentInstituteCard);
         sessionManager= new SessionManager(studentDetails.this);
         sessionData=sessionManager.getUserDetailFromSession();
-        final String ItemId= getIntent().getStringExtra("ItemId").toString();
+        final String ItemId= getIntent().getStringExtra("ItemId");
+        final String token=getIntent().getStringExtra("token");
+        Log.i("rectify" , ""+token);
         final FirebaseFirestore db=FirebaseFirestore.getInstance();
         db.collection("Student").document(ItemId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -157,7 +162,7 @@ public class studentDetails extends AppCompatActivity {
 
         ///book button code
         book_button=(Button) findViewById(R.id.book_button);
-        
+        cancel_button=(Button) findViewById(R.id.cancel_button);
         db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -165,7 +170,6 @@ public class studentDetails extends AppCompatActivity {
                     List<String> wishlist= (List<String>) value.get("requested");
                     if(wishlist.contains(ItemId)){
                         book_button.setText("ACCEPT REQUEST");
-                        cancel_button.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -176,11 +180,13 @@ public class studentDetails extends AppCompatActivity {
                 if(value.exists()){
                     List<String> wishlist= (List<String>) value.get("accepted");
                     if(wishlist.contains(ItemId)){
-                        book_button.setText("REMOVE CONTACT");
+                        book_button.setText("REMOVE CONNECTION");
+                        cancel_button.setText("SEND MESSAGE");
                     }
                 }
             }
         });
+
         book_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,14 +199,35 @@ public class studentDetails extends AppCompatActivity {
                             .update("requested", FieldValue.arrayRemove(ItemId));
                     db.collection("Student").document(ItemId).
                             update("requested" , FieldValue.arrayRemove("+91" + sessionData.get(SessionManager.Key_Phone_no)));
-                    cancel_button.setVisibility(View.GONE);
                     book_button.setText("REMOVE CONNECTION");
+                     String title="Accepted your request";
+                    String message="A hostel has accepted your request.\nNow you can contact the hostel";
+                    new NotificationSend(token , message ,title);
                 }
                 else if(book_button.getText().equals("REMOVE CONNECTION")){
                     db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .update("accepted", FieldValue.arrayRemove(ItemId));
                     db.collection("Student").document(ItemId)
                             .update("accepted", FieldValue.arrayRemove("+91" + sessionData.get(SessionManager.Key_Phone_no)));
+                    Toast.makeText(studentDetails.this, "Press back to get to homepage", Toast.LENGTH_SHORT).show();
+                    book_button.setVisibility(GONE);
+                    wishlist_button.setVisibility(GONE);
+                    cancel_button.setVisibility(GONE);
+                }
+            }
+        });
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(cancel_button.getText().toString().equals("CANCEL REQUEST")){
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
+                            .update("requested", FieldValue.arrayRemove(ItemId));
+                    db.collection("Student").document(ItemId).
+                            update("requested" , FieldValue.arrayRemove("+91" + sessionData.get(SessionManager.Key_Phone_no)));
+                    Toast.makeText(studentDetails.this, "Press back to get to homepage", Toast.LENGTH_SHORT).show();
+                    book_button.setEnabled(false);
+                    cancel_button.setEnabled(false);
+                    wishlist_button.setEnabled(false);
                 }
             }
         });

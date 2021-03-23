@@ -44,6 +44,7 @@ public class pgDetails extends AppCompatActivity {
     Integer[] icons={R.drawable.ic_bed,R.drawable.ic_cabinet,R.drawable.ic_desk,
                      R.drawable.ic_revolving_chair,R.drawable.ic_washing_machine,
                      R.drawable.ic_spoon};
+    private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class pgDetails extends AppCompatActivity {
         sessionManager= new SessionManager(pgDetails.this);
         sessionData=sessionManager.getUserDetailFromSession();
         final String hostelId=getIntent().getStringExtra("ItemId");
+        token=getIntent().getStringExtra("token");
         setViews();
         setValues();
         viewPagerConfig();
@@ -104,30 +106,19 @@ public class pgDetails extends AppCompatActivity {
             @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if(value.exists()){
-                        List<String> wishlist= (List<String>) value.get("requested");
-                        if(wishlist.contains(hostelId)){
+                        List<String> requested= (List<String>) value.get("requested");
+                        if(requested.contains(hostelId)){
                             book_button.setText("CANCEL REQUEST");
                         }
                     }
                 }
             });
-            db.collection("Student").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if(value.exists()){
-                        List<String> wishlist= (List<String>) value.get("accepted");
-                        if(wishlist.contains(hostelId)){
-                            book_button.setText("REMOVE CONNECT");
-                        }
-                    }
-                }
-        });
-        db.collection("Student").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+             db.collection("Student").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     if(value.exists()){
-                         List<String> wishlist= (List<String>) value.get("accepted");
-                        if(wishlist.contains(hostelId)){
+                         List<String> accepted= (List<String>) value.get("accepted");
+                        if(accepted.contains(hostelId)){
                             book_button.setText("REMOVE CONTACT");
                         }
                     }
@@ -138,22 +129,42 @@ public class pgDetails extends AppCompatActivity {
             public void onClick(View view) {
                 if(book_button.getText().toString().equals("BOOK")) {
                     db.collection("Student").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
-                            .update("requested", FieldValue.arrayUnion(hostelId));
+                            .update("requested", FieldValue.arrayUnion(hostelId)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(pgDetails.this, "Successfully requested", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     db.collection("Hostels").document(hostelId).
                             update("requested" , FieldValue.arrayUnion("+91" + sessionData.get(SessionManager.Key_Phone_no)));
+                    String title="Request for contact";
+                    String message="A student has requested for contact...";
+
+                     new NotificationSend(token , message ,title);
+                    book_button.setText("CANCEL REQUEST");
                 }
-                else if(book_button.getText().equals("CANCEL REQUEST")){
+                else if(book_button.getText().toString().equals("CANCEL REQUEST")){
                     db.collection("Student").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
-                            .update("requested", FieldValue.arrayRemove(hostelId));
+                            .update("requested", FieldValue.arrayRemove(hostelId)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(pgDetails.this, "Successfully canceled request", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     db.collection("Hostels").document(hostelId).
                             update("requested" , FieldValue.arrayRemove("+91" + sessionData.get(SessionManager.Key_Phone_no)));
                     book_button.setText("BOOK");
                 }
-                else if(book_button.getText().equals("REMOVE CONNECTION")){
+                else{
                     db.collection("Student").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
-                            .update("accepted", FieldValue.arrayRemove(hostelId));
-                    db.collection("Hostels").document(hostelId)
-                            .update("accepted", FieldValue.arrayRemove("+91" + sessionData.get(SessionManager.Key_Phone_no)));
+                            .update("accepted", FieldValue.arrayRemove(hostelId)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(pgDetails.this, "Successfully canceled request", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    db.collection("Hostels").document(hostelId).
+                            update("accepted" , FieldValue.arrayRemove("+91" + sessionData.get(SessionManager.Key_Phone_no)));
                     book_button.setText("BOOK");
                 }
             }

@@ -66,6 +66,7 @@ public class student_view_adapter extends FirestorePagingAdapter<StudentCardView
                                 public void onClick(View view) {
                                     Intent intent = new Intent(context, studentDetails.class);
                                     intent.putExtra("ItemId", model.getItemID());
+                                    intent.putExtra("token" , model.getToken());
                                     context.startActivity(intent);
                                 }
                             });

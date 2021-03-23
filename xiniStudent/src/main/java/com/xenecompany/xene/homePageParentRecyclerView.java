@@ -1,9 +1,7 @@
 package com.xenecompany.xene;
 
 import android.content.Context;
-import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -19,8 +17,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedList;
@@ -56,22 +52,7 @@ public class homePageParentRecyclerView extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         //////////////ad banner
         if(position==0){
-            final ArrayList<home_banner_modelClass> modelClassList = new ArrayList<>();
-            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-            CollectionReference collectionReference= firebaseFirestore.collection("Promotion");
-            collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    if(!queryDocumentSnapshots.isEmpty()){
-                        List<DocumentSnapshot> list= queryDocumentSnapshots.getDocuments();
-                        for(DocumentSnapshot d: list){
-                            home_banner_modelClass home=d.toObject(home_banner_modelClass.class);
-                            modelClassList.add(home);
-                        }
-                    }
-                }
-            });
-         //   ((adBanner)holder).setBannerSliderViewPager(modelClassList);
+          ((adBanner)holder).setBannerSliderViewPager();
         }
         //////////////ad banner
 
@@ -94,84 +75,32 @@ public class homePageParentRecyclerView extends RecyclerView.Adapter {
 
     private static class adBanner extends RecyclerView.ViewHolder{
         private ViewPager bannerSliderViewPager;
-        private int currentPage=2;
-        Timer timer;
-        private  final  long DELAY_TIME=3000;
-        private  final  long PERIOD_TIME=3000;
         public adBanner(@NonNull View itemView) {
             super(itemView);
             bannerSliderViewPager = itemView.findViewById(R.id.homePageAdBanner);
         }
-        private void setBannerSliderViewPager(final List<home_banner_modelClass> modelClassList){
-            home_banner_adapter homeBannerAdapter=new home_banner_adapter(modelClassList);
+        private void setBannerSliderViewPager(){
+            final ArrayList<home_banner_modelClass> modelClassList = new ArrayList<>();
+            final home_banner_adapter homeBannerAdapter = new home_banner_adapter(modelClassList);
             bannerSliderViewPager.setAdapter(homeBannerAdapter);
-            homeBannerAdapter.notifyDataSetChanged();
-            bannerSliderViewPager.setCurrentItem(currentPage);
-            bannerSliderViewPager.setClipToPadding(false);
-            bannerSliderViewPager.setPageMargin(20);
-            ViewPager.OnPageChangeListener onPageChangeListener=new ViewPager.OnPageChangeListener() {
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            CollectionReference collectionReference = firebaseFirestore.collection("Promotion");
+            collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    currentPage=position;
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-                    if(state==ViewPager.SCROLL_STATE_IDLE){
-                        pageLooper(modelClassList);
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot d : list) {
+                            home_banner_modelClass home = d.toObject(home_banner_modelClass.class);
+                            modelClassList.add(home);
+                            homeBannerAdapter.notifyDataSetChanged();
+                            bannerSliderViewPager.setCurrentItem(0);
+                            bannerSliderViewPager.setClipToPadding(false);
+                            bannerSliderViewPager.setPageMargin(20);
+                        }
                     }
-                }
-            };
-            bannerSliderViewPager.addOnPageChangeListener(onPageChangeListener);
-            startBannerAnimation(modelClassList);
-            bannerSliderViewPager.setOnTouchListener(new View.OnTouchListener(){
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    pageLooper(modelClassList);
-                    stopBannerAnimation();
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        startBannerAnimation(modelClassList);
-                    }
-                    return false;
                 }
             });
-        }
-        private void startBannerAnimation(final List<home_banner_modelClass> modelClassList){
-            final Handler handler= new Handler();
-            final Runnable update=new Runnable() {
-                @Override
-                public void run() {
-                    if(currentPage>=modelClassList.size()){
-                        currentPage=1;
-                    }
-                    bannerSliderViewPager.setCurrentItem(currentPage++ , true);
-                }
-            };
-            timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    handler.post(update);
-                }
-            } , DELAY_TIME , PERIOD_TIME);
-        }
-        private void stopBannerAnimation(){
-            timer.cancel();
-        }
-        private void pageLooper(List<home_banner_modelClass> modelClassList){
-            if(currentPage==modelClassList.size()-2){
-                currentPage=2;
-                bannerSliderViewPager.setCurrentItem(currentPage , false);
-            }
-            if(currentPage==1){
-                currentPage=modelClassList.size()-3;
-                bannerSliderViewPager.setCurrentItem(currentPage , false);
-            }
         }
     }
 

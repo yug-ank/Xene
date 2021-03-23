@@ -30,14 +30,14 @@
         <activity android:name=".ChatPersonal">
 
         </activity>
-           <activity android:name=".Loginpage"
+          <activity  android:name=".Loginpage"
             android:windowSoftInputMode="adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-           </activity>
+          </activity>
         <activity android:name=".contact_us"
             android:windowSoftInputMode="adjustPan">
 
@@ -46,6 +46,12 @@
         </activity>
         <activity android:name=".About_Us"></activity>
         <activity android:name=".my_deals"></activity>
+        <service
+            android:name=".NotificationFireBaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

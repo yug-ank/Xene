@@ -81,6 +81,7 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
                             public void onClick(View view) {
                                 Intent intent = new Intent(context , pgDetails.class);
                                 intent.putExtra("ItemId" , model.getItemID());
+                                intent.putExtra("token" , model.getToken());
                                 context.startActivity(intent);
                             }
                         });
