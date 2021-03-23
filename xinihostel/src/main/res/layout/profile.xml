@@ -515,6 +515,37 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:nestedScrollingEnabled="false"
         android:overScrollMode="never">
+        <Button
+            android:id="@+id/profileSearchLocation"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintWidth_percent="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/search"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="5dp"
+            android:visibility="gone"
+            />
+        <EditText
+            android:id="@+id/profileSearchLocationAddress"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/profileSearchLocation"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/edit_text_box"
+            android:elevation="5dp"
+            android:visibility="gone"/>
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"

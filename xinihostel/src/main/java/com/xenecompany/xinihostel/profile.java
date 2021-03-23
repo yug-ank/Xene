@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,6 +49,7 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,16 +85,18 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
     ImageView profileHostelImage3;
     ImageView profileHostelImage4;
     Button profileNextButton;
+    Button searchLocation;
     FloatingActionButton edit_profile_picture;
     String emailregex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    Pattern emailPattern=Pattern.compile(emailregex);
-    String errorMessage="";
+    Pattern emailPattern = Pattern.compile(emailregex);
+    String errorMessage = "";
     FirebaseAuth auth;
     FirebaseFirestore db;
     StorageReference storageReference;
-    HashMap<String , String> sessionData;
-    final Map<String , Object> data=new HashMap<>();
-    int PROFILE_PICTURE=0 , HOSTELIMAGE1=0 , HOSTELIMAGE2=0 , HOSTELIMAGE3=0 , HOSTELIMAGE4=0 , MOU=0;
+    HashMap<String, String> sessionData;
+    final Map<String, Object> data = new HashMap<>();
+    int PROFILE_PICTURE = 0, HOSTELIMAGE1 = 0, HOSTELIMAGE2 = 0, HOSTELIMAGE3 = 0, HOSTELIMAGE4 = 0, MOU = 0;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,8 +108,8 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
         profileContact = (EditText) findViewById(R.id.profileContact);
         profileHostelName = (EditText) findViewById(R.id.profileHostelName);
         profileHostelAddress = (EditText) findViewById(R.id.profileHostelAddress);
-        profileRent=(EditText)findViewById(R.id.profileRent);
-        profileDescription=(EditText)findViewById(R.id.profileDescription);
+        profileRent = (EditText) findViewById(R.id.profileRent);
+        profileDescription = (EditText) findViewById(R.id.profileDescription);
         profileMou = (TextView) findViewById(R.id.profileMou);
         profileFacilityBed = (MaterialCheckBox) findViewById(R.id.profileFacilityBed);
         profileHostelImage1 = (ImageView) findViewById(R.id.profileHostelImage1);
@@ -116,10 +121,10 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
         sessionData = sessionManager.getUserDetailFromSession();
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("hostels-images");
-        final DisplayMetrics displayMetrics= new DisplayMetrics();
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        final int width=displayMetrics.widthPixels;
-        final int height=displayMetrics.heightPixels;
+        final int width = displayMetrics.widthPixels;
+        final int height = displayMetrics.heightPixels;
 
        if (getIntent().getStringExtra("from").equals("otp")) {
             edit_profile_picture.setVisibility(View.VISIBLE);
@@ -132,7 +137,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileRent.setEnabled(true);
             profileDescription.setEnabled(true);
             auth = FirebaseAuth.getInstance();
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(profile.this);
             fetchLocation();
             edit_profile_picture.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -166,17 +171,17 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileHostelImage1.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View holder) {
-                    View view=getLayoutInflater().inflate(R.layout.imageviewer , null);
-                    final AlertDialog.Builder builder=new AlertDialog.Builder(profile.this);
-                    final ImageView imageView=(ImageView)view.findViewById(R.id.imagerViewer);
-                    final ImageView deleteImageView=(ImageView)view.findViewById(R.id.deleteImageViewer);
+                    View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.imagerViewer);
+                    final ImageView deleteImageView = (ImageView) view.findViewById(R.id.deleteImageViewer);
                     deleteImageView.setVisibility(View.VISIBLE);
-                    final ImageButton imageButton=(ImageButton)view.findViewById(R.id.closeImageViewer);
-                    db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                    final ImageButton imageButton = (ImageButton) view.findViewById(R.id.closeImageViewer);
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if(value.exists()) {
+                                    if (value.exists()) {
                                         String name = "hostelImage1" + "+91" + sessionData.get(SessionManager.Key_Phone_no) + ".null";
                                         final StorageReference imgref = storageReference.child(name);
 
@@ -193,15 +198,15 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                             }
                                         });
                                     }
-                                    }
+                                }
                             });
                     builder.setView(view);
-                    final AlertDialog dialog=builder.create();
+                    final AlertDialog dialog = builder.create();
                     dialog.show();
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(dialog.getWindow().getAttributes());
                     layoutParams.width = width;
-                    layoutParams.height = height/2;
+                    layoutParams.height = height / 2;
                     dialog.getWindow().setAttributes(layoutParams);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -217,7 +222,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                             imgref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(profile.this  , "image deleted successfuly" , Toast.LENGTH_LONG).show();
+                                    Toast.makeText(profile.this, "image deleted successfuly", Toast.LENGTH_LONG).show();
                                     Picasso.get().load(R.drawable.add_image).fit().into(imageView);
                                 }
                             });
@@ -291,9 +296,9 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     }
                     data.put("hostelName", profileHostelName.getText().toString());
                     data.put("hostelAddress", profileHostelAddress.getText().toString());
-                    data.put("price" , profileRent.getText().toString());
-                    data.put("description" , profileDescription.getText().toString());
-                    ArrayList<String> facilities=new ArrayList<>();
+                    data.put("price", profileRent.getText().toString());
+                    data.put("description", profileDescription.getText().toString());
+                    ArrayList<String> facilities = new ArrayList<>();
                     if (profileFacilityBed.isChecked())
                         facilities.add(profileFacilityBed.getText().toString());
                     data.put("hostelFacilities", facilities);
@@ -311,14 +316,38 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     });
                 }
             });
-
-       }
-       else{
-            db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(
+        searchLocation=(Button)findViewById(R.id.profileSearchLocation);
+        searchLocation.setVisibility(View.VISIBLE);
+        EditText searchAddress=(EditText)findViewById(R.id.profileSearchLocationAddress);
+        searchAddress.setVisibility(View.VISIBLE);
+           searchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String location=searchAddress.getText().toString();
+                if(location!=null || !location.equals("")){
+                    Geocoder geocoder=new Geocoder(profile.this);
+                    try {
+                        List<Address> addressList=geocoder.getFromLocationName(location , 1);
+                        Address address=addressList.get(0);
+                        Latitude=address.getLatitude();
+                        Longitude=address.getLongitude();
+                        data.put("lat", Latitude);
+                        data.put("lot", Longitude);
+                        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
+                        assert supportMapFragment != null;
+                        supportMapFragment.getMapAsync(profile.this);
+                    }catch (IOException e){
+                        Toast.makeText(profile.this , ""+e , Toast.LENGTH_SHORT).show();
+                    }
+                }
+                }
+            });
+        } else {
+            db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(
                     new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if(value.exists()) {
+                            if (value.exists()) {
                                 profileName.setText(value.get("name").toString());
                                 profileEmail.setText(value.get("email").toString());
                                 profileContact.setText(value.get("phoneNo").toString());
@@ -328,9 +357,9 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                 Longitude = (Double) value.get("lot");
                                 profileRent.setText(value.get(("price")).toString());
                                 profileDescription.setText(value.get("description").toString());
-                                List<String> facilities=(List<String>)value.get("hostelFacilities");
-                                for(String i:facilities){
-                                    if(i.equals("BED")){
+                                List<String> facilities = (List<String>) value.get("hostelFacilities");
+                                for (String i : facilities) {
+                                    if (i.equals("BED")) {
                                         profileFacilityBed.setChecked(true);
                                     }
                                 }
@@ -351,21 +380,21 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                     });
                                 }
                             }
-                                if(value.get("hostelImage1").toString().trim().length()>0){
-                                    Picasso.get().load(value.get("hostelImage1").toString()).noFade().into(profileHostelImage1, new Callback() {
-                                        @Override
-                                        public void onSuccess() {
+                            if (value.get("hostelImage1").toString().trim().length() > 0) {
+                                Picasso.get().load(value.get("hostelImage1").toString()).noFade().into(profileHostelImage1, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
 
-                                        }
+                                    }
 
-                                        @Override
-                                        public void onError(Exception e) {
-                                            Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                    profileHostelImage1.setPadding(0 , 0 , 0 , 0);
-                                }
-                            if(value.get("hostelImage2").toString().trim().length()>0){
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                profileHostelImage1.setPadding(0, 0, 0, 0);
+                            }
+                            if (value.get("hostelImage2").toString().trim().length() > 0) {
                                 Picasso.get().load(value.get("hostelImage2").toString()).noFade().into(profileHostelImage2, new Callback() {
                                     @Override
                                     public void onSuccess() {
@@ -377,10 +406,10 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                         Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                                profileHostelImage2.setPadding(0 , 0 , 0 , 0);
+                                profileHostelImage2.setPadding(0, 0, 0, 0);
 
                             }
-                           if(value.get("hostelImage3").toString().trim().length()>0){
+                            if (value.get("hostelImage3").toString().trim().length() > 0) {
                                 Picasso.get().load(value.get("hostelImage3").toString()).noFade().into(profileHostelImage3, new Callback() {
                                     @Override
                                     public void onSuccess() {
@@ -392,10 +421,10 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                         Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                               profileHostelImage3.setPadding(0 , 0 , 0 , 0);
+                                profileHostelImage3.setPadding(0, 0, 0, 0);
 
-                           }
-                            if(value.get("hostelImage4").toString().trim().length()>0){
+                            }
+                            if (value.get("hostelImage4").toString().trim().length() > 0) {
                                 Picasso.get().load(value.get("hostelImage4").toString()).noFade().into(profileHostelImage4, new Callback() {
                                     @Override
                                     public void onSuccess() {
@@ -407,30 +436,30 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                         Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                                profileHostelImage4.setPadding(0 , 0 , 0 , 0);
+                                profileHostelImage4.setPadding(0, 0, 0, 0);
 
                             }
-                            if(value.get("hostelMou").toString().trim().length()>0){
+                            if (value.get("hostelMou").toString().trim().length() > 0) {
 
                             }
 
                         }
                     });
-                 profileImage.setOnClickListener(new View.OnClickListener() {
+            profileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View holder) {
-                    View view=getLayoutInflater().inflate(R.layout.imageviewer , null);
-                    final AlertDialog.Builder builder=new AlertDialog.Builder(profile.this);
-                    final ImageView imageView=(ImageView)view.findViewById(R.id.imagerViewer);
-                    final ImageButton imageButton=(ImageButton)view.findViewById(R.id.closeImageViewer);
-                    db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                    View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.imagerViewer);
+                    final ImageButton imageButton = (ImageButton) view.findViewById(R.id.closeImageViewer);
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if(value.exists()){
-                                        if(value.get("profilePicture").toString().trim().length()>0) {
+                                    if (value.exists()) {
+                                        if (value.get("profilePicture").toString().trim().length() > 0) {
                                             Picasso.get().load(value.get("profilePicture").toString()).noFade()
-                                                    .resize(imageView.getWidth() , imageView.getHeight()).into(imageView, new Callback() {
+                                                    .resize(imageView.getWidth(), imageView.getHeight()).into(imageView, new Callback() {
                                                 @Override
                                                 public void onSuccess() {
 
@@ -441,20 +470,19 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                                     Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        }
-                                        else{
-                                           Picasso.get().load(R.drawable.ic_male_avatr).fit().into(imageView);
+                                        } else {
+                                            Picasso.get().load(R.drawable.ic_male_avatr).fit().into(imageView);
                                         }
                                     }
                                 }
                             });
                     builder.setView(view);
-                    final AlertDialog dialog=builder.create();
+                    final AlertDialog dialog = builder.create();
                     dialog.show();
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(dialog.getWindow().getAttributes());
                     layoutParams.width = width;
-                    layoutParams.height = height/2;
+                    layoutParams.height = height / 2;
                     dialog.getWindow().setAttributes(layoutParams);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -462,23 +490,23 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                             dialog.dismiss();
                         }
                     });
-                    }
-                    });
-                 profileHostelImage1.setOnClickListener(new View.OnClickListener() {
+                }
+            });
+            profileHostelImage1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View holder) {
-                    View view=getLayoutInflater().inflate(R.layout.imageviewer , null);
-                    final AlertDialog.Builder builder=new AlertDialog.Builder(profile.this);
-                    final ImageView imageView=(ImageView)view.findViewById(R.id.imagerViewer);
-                    final ImageButton imageButton=(ImageButton)view.findViewById(R.id.closeImageViewer);
-                    db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                    View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.imagerViewer);
+                    final ImageButton imageButton = (ImageButton) view.findViewById(R.id.closeImageViewer);
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if(value.exists()){
-                                        if(value.get("hostelImage1").toString().trim().length()>0) {
+                                    if (value.exists()) {
+                                        if (value.get("hostelImage1").toString().trim().length() > 0) {
                                             Picasso.get().load(value.get("hostelImage1").toString()).noFade()
-                                                    .resize(imageView.getWidth() , imageView.getHeight()).into(imageView, new Callback() {
+                                                    .resize(imageView.getWidth(), imageView.getHeight()).into(imageView, new Callback() {
                                                 @Override
                                                 public void onSuccess() {
 
@@ -489,20 +517,19 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                                     Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        }
-                                        else{
+                                        } else {
                                             imageView.setImageResource(R.drawable.add_image);
                                         }
                                     }
                                 }
                             });
                     builder.setView(view);
-                    final AlertDialog dialog=builder.create();
+                    final AlertDialog dialog = builder.create();
                     dialog.show();
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(dialog.getWindow().getAttributes());
                     layoutParams.width = width;
-                    layoutParams.height = height/2;
+                    layoutParams.height = height / 2;
                     dialog.getWindow().setAttributes(layoutParams);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -515,18 +542,18 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileHostelImage2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View holder) {
-                    View view=getLayoutInflater().inflate(R.layout.imageviewer , null);
-                    final AlertDialog.Builder builder=new AlertDialog.Builder(profile.this);
-                    final ImageView imageView=(ImageView)view.findViewById(R.id.imagerViewer);
-                    final ImageButton imageButton=(ImageButton)view.findViewById(R.id.closeImageViewer);
-                    db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                    View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.imagerViewer);
+                    final ImageButton imageButton = (ImageButton) view.findViewById(R.id.closeImageViewer);
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if(value.exists()){
-                                        if(value.get("hostelImage2").toString().trim().length()>0) {
+                                    if (value.exists()) {
+                                        if (value.get("hostelImage2").toString().trim().length() > 0) {
                                             Picasso.get().load(value.get("hostelImage2").toString()).noFade()
-                                                    .resize(imageView.getWidth() , imageView.getHeight()).into(imageView, new Callback() {
+                                                    .resize(imageView.getWidth(), imageView.getHeight()).into(imageView, new Callback() {
                                                 @Override
                                                 public void onSuccess() {
 
@@ -537,20 +564,19 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                                     Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        }
-                                        else{
+                                        } else {
                                             imageView.setImageResource(R.drawable.add_image);
                                         }
                                     }
                                 }
                             });
                     builder.setView(view);
-                    final AlertDialog dialog=builder.create();
+                    final AlertDialog dialog = builder.create();
                     dialog.show();
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(dialog.getWindow().getAttributes());
                     layoutParams.width = width;
-                    layoutParams.height = height/2;
+                    layoutParams.height = height / 2;
                     dialog.getWindow().setAttributes(layoutParams);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -563,18 +589,18 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileHostelImage3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View holder) {
-                    View view=getLayoutInflater().inflate(R.layout.imageviewer , null);
-                    final AlertDialog.Builder builder=new AlertDialog.Builder(profile.this);
-                    final ImageView imageView=(ImageView)view.findViewById(R.id.imagerViewer);
-                    final ImageButton imageButton=(ImageButton)view.findViewById(R.id.closeImageViewer);
-                    db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                    View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.imagerViewer);
+                    final ImageButton imageButton = (ImageButton) view.findViewById(R.id.closeImageViewer);
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if(value.exists()){
-                                        if(value.get("hostelImage3").toString().trim().length()>0) {
+                                    if (value.exists()) {
+                                        if (value.get("hostelImage3").toString().trim().length() > 0) {
                                             Picasso.get().load(value.get("hostelImage3").toString()).noFade()
-                                                    .resize(imageView.getWidth() , imageView.getHeight()).into(imageView, new Callback() {
+                                                    .resize(imageView.getWidth(), imageView.getHeight()).into(imageView, new Callback() {
                                                 @Override
                                                 public void onSuccess() {
 
@@ -585,20 +611,19 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                                     Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        }
-                                        else{
+                                        } else {
                                             imageView.setImageResource(R.drawable.add_image);
                                         }
                                     }
                                 }
                             });
                     builder.setView(view);
-                    final AlertDialog dialog=builder.create();
+                    final AlertDialog dialog = builder.create();
                     dialog.show();
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(dialog.getWindow().getAttributes());
                     layoutParams.width = width;
-                    layoutParams.height = height/2;
+                    layoutParams.height = height / 2;
                     dialog.getWindow().setAttributes(layoutParams);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -611,18 +636,18 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileHostelImage4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View holder) {
-                    View view=getLayoutInflater().inflate(R.layout.imageviewer , null);
-                    final AlertDialog.Builder builder=new AlertDialog.Builder(profile.this);
-                    final ImageView imageView=(ImageView)view.findViewById(R.id.imagerViewer);
-                    final ImageButton imageButton=(ImageButton)view.findViewById(R.id.closeImageViewer);
-                    db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                    View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.imagerViewer);
+                    final ImageButton imageButton = (ImageButton) view.findViewById(R.id.closeImageViewer);
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if(value.exists()){
-                                        if(value.get("hostelImage4").toString().trim().length()>0) {
+                                    if (value.exists()) {
+                                        if (value.get("hostelImage4").toString().trim().length() > 0) {
                                             Picasso.get().load(value.get("hostelImage4").toString()).noFade()
-                                                    .resize(imageView.getWidth() , imageView.getHeight()).into(imageView, new Callback() {
+                                                    .resize(imageView.getWidth(), imageView.getHeight()).into(imageView, new Callback() {
                                                 @Override
                                                 public void onSuccess() {
 
@@ -633,20 +658,19 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                                     Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        }
-                                        else{
+                                        } else {
                                             imageView.setImageResource(R.drawable.add_image);
                                         }
                                     }
                                 }
                             });
                     builder.setView(view);
-                    final AlertDialog dialog=builder.create();
+                    final AlertDialog dialog = builder.create();
                     dialog.show();
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(dialog.getWindow().getAttributes());
                     layoutParams.width = width;
-                    layoutParams.height = height/2;
+                    layoutParams.height = height / 2;
                     dialog.getWindow().setAttributes(layoutParams);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -659,18 +683,18 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileMou.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View holder) {
-                    View view=getLayoutInflater().inflate(R.layout.imageviewer , null);
-                    final AlertDialog.Builder builder=new AlertDialog.Builder(profile.this);
-                    final ImageView imageView=(ImageView)view.findViewById(R.id.imagerViewer);
-                    final ImageButton imageButton=(ImageButton)view.findViewById(R.id.closeImageViewer);
-                    db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                    View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(profile.this);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.imagerViewer);
+                    final ImageButton imageButton = (ImageButton) view.findViewById(R.id.closeImageViewer);
+                    db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    if(value.exists()){
-                                        if(value.get("hostelMou").toString().trim().length()>0) {
+                                    if (value.exists()) {
+                                        if (value.get("hostelMou").toString().trim().length() > 0) {
                                             Picasso.get().load(value.get("hostelMou").toString()).noFade()
-                                                    .resize(imageView.getWidth() , imageView.getHeight()).into(imageView, new Callback() {
+                                                    .resize(imageView.getWidth(), imageView.getHeight()).into(imageView, new Callback() {
                                                 @Override
                                                 public void onSuccess() {
 
@@ -681,20 +705,19 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                                     Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-                                        }
-                                        else{
+                                        } else {
                                             imageView.setImageResource(R.drawable.add_image);
                                         }
                                     }
                                 }
                             });
                     builder.setView(view);
-                    final AlertDialog dialog=builder.create();
+                    final AlertDialog dialog = builder.create();
                     dialog.show();
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(dialog.getWindow().getAttributes());
                     layoutParams.width = width;
-                    layoutParams.height = height/2;
+                    layoutParams.height = height / 2;
                     dialog.getWindow().setAttributes(layoutParams);
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -705,7 +728,8 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                 }
             });
         }
-        }
+    }
+
     private void fetchLocation() {
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -713,26 +737,39 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
             return;
         }
-        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+       Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    Latitude=location.getLatitude();
-                    Longitude=location.getLongitude();
+                    Latitude = location.getLatitude();
+                    Longitude = location.getLongitude();
                     Toast.makeText(getApplicationContext(), Latitude + "" + Longitude, Toast.LENGTH_SHORT).show();
                     data.put("lat", Latitude);
                     data.put("lot", Longitude);
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
                     assert supportMapFragment != null;
                     supportMapFragment.getMapAsync(profile.this);
-                }
+               }
             }
         });
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
         LatLng latLng = new LatLng(Latitude , Longitude);
