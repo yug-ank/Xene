@@ -528,6 +528,8 @@
             android:background="@drawable/search"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:elevation="5dp"
+            android:visibility="gone"
             />
         <EditText
             android:id="@+id/profileSearchLocationAddress"
@@ -542,7 +544,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/edit_text_box"
-            android:elevation="5dp"/>
+            android:elevation="5dp"
+            android:visibility="gone"/>
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"

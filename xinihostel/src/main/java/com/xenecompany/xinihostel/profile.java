@@ -101,7 +101,6 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-        fetchLocation();
         edit_profile_picture = (FloatingActionButton) findViewById(R.id.edit_profile_picture);
         profileImage = (CircleImageView) findViewById(R.id.profileImage);
         profileName = (EditText) findViewById(R.id.profileName);
@@ -127,7 +126,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
         final int width = displayMetrics.widthPixels;
         final int height = displayMetrics.heightPixels;
 
-        if (getIntent().getStringExtra("from").equals("otp")) {
+       if (getIntent().getStringExtra("from").equals("otp")) {
             edit_profile_picture.setVisibility(View.VISIBLE);
             profileNextButton.setVisibility(View.VISIBLE);
             profileName.setEnabled(true);
@@ -138,7 +137,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileRent.setEnabled(true);
             profileDescription.setEnabled(true);
             auth = FirebaseAuth.getInstance();
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(profile.this);
             fetchLocation();
             edit_profile_picture.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -317,7 +316,32 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     });
                 }
             });
-
+        searchLocation=(Button)findViewById(R.id.profileSearchLocation);
+        searchLocation.setVisibility(View.VISIBLE);
+        EditText searchAddress=(EditText)findViewById(R.id.profileSearchLocationAddress);
+        searchAddress.setVisibility(View.VISIBLE);
+           searchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String location=searchAddress.getText().toString();
+                if(location!=null || !location.equals("")){
+                    Geocoder geocoder=new Geocoder(profile.this);
+                    try {
+                        List<Address> addressList=geocoder.getFromLocationName(location , 1);
+                        Address address=addressList.get(0);
+                        Latitude=address.getLatitude();
+                        Longitude=address.getLongitude();
+                        data.put("lat", Latitude);
+                        data.put("lot", Longitude);
+                        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
+                        assert supportMapFragment != null;
+                        supportMapFragment.getMapAsync(profile.this);
+                    }catch (IOException e){
+                        Toast.makeText(profile.this , ""+e , Toast.LENGTH_SHORT).show();
+                    }
+                }
+                }
+            });
         } else {
             db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(
                     new EventListener<DocumentSnapshot>() {
@@ -704,29 +728,6 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                 }
             });
         }
-        searchLocation=(Button)findViewById(R.id.profileSearchLocation);
-        searchLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText searchAddress=(EditText)findViewById(R.id.profileSearchLocationAddress);
-                String location=searchAddress.getText().toString();
-                if(location!=null || !location.equals("")){
-                    Geocoder geocoder=new Geocoder(profile.this);
-                    try {
-                        List<Address> addressList=geocoder.getFromLocationName(location , 1);
-                        Address address=addressList.get(0);
-                        Latitude=address.getLatitude();
-                        Longitude=address.getLongitude();
-                        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
-                        assert supportMapFragment != null;
-                        supportMapFragment.getMapAsync(profile.this);
-                    }catch (IOException e){
-                        Toast.makeText(profile.this , ""+e , Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            }
-        });
     }
 
     private void fetchLocation() {
