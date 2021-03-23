@@ -1,21 +1,42 @@
 package com.xenecompany.xinihostel;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.firebase.ui.firestore.SnapshotParser;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+
+import java.util.HashMap;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class wishlist extends AppCompatActivity {
 
     private androidx.appcompat.widget.Toolbar toolbar;
-
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wishlist);
+        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.wishlistRefreshLayout);
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.wishlistToolbar);
         toolbar.inflateMenu(R.menu.menu_main);
@@ -35,6 +56,55 @@ public class wishlist extends AppCompatActivity {
             }
         });
         ////////toolbar
-
+        DisplayMetrics displayMetrics= new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        final int width=displayMetrics.widthPixels;
+        SessionManager sessionManager=new SessionManager(this);
+        HashMap<String , String> sessionData = sessionManager.getUserDetailFromSession();
+        final FirebaseFirestore db=FirebaseFirestore.getInstance();
+        final RecyclerView wishlistRecyclerView=(RecyclerView)findViewById(R.id.wishlistRecyclerView);
+        final ProgressBar wishlistProgressBar=(ProgressBar)findViewById(R.id.wishlistProgressBar);
+        wishlistProgressBar.setVisibility(View.GONE);
+        wishlistRecyclerView.setLayoutManager(new GridLayoutManager(this , 2));
+        wishlistRecyclerView.setHasFixedSize(false);
+        final PagedList.Config config = new PagedList.Config.Builder()
+                .setInitialLoadSizeHint(10)
+                .setPageSize(10)
+                .build();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(
+                        new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if(value.exists()){
+                                    List<String> wishlist= (List<String>) value.get("wishlist");
+                                    if(wishlist.size()!=0) {
+                                        Query query = db.collection("Student").whereIn(FieldPath.documentId(), wishlist);
+                                        FirestorePagingOptions<StudentCardViewModel> options = new FirestorePagingOptions.Builder<StudentCardViewModel>()
+                                                .setQuery(query, config, new SnapshotParser<StudentCardViewModel>() {
+                                                    @NonNull
+                                                    @Override
+                                                    public StudentCardViewModel parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                                                        StudentCardViewModel studentCardViewModel = snapshot.toObject(StudentCardViewModel.class);
+                                                        studentCardViewModel.setItemID(snapshot.getId());
+                                                        return studentCardViewModel;
+                                                    }
+                                                })
+                                                .build();
+                                        student_view_adapter student_view_adapter= new student_view_adapter(options);
+                                        student_view_adapter.startListening();
+                                        student_view_adapter.setScreenwidth(width);
+                                        student_view_adapter.setContext(wishlist.this);
+                                        student_view_adapter.setProgressBar(wishlistProgressBar);
+                                        wishlistRecyclerView.setAdapter(student_view_adapter);
+                                    }
+                                }
+                            }
+                        }
+                );
+            }
+        });
     }
 }

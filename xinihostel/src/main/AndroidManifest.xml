@@ -47,6 +47,11 @@
         <activity android:name=".studentDetails">
 
         </activity>
+        <activity android:name=".About_Us"/>
+        <activity android:name=".contact_us"></activity>
+        <activity android:name=".my_deals"/>
+        <activity android:name=".wishlist"/>
+        <activity android:name=".faq"/>
         <service
             android:name=".NotificationFireBaseMessagingService">
             <intent-filter>
