@@ -37,6 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activityChatAll_newChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -48,6 +49,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activityChatAll_recyclerView"
         android:layout_width="388dp"
         android:layout_height="646dp"
         android:layout_marginTop="10dp"

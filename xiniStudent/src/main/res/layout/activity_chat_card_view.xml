@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activityChatCard_cardView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:backgroundTint="#f6f6f6"
-    >
+    android:backgroundTint="#f6f6f6">
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/activityChatCard_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".chatCardView">
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/activityChatCard_profilePicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -22,7 +23,7 @@
         app:srcCompat="@drawable/ic_male_avatr" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/activityChatCard_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -31,7 +32,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView13"
+        app:layout_constraintStart_toEndOf="@+id/activityChatCard_profilePicture"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -44,8 +45,8 @@
         android:textColor="@color/secondary"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintStart_toEndOf="@+id/activityChatCard_profilePicture"
+        app:layout_constraintTop_toBottomOf="@+id/activityChatCard_name"
         app:layout_constraintVertical_bias="0.324" />
 
     <ImageView

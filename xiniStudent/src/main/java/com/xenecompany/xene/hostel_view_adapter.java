@@ -53,28 +53,28 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
     }
     @Override
     protected void onBindViewHolder(@NonNull hostel_view_holder holder, int position, @NonNull final hostel_cardview_model model) {
-                        holder.hostelName.setText(model.getName());
-                        holder.hostelAddress.setText(model.getAddress());
-                        holder.hostelRating.setRating(model.getRating());
-                        Picasso.get().load(model.getBanner_image()).fit().into(holder.hostelImage, new Callback() {
-                            @Override
-                            public void onSuccess() {
+        holder.hostelName.setText(model.getName());
+        holder.hostelAddress.setText(model.getAddress());
+        holder.hostelRating.setRating(model.getRating());
+        Picasso.get().load(model.getBanner_image()).fit().into(holder.hostelImage, new Callback() {
+            @Override
+            public void onSuccess() {
 
-                            }
+            }
 
-                            @Override
-                            public void onError(Exception e) {
-                                    Log.i("rectify" , ""+e);
-                            }
-                        });
-                        view.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(context , pgDetails.class);
-                                intent.putExtra("ItemId" , model.getItemID());
-                                context.startActivity(intent);
-                            }
-                        });
+            @Override
+            public void onError(Exception e) {
+                    Log.i("rectify" , ""+e);
+            }
+        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context , pgDetails.class);
+                intent.putExtra("ItemId" , model.getItemID());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

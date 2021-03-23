@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".search_page"/>
         <activity android:name=".search" />
         <activity
@@ -19,34 +20,28 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".wishlist" />
         <activity
-            android:name=".profile"
-            android:windowSoftInputMode="adjustPan" />
+            android:name=".profile" />
         <activity android:name=".pgDetails" />
         <activity android:name=".otp_page" />
-        <activity android:name=".HomePage">
-        </activity>
-        <activity android:name=".chatCardView"></activity>
-        <activity android:name=".chatAll" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-        <activity android:name=".ChatPersonal">
-
-        </activity>
+        <activity android:name=".HomePage"/>
+        <activity android:name=".chatCardView"/>
+        <activity android:name=".chatAll" />
+        <activity android:name=".ChatPersonal"/>
+        <activity
             android:name=".Loginpage"
             android:windowSoftInputMode="adjustResize">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".contact_us"
             android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".faq">
-        </activity>
-        <activity android:name=".About_Us"></activity>
-        <activity android:name=".my_deals"></activity>
+        <activity android:name=".faq"/>
+        <activity android:name=".About_Us"/>
+        <activity android:name=".my_deals"/>
     </application>
 
 </manifest>

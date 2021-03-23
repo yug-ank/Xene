@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/activityChatPersonal_constraintLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +9,7 @@
     tools:context=".ChatPersonal">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/chat_toolbar"
+        android:id="@+id/activityChatPersonal_chatToolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorPrimary"
@@ -16,24 +18,24 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/activityChatPersonal_profilePicture"
         android:layout_width="57dp"
         android:layout_height="53dp"
         android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/chat_toolbar"
-        app:layout_constraintStart_toStartOf="@+id/chat_toolbar"
-        app:layout_constraintTop_toTopOf="@+id/chat_toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/activityChatPersonal_chatToolbar"
+        app:layout_constraintStart_toStartOf="@+id/activityChatPersonal_chatToolbar"
+        app:layout_constraintTop_toTopOf="@+id/activityChatPersonal_chatToolbar"
         app:srcCompat="@drawable/ic_male_avatr" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/activityChatPersonal_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:hint="Name"
         android:textSize="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/chat_toolbar"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/activityChatPersonal_chatToolbar"
+        app:layout_constraintStart_toEndOf="@+id/activityChatPersonal_profilePicture"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -42,9 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_film"
-        app:layout_constraintBottom_toBottomOf="@+id/chat_toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/activityChatPersonal_chatToolbar"
         app:layout_constraintEnd_toStartOf="@+id/imageView12"
-        app:layout_constraintTop_toTopOf="@+id/chat_toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/activityChatPersonal_chatToolbar" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -52,9 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_vertical_menu"
-        app:layout_constraintBottom_toBottomOf="@+id/chat_toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/chat_toolbar"
-        app:layout_constraintTop_toTopOf="@+id/chat_toolbar" />
+        app:layout_constraintBottom_toBottomOf="@+id/activityChatPersonal_chatToolbar"
+        app:layout_constraintEnd_toEndOf="@+id/activityChatPersonal_chatToolbar"
+        app:layout_constraintTop_toTopOf="@+id/activityChatPersonal_chatToolbar" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -62,12 +64,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_chat_phone"
-        app:layout_constraintBottom_toBottomOf="@+id/chat_toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/activityChatPersonal_chatToolbar"
         app:layout_constraintEnd_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="@+id/chat_toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/activityChatPersonal_chatToolbar" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/activityChatPersonal_editText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -79,27 +81,28 @@
         android:textColorHint="@color/secondary"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/activityChatPersonal_recyclerView"
         tools:layout_editor_absoluteX="58dp" />
 
     <ImageView
+        android:id="@+id/activityChatPersonal_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_chat_send"
-        app:layout_constraintBottom_toBottomOf="@id/editText"
+        app:layout_constraintBottom_toBottomOf="@id/activityChatPersonal_editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/activityChatPersonal_editText"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/activityChatPersonal_recyclerView"
         android:layout_width="409dp"
         android:layout_height="614dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chat_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/activityChatPersonal_chatToolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

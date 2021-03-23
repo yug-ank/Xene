@@ -35,7 +35,6 @@ public class search_page extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference("Hostels");
         recentSearches = findViewById(R.id.activitySearchRecentSearch);
         searchView = (SearchView) findViewById(R.id.activitySearchSearchInput);
-        searchView.focusSearch(View.FOCUS_LEFT);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

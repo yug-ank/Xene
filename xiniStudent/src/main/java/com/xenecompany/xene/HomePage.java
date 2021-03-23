@@ -128,6 +128,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
             @Override
             public void onClick(View view) {
                 TextView textView=(TextView)view.findViewById(R.id.messageCount);
+                startActivity(new Intent(view.getContext(), chatAll.class));
                 textView.setText("0");
             }
         });
