@@ -2,10 +2,14 @@ package com.xenecompany.xinihostel;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -61,6 +65,20 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
         navigationView.setNavigationItemSelectedListener(this);
         swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.homepageRefreshLayout);
         sessionData=sessionManager.getUserDetailFromSession();
+
+        ///logout snip
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("onReceive","Logout in progress");
+                startActivity(new Intent(HomePage.this , Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK
+                        |Intent.FLAG_ACTIVITY_NO_HISTORY));
+                finish();
+            }
+        }, intentFilter);
+        ///logout snip
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.activityHomePageWithNavigation_drawer_layout);
@@ -160,9 +178,9 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.myDeals: {
-                Toast.makeText(this, "My Deals selected", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this , my_deals.class));
+            case R.id.myProfile: {
+                Toast.makeText(this, "My Profile selected", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this , profile.class).putExtra("from" ,  ""));
                 break;
             }
             case R.id.help: {
@@ -174,7 +192,11 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
                 Toast.makeText(this, "Sign-Out selected", Toast.LENGTH_LONG).show();
                 FirebaseAuth.getInstance().signOut();
                 sessionManager.logOutUser();
-                startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                sendBroadcast(broadcastIntent);
+                startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK
+                                                                                        |Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 break;
             }
             case R.id.about_us :

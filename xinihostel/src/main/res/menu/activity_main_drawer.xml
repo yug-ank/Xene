@@ -5,7 +5,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/myDeals"
+            android:id="@+id/myProfile"
             android:icon="@drawable/ic_deal"
             android:title="@string/slide_bar_menu_2" />
         <item
