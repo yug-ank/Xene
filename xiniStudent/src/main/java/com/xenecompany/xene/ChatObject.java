@@ -1,8 +1,8 @@
 package com.xenecompany.xene;
 
-public class ChatList {
+public class ChatObject {
     private String chatroomId , hostelNo , profilePicture , hostelName;
-    public ChatList(String chatroomId , String hostelNo){
+    public ChatObject(String chatroomId , String hostelNo){
         this.chatroomId = chatroomId;
         this.hostelNo = hostelNo;
     }

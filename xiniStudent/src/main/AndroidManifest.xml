@@ -26,7 +26,8 @@
         <activity android:name=".HomePage"/>
         <activity android:name=".chatCardView"/>
         <activity android:name=".chatAll" />
-        <activity android:name=".ChatPersonal"/>
+        <activity android:name=".ChatPersonal"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Loginpage"
             android:windowSoftInputMode="adjustResize">

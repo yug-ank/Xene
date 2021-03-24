@@ -32,7 +32,7 @@ public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapte
             Log.i("yashwant", "done");
             holder.msgSend.setText(chat.get(position).getText());
         }
-        else {
+        if(chat.get(position).sender.equals("H")) {
 //            holder.msgRecieve.setEnabled(true);
             holder.msgRecieve.setVisibility(View.VISIBLE);
             holder.msgRecieve.setText(chat.get(position).getText());

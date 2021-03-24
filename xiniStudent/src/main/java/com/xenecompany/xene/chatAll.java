@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -25,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.ArrayList;
 
 public class chatAll extends AppCompatActivity {
-    ArrayList<ChatList> chatList;
+    ArrayList<ChatObject> chatList;
     RecyclerView recyclerView;
     public  chat_all_adapter adapter;
     @Override
@@ -49,8 +48,10 @@ public class chatAll extends AppCompatActivity {
                 if(snapshot.exists()){
                     Log.i("data snaphot exist", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
                     for(DataSnapshot childrens : snapshot.getChildren()){
-                        Log.i("child", childrens.child("chatroomId").getValue().toString());
-                        final ChatList obj = new ChatList(childrens.child("chatroomId").getValue().toString() , childrens.child("hostelNo").getValue().toString());
+                        String temp = "";
+                        for(DataSnapshot chatroom : childrens.child("chatroomId").getChildren())
+                            temp = chatroom.getKey();
+                        final ChatObject obj = new ChatObject( temp , childrens.child("hostelNo").getValue().toString());
                         DocumentReference db = FirebaseFirestore.getInstance().collection("Hostels").document(obj.getHostelNo());
                         FirebaseFirestore.getInstance().collection("Hostels").document(obj.getHostelNo()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override

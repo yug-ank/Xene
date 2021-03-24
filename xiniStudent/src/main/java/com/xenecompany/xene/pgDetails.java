@@ -1,6 +1,8 @@
 package com.xenecompany.xene;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -12,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,6 +25,8 @@ import com.xenecompany.xene.adapter.pgDetailsAdapter;
 import com.xenecompany.xene.model.pgDetailsModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class pgDetails extends AppCompatActivity {
     private ArrayList<pgDetailsModel> data;
@@ -31,7 +37,8 @@ public class pgDetails extends AppCompatActivity {
     private TextView nameOfPg ,areaOfPg ,rent ,description;
     private RatingBar ratingBar;
     private ScrollView scrollView;
-    private DocumentReference db;
+    private DatabaseReference db;
+    private Button startchat;
     Integer[] icons={R.drawable.ic_bed,R.drawable.ic_cabinet,R.drawable.ic_desk,
                      R.drawable.ic_revolving_chair,R.drawable.ic_washing_machine,
                      R.drawable.ic_spoon};
@@ -43,13 +50,48 @@ public class pgDetails extends AppCompatActivity {
         setValues();
         viewPagerConfig();
         setUtilitiesIcon();
+
+        startchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String hostelMobNo = getIntent().getStringExtra("ItemId");
+                String currentUserMobNo = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
+                db = FirebaseDatabase.getInstance().getReference().child("user").child(currentUserMobNo).child(hostelMobNo);
+                DatabaseReference db1 = db.child("chatroomId");
+                String chatrromId = db1.push().getKey();
+                Map obj = new HashMap<>();
+                obj.put(chatrromId, true);
+                db1.updateChildren(obj);
+                obj.clear();
+                obj.put("hostelNo", hostelMobNo);
+                db.updateChildren(obj);
+                obj.clear();
+
+                db = FirebaseDatabase.getInstance().getReference().child("hostel").child(hostelMobNo).child(currentUserMobNo);
+                db1 = db.child("chatroomId");
+                obj.put(chatrromId, true);
+                db1.updateChildren(obj);
+                obj.put("userNumber", currentUserMobNo);
+                db.updateChildren(obj);
+                obj.clear();
+
+                db = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatrromId);
+                String msgId = db.push().getKey();
+                db1 = db.child(msgId);
+                obj.put("sender", "z");
+                obj.put("text", false);
+                obj.put("time", "time");
+                db1.updateChildren(obj);
+            }
+        });
     }
 
     private void setViews(){
+        startchat = (Button) findViewById(R.id.layoutPgPictures_startchat);
         ratingBar = (RatingBar) findViewById(R.id.layoutPgPictures_RatingBar);
         nameOfPg = (TextView) findViewById(R.id.layoutPgPictures_NameOfPg);
         areaOfPg = (TextView) findViewById(R.id.layoutPgPictures_AreaOfPg);
-        rent = (TextView) findViewById(R.id.layoutPgPictures_Rent);
+        rent = (TextView) findViewById(R.id.price_pgdetails);
         description = (TextView) findViewById(R.id.layoutPgDescription_Description);
     }
 

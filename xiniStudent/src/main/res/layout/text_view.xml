@@ -10,12 +10,10 @@
         android:id="@+id/textMessageSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hello"
         android:visibility="invisible"
         android:background="@drawable/received_message"
         android:paddingLeft="15dp"
-        android:textColor="@color/white"
-        android:textSize="24dp" />
+        android:textColor="@color/white" />
     <TextView
         android:id="@+id/textMessageRecieve"
         android:layout_width="match_parent"
@@ -23,7 +21,5 @@
         android:visibility="invisible"
         android:background="@drawable/received_message"
         android:paddingLeft="15dp"
-        android:text="name name name name name name name name name name name name name "
-        android:textColor="@color/white"
-        android:textSize="24dp"/>
+        android:textColor="@color/white" />
 </LinearLayout>

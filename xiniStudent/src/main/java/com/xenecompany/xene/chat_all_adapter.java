@@ -17,10 +17,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.viewHolder> {
-    private ArrayList<ChatList> chatList;
+    private ArrayList<ChatObject> chatList;
     private Context context;
 
-    public chat_all_adapter(ArrayList<ChatList> chatList , Context context) {
+    public chat_all_adapter(ArrayList<ChatObject> chatList , Context context) {
         this.chatList = chatList;
         this.context = context;
     }
