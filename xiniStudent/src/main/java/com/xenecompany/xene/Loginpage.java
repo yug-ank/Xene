@@ -41,7 +41,7 @@ public class Loginpage extends Activity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(userNumber.getText().toString().trim().length()<10){
                     sendOtpButton.setEnabled(false);
-//                    sendOtpButton.setBackgroundResource(R.drawable.signup_button_notactive_new);
+                    sendOtpButton.setBackgroundResource(R.drawable.sign_up_button_notactive);
                 }
                 else{
                     sendOtpButton.setEnabled(true);
@@ -59,5 +59,4 @@ public class Loginpage extends Activity {
         intent.putExtra("phoneNo" , phoneNo);
         startActivity(intent);
     }
-
 }

@@ -101,8 +101,8 @@ public class contact_us extends AppCompatActivity {
                 String personname=name.getText().toString().trim();
                 String personcontact=contact.getText().toString().trim();
                 String personissue=issue.getText().toString().trim();
-               // SendEmail sendEmail=new SendEmail(contact_us.this, personname , personcontact , personissue);
-               // sendEmail.execute();
+                SendEmail sendEmail=new SendEmail(contact_us.this, personname , personcontact , personissue);
+                sendEmail.execute();
             }
         });
 

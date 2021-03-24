@@ -22,6 +22,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -102,10 +103,12 @@ public class otp_page extends Activity {
                             new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    String token= FirebaseInstanceId.getInstance().getToken();
                                     if(value.exists()){
                                         Toast.makeText(otp_page.this , "Login sucessful" , Toast.LENGTH_SHORT).show();
                                         Intent intent=new Intent(otp_page.this , HomePage.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        db.collection("Hostels").document(userId).update("token" , token);
                                         startActivity(intent);
                                     }
                                     else{
@@ -116,7 +119,7 @@ public class otp_page extends Activity {
                                         data.put("hostelName" , "");
                                         data.put("hostelAddress" , "");
                                         data.put("hostelMou" , "");
-                                        data.put("hostelFacilities" , Arrays.asList(""));
+                                        data.put("hostelFacilities" , Arrays.asList());
                                         data.put("hostelImage1" , "");
                                         data.put("hostelImage2" , "");
                                         data.put("hostelImage3" , "");
@@ -127,6 +130,8 @@ public class otp_page extends Activity {
                                         data.put("profileVerified"  , false);
                                         data.put("price" , 0);
                                         data.put("description" , "");
+                                        data.put("rating" , 0);
+                                        data.put("token" , token);
                                         db.collection("Hostels").document(userId).set(data , SetOptions.merge())
                                                 .addOnSuccessListener(
                                                         new OnSuccessListener<Void>() {
@@ -149,11 +154,11 @@ public class otp_page extends Activity {
                                 }
                             }
                     );
-
                 }
                 else{
                     Toast.makeText(otp_page.this , task.getException().getMessage() , Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }

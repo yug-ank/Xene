@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.xenecompany.xene"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -48,10 +48,10 @@ dependencies {
     implementation files('libs\\activation.jar')
     implementation files('libs\\additionnal.jar')
     implementation files('libs\\mail.jar')
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation 'com.chaos.view:pinview:1.4.4'
     implementation "androidx.browser:browser:1.2.0"
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -61,5 +61,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
     implementation 'com.google.firebase:firebase-firestore'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
-
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 }

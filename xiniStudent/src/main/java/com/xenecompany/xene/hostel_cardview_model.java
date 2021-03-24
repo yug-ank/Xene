@@ -1,32 +1,35 @@
 package com.xenecompany.xene;
 
 public class hostel_cardview_model {
-    private String banner_image;
+    private String hostelImage1;
     private String name;
-    private String address;
+    private String hostelAddress;
     private float rating;
     private String itemID;
+    private  String token;
+
+    public hostel_cardview_model(String hostelImage1, String name, String hostelAddress, float rating, String itemID, String token) {
+        this.hostelImage1 = hostelImage1;
+        this.name = name;
+        this.hostelAddress = hostelAddress;
+        this.rating = rating;
+        this.itemID = itemID;
+        this.token = token;
+    }
+
     public hostel_cardview_model() {
     }
 
-    public hostel_cardview_model(String banner_image, String name, String address, float rating, String itemID) {
-        this.banner_image = banner_image;
-        this.name = name;
-        this.address = address;
-        this.rating = rating;
-        this.itemID = itemID;
-    }
-
-    public String getBanner_image() {
-        return banner_image;
+    public String getHostelImage1() {
+        return hostelImage1;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getHostelAddress() {
+        return hostelAddress;
     }
 
     public float getRating() {
@@ -37,16 +40,20 @@ public class hostel_cardview_model {
         return itemID;
     }
 
-    public void setBanner_image(String banner_image) {
-        this.banner_image = banner_image;
+    public String getToken() {
+        return token;
+    }
+
+    public void setHostelImage1(String hostelImage1) {
+        this.hostelImage1 = hostelImage1;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setHostelAddress(String hostelAddress) {
+        this.hostelAddress = hostelAddress;
     }
 
     public void setRating(float rating) {
@@ -55,5 +62,9 @@ public class hostel_cardview_model {
 
     public void setItemID(String itemID) {
         this.itemID = itemID;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

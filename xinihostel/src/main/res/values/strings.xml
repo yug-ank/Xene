@@ -1,6 +1,6 @@
 <resources>
     <string name="xene">XINI</string>
-    <string name="app_name">XENE-user</string>
+    <string name="app_name">XINI Hostel</string>
     <string name="_91">+91</string>
     <string name="title_activity_main_navigation">main_activity_navigation</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -22,7 +22,7 @@
     <string name="card_view_name_of_pg">Name of PG</string>
     <string name="card_view_area_of_pg">Area of PG</string>
     <string name="slide_bar_menu_1">Edit Profile</string>
-    <string name="slide_bar_menu_2">My Deals</string>
+    <string name="slide_bar_menu_2">My Profile</string>
     <string name="slide_bar_menu_3">Help</string>
     <string name="layout_pg_pictures_likeButton_description">add to favourate button</string>
     <string name="layout_pg_pictures_name">Name of pg</string>

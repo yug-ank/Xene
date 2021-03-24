@@ -60,6 +60,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "386617997063-r991q6lc52rk2mj4t5lriks510at8s9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xenecompany.xinihostel",
+            "certificate_hash": "ca947381a5a3b8d48caf6b2ae08b1cd34d7ce322"
+          }
+        },
+        {
           "client_id": "386617997063-4eh3m5p751cef5uu7pdgo26lgnm03ur5.apps.googleusercontent.com",
           "client_type": 3
         }

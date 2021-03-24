@@ -22,7 +22,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -96,7 +98,9 @@ public class otp_page extends Activity {
                 if(task.isSuccessful()){
                     SessionManager sessionManager=new SessionManager(otp_page.this);
                     sessionManager.createLoginSession(phoneNo);
+
                     final FirebaseFirestore db=FirebaseFirestore.getInstance();
+                    final String token= FirebaseInstanceId.getInstance().getToken();
                     db.collection("Student").document(userId).addSnapshotListener(
                             new EventListener<DocumentSnapshot>() {
                                 @Override
@@ -119,7 +123,11 @@ public class otp_page extends Activity {
                                         data.put("gaurdianAddress" , "");
                                         data.put("gaurdianContactNo" ,"");
                                         data.put("profilePicture" , "");
+                                        data.put("wishlist" , Arrays.asList());
+                                        data.put("requested" , Arrays.asList());
+                                        data.put("accepted" , Arrays.asList());
                                         data.put("profileCompleted"  , false);
+                                        data.put("token" , token);
                                         db.collection("Student").document(userId).set(data , SetOptions.merge())
                                                 .addOnSuccessListener(
                                                         new OnSuccessListener<Void>() {

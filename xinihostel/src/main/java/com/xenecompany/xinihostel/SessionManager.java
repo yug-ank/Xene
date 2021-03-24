@@ -8,7 +8,6 @@ import java.util.HashMap;
 public class SessionManager {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    private static final String Logged_In="Logged_In";
     public static final String Key_Phone_no="phone_no";
     public SessionManager(Context context){
             sharedPreferences = context.getSharedPreferences("userLoginSession" , Context.MODE_PRIVATE);

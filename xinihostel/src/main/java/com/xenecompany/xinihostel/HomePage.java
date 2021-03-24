@@ -2,10 +2,14 @@ package com.xenecompany.xinihostel;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -31,10 +36,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class HomePage extends Activity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomePage extends Activity  implements NavigationView.OnNavigationItemSelectedListener {
 
     private androidx.appcompat.widget.Toolbar toolbar;
     private RecyclerView parentRecyclerView;
@@ -46,6 +52,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
     boolean doubleBackPressed=false;
     private CircleImageView navigationImage;
     HashMap<String , String> sessionData;
+    SwipeRefreshLayout swipeRefreshLayout;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +63,22 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         progressBar = (ProgressBar)findViewById(R.id.homepageProgressBar);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.homepageRefreshLayout);
         sessionData=sessionManager.getUserDetailFromSession();
+
+        ///logout snip
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("onReceive","Logout in progress");
+                startActivity(new Intent(HomePage.this , Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK
+                        |Intent.FLAG_ACTIVITY_NO_HISTORY));
+                finish();
+            }
+        }, intentFilter);
+        ///logout snip
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.activityHomePageWithNavigation_drawer_layout);
@@ -65,16 +86,8 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         toolbar.inflateMenu(R.menu.menu_main);
-        FrameLayout navigationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
         NavigationView navigationView=findViewById(R.id.nav_view);
         View headerLayout=navigationView.getHeaderView(0);
-        navigationLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               TextView textView=(TextView)view.findViewById(R.id.notificationCount);
-               textView.setText("0");
-            }
-        });
         navigationName=(TextView)headerLayout.findViewById(R.id.navigationName);
         navigationImage=(CircleImageView)headerLayout.findViewById(R.id.navigationImage);
         FirebaseFirestore db=FirebaseFirestore.getInstance();
@@ -144,14 +157,30 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         homePageParentRecyclerViewAdapter.notifyDataSetChanged();
         parentRecyclerView.setAdapter(homePageParentRecyclerViewAdapter);
         ////////////parent recycler view
+
+
+        ///token updation
+        String token= FirebaseInstanceId.getInstance().getToken();
+        db.collection("Hostels").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).update("token" , token);
+        ///token updation
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                homePageParentRecyclerView homePageParentRecyclerViewAdapter =new homePageParentRecyclerView(HomePage.this, width , progressBar);
+                homePageParentRecyclerViewAdapter.notifyDataSetChanged();
+                parentRecyclerView.setAdapter(homePageParentRecyclerViewAdapter);
+
+            }
+        });
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.myDeals: {
-                Toast.makeText(this, "My Deals selected", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this , my_deals.class));
+            case R.id.myProfile: {
+                Toast.makeText(this, "My Profile selected", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this , profile.class).putExtra("from" ,  ""));
                 break;
             }
             case R.id.help: {
@@ -163,7 +192,11 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
                 Toast.makeText(this, "Sign-Out selected", Toast.LENGTH_LONG).show();
                 FirebaseAuth.getInstance().signOut();
                 sessionManager.logOutUser();
-                startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                sendBroadcast(broadcastIntent);
+                startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK
+                                                                                        |Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 break;
             }
             case R.id.about_us :

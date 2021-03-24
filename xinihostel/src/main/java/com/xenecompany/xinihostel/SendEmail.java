@@ -1,6 +1,6 @@
 package com.xenecompany.xinihostel;
 
-/*import android.app.ProgressDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -59,7 +59,7 @@ public class SendEmail extends AsyncTask<Message , String , String> {
             message.setFrom(new InternetAddress("yuganksharma012@gmail.com"));
             message.setRecipient(Message.RecipientType.TO ,
                     new InternetAddress("xinicompany@gmail.com"));
-            message.setSubject("Issue from student side");
+            message.setSubject("Issue from hostel side");
             message.setText("name:"+name+"\nContact:"+contact+"\nIssue\n"+issue);
             Transport.send(message);
         } catch (MessagingException e) {
@@ -68,4 +68,4 @@ public class SendEmail extends AsyncTask<Message , String , String> {
 
         return null;
     }
-}*/
+}

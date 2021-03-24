@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -128,7 +129,6 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
             @Override
             public void onClick(View view) {
                 TextView textView=(TextView)view.findViewById(R.id.messageCount);
-                startActivity(new Intent(view.getContext(), chatAll.class));
                 textView.setText("0");
             }
         });
@@ -147,6 +147,12 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
         homePageParentRecyclerViewAdapter.notifyDataSetChanged();
         parentRecyclerView.setAdapter(homePageParentRecyclerViewAdapter);
         ////////////parent recycler view
+
+        ///token updation
+        String token= FirebaseInstanceId.getInstance().getToken();
+        db.collection("Student").document("+91"+sessionData.get(SessionManager.Key_Phone_no)).update("token" , token);
+        ///token updation
+
 
         searchEditText = findViewById(R.id.search_input);
         Log.e(null, "before search activity");
@@ -172,9 +178,10 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
                 startActivity(new Intent(this , faq.class));
                 break;
             }
-            case R.id.signOut: {
-                FirebaseAuth.getInstance().signOut();
+            case R.id.activityMainDrawer_signOut : {
                 Toast.makeText(this, "Sign-Out selected", Toast.LENGTH_LONG).show();
+                FirebaseAuth.getInstance().signOut();
+                sessionManager.logOutUser();
                 startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
             }
@@ -209,10 +216,5 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
                 doubleBackPressed=false;
                 }
                 } , 2000);
-    }
-
-    public void startSearchActivty(View view){
-        Log.e(null, "before search activity");
-        startActivity(new Intent(view.getContext(), search_page.class));
     }
 }
