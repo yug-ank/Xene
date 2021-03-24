@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
@@ -19,59 +20,470 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-            <ImageView
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/studentDetailImage"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:contentDescription="TODO"
+                android:padding="15dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_default="percent"
-                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintHeight_percent="0.1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="percent"
-                android:padding="15dp"
-                android:contentDescription="TODO" />
-            <TextView
-                android:id="@+id/studentDetailDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="11"
-                android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/studentDetailImage"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:foregroundGravity="center"
+                app:layout_constraintWidth_percent="0.4"
+                />
+
 
             <ImageView
                 android:id="@+id/studentAadharCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHeight_default="percent"
-                app:layout_constraintHeight_percent="0.2"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/studentDetailDescription"
-                app:layout_constraintVertical_bias="0.155"
-                app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.4"
-                android:layout_marginStart="15dp"/>
-
-            <ImageView
-                android:id="@+id/studentInstituteCard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_default="percent"
                 app:layout_constraintHeight_percent="0.2"
-                app:layout_constraintLeft_toRightOf="@id/studentAadharCard"
-                app:layout_constraintTop_toBottomOf="@id/studentDetailDescription"
-                app:layout_constraintVertical_bias="0.155"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailAdharCard"
+                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.4" />
+                />
+
+            <TextView
+                android:id="@+id/detailAdharCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:text="Adhar Card"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailGuardianAddress"
+                app:layout_constraintWidth_default="percent"
+             />
+
+            <TextView
+                android:id="@+id/detailInstituteID"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:text="Institute ID"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/studentAadharCard"
+                app:layout_constraintWidth_default="percent" />
+<ImageView
+    android:id="@+id/studentInstituteCard"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="10dp"
+    app:layout_constraintHeight_default="percent"
+    app:layout_constraintWidth_default="percent"
+    app:layout_constraintHeight_percent="0.2"
+    app:layout_constraintTop_toBottomOf="@id/detailInstituteID"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    />
+
+            <EditText
+                android:id="@+id/profileName"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="YOUR NAME"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent=".04"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/studentDetailImage"
+                android:enabled="false"
+                android:background="@null"
+                android:autoSizeTextType="uniform"
+                android:inputType="textPersonName"/>
+
+            <TextView
+                android:id="@+id/detailEmail"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="5dp"
+                android:text="Email "
+                android:drawableStart="@drawable/ic_envelope_grey"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileName"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailEmail"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter email"
+                android:inputType="textEmailAddress"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailEmail"
+                app:layout_constraintTop_toBottomOf="@id/profileName"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailPhoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="5dp"
+                android:text="Contact"
+                android:drawableStart="@drawable/ic_profile_contact"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailEmail"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailPhoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter email"
+                android:inputType="phone"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailPhoneNumber"
+                app:layout_constraintTop_toBottomOf="@id/editdetailEmail"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailAdharNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="5dp"
+                android:text="Adhar"
+                android:drawableStart="@drawable/ic_profile_contact"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailPhoneNumber"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailAdharNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter adhar number"
+                android:inputType="text"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailAdharNumber"
+                app:layout_constraintTop_toBottomOf="@id/editdetailPhoneNumber"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailnstitute"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:text="INSTITUTE DETAILS"
+                android:drawableStart="@drawable/ic_address"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailAdharNumber"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.9" />
+
+            <TextView
+                android:id="@+id/detailInstituteName"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Name"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailnstitute"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailInstituteName"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter institute name"
+                android:inputType="text"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailInstituteName"
+                app:layout_constraintTop_toBottomOf="@id/detailnstitute"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailInstituteAddress"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Address"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailInstituteName"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailInstituteAddress"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter institute address"
+                android:inputType="text"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailInstituteAddress"
+                app:layout_constraintTop_toBottomOf="@id/editdetailInstituteName"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailInstituteIDNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="ID No."
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailInstituteAddress"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailInstituteIDNumber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter institute address"
+                android:inputType="text"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailInstituteIDNumber"
+                app:layout_constraintTop_toBottomOf="@id/editdetailInstituteAddress"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailGuardians"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:text="GUARDIAN DETAILS"
+                android:drawableStart="@drawable/ic_profile_person"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailInstituteIDNumber"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.9" />
+
+            <TextView
+                android:id="@+id/detailGuardianName"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Name"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailGuardians"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailGuardianName"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter guardian name"
+                android:inputType="text"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailGuardianName"
+                app:layout_constraintTop_toBottomOf="@id/detailGuardians"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailGuardianContact"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Contact"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailGuardianName"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailGuardianContact"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter guardian phone no."
+                android:inputType="text"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailGuardianContact"
+                app:layout_constraintTop_toBottomOf="@id/detailGuardianName"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
+            <TextView
+                android:id="@+id/detailGuardianAddress"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Address"
+                android:textColor="@color/secondary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailGuardianContact"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <EditText
+                android:id="@+id/editdetailGuardianAddress"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="enter guardian address"
+                android:inputType="text"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.025"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toEndOf="@id/detailGuardianAddress"
+                app:layout_constraintTop_toBottomOf="@id/editdetailGuardianContact"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.65" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pgDetailsButtonLayout"
         android:layout_width="match_parent"
@@ -118,12 +530,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent=".29" />
+
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:background="@color/black"
             android:elevation="3dp"
@@ -133,7 +545,7 @@
             app:layout_constraintLeft_toRightOf="@id/wishlist_button"
             app:layout_constraintRight_toLeftOf="@id/book_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".29"/>
+            app:layout_constraintWidth_percent=".29" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/layoutPgPictures_startchat"

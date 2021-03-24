@@ -62,7 +62,7 @@
 
     <EditText
         android:id="@+id/profileName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
         android:hint="YOUR NAME"
@@ -396,25 +396,137 @@
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent=".6"
             android:layout_marginBottom="5dp"/>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/profileFacilityBed"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="40dp"
+            android:drawableLeft="@drawable/ic_bed"
+            android:enabled="false"
+            android:text="bed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent="0.1"
             app:layout_constraintHorizontal_bias="0.109"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView9"
+            app:layout_constraintTop_toTopOf="@id/facilitiesContainer"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.4"
-            android:text="BED"
-            android:drawableLeft="@drawable/ic_bed"
-            android:drawablePadding="5dp"
+            app:layout_constraintWidth_percent="0.23" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityAlmirah"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_cabinet"
             android:enabled="false"
-            />
+            android:text="almirah"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.109"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityChair"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.25" />
+
+
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityTable"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_desk"
+            android:enabled="false"
+            android:text="table"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.109"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityBed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.23" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityChair"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_revolving_chair"
+            android:enabled="false"
+            android:text="chair"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.109"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityTable"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.23" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityLaundry"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:drawableLeft="@drawable/ic_washing_machine"
+            android:enabled="false"
+            android:text="laundry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityTable"
+            app:layout_constraintTop_toTopOf="@id/facilitiesContainer"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.27" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFAcilityMess"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_spoon"
+            android:enabled="false"
+            android:text="mess"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityTable"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityLaundry"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_spoon"
+            android:enabled="false"
+            android:text="A.C."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/profileFacilityTable"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityTable"
+            app:layout_constraintTop_toBottomOf="@id/profileFAcilityMess"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.25" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -163,7 +163,7 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
         switch (item.getItemId()){
             case R.id.myProfile: {
                 Toast.makeText(this, "My Profile selected", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this , profile.class).putExtra("from" ,  ""));
+                startActivity(new Intent(this , profile.class).putExtra("from", ""));
                 break;
             }
             case R.id.help: {
