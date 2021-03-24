@@ -16,6 +16,9 @@
         android:roundIcon="@mipmap/ic_navigation_full_logo_xini_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".chatAll"/>
+        <activity android:name=".ChatPersonal"/>
         <activity android:name=".splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

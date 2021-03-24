@@ -68,7 +68,6 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/likebuttonholder"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -82,7 +81,6 @@
             >
 
             <com.like.LikeButton
-                android:id="@+id/likeButton"
                 app:icon_type="heart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

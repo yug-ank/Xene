@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="65dp"
     android:layout_height="35dp"
-    android:layout_gravity="center"
-    android:id="@+id/messageFrameLayout"
-    >
+    android:layout_gravity="center">
     <ImageView
         android:id="@+id/toolbarMessageImageView"
         android:layout_width="@dimen/menu_item_icon_size"
@@ -17,7 +15,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
     <FrameLayout
-        android:id="@+id/red_circle_layout"
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_gravity="top|end"
