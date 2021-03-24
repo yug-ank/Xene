@@ -2,14 +2,10 @@ package com.xenecompany.xinihostel;
 
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -66,19 +62,6 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
         swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.homepageRefreshLayout);
         sessionData=sessionManager.getUserDetailFromSession();
 
-        ///logout snip
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.package.ACTION_LOGOUT");
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Log.d("onReceive","Logout in progress");
-                startActivity(new Intent(HomePage.this , Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK
-                        |Intent.FLAG_ACTIVITY_NO_HISTORY));
-                finish();
-            }
-        }, intentFilter);
-        ///logout snip
         ////////toolbar
         toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.activityHomePageWithNavigation_drawer_layout);
@@ -192,11 +175,10 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
                 Toast.makeText(this, "Sign-Out selected", Toast.LENGTH_LONG).show();
                 FirebaseAuth.getInstance().signOut();
                 sessionManager.logOutUser();
-                Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-                sendBroadcast(broadcastIntent);
-                startActivity(new Intent(this,Loginpage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK
-                                                                                        |Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                Intent intent=new Intent(HomePage.this , Loginpage.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK
+                        |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             }
             case R.id.about_us :
