@@ -13,6 +13,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,14 +34,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -42,6 +43,7 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
     private RecyclerView parentRecyclerView;
     private int width;
     private ProgressBar progressBar;
+//    private NavigatioAnView navigationView;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private TextView navigationName;
@@ -123,6 +125,7 @@ public class HomePage extends Activity  implements NavigationView.OnNavigationIt
             public void onClick(View view) {
                 TextView textView=(TextView)view.findViewById(R.id.messageCount);
                 textView.setText("0");
+                startActivity(new Intent(view.getContext(), chatAll.class));
             }
         });
         ////////toolbar

@@ -130,6 +130,7 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
             public void onClick(View view) {
                 TextView textView=(TextView)view.findViewById(R.id.messageCount);
                 textView.setText("0");
+                startActivity(new Intent(view.getContext(), chatAll.class));
             }
         });
         ////////toolbar

@@ -8,19 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.viewHolder> {
     private ArrayList<ChatObject> chatList;
     private Context context;
 
     public chat_all_adapter(ArrayList<ChatObject> chatList , Context context) {
+        setHasStableIds(true);
         this.chatList = chatList;
         this.context = context;
     }
@@ -36,7 +37,8 @@ public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, final int position) {
         holder.name.setText(chatList.get(position).getUserName());
-        Picasso.get().load(chatList.get(position).getProfilePicture()).into(holder.profilePic);
+        if(!chatList.get(position).getProfilePicture().isEmpty())
+            Picasso.get().load(chatList.get(position).getProfilePicture()).into(holder.profilePic);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

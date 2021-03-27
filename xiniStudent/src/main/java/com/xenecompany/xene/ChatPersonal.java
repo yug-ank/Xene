@@ -1,17 +1,17 @@
 package com.xenecompany.xene;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -95,10 +95,10 @@ public class ChatPersonal extends AppCompatActivity {
 
     private void initializeMessages() {
         chat = new ArrayList<>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         recyclerView.setHasFixedSize(false);
         Log.i("yash", "came2 ");
-        adapter = new chatPersonalAdapter(chat);
+        adapter = new chatPersonalAdapter(chat , this);
         Log.i("yash", "came3 ");
         recyclerView.setAdapter(adapter);
         Log.i("yash", "came4 ");

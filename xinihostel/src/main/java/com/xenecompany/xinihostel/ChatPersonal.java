@@ -7,6 +7,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,14 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class ChatPersonal extends AppCompatActivity {
-    private EditText messagebox;
+//    private EditText messagebox;
     EditText message;
     ImageView send;
     TextView nameOfHostel;
@@ -40,16 +40,19 @@ public class ChatPersonal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_personal);
+
         message = findViewById(R.id.activityChatPersonal_editText);
         nameOfHostel = findViewById(R.id.activityChatPersonal_name);
         profilePic = findViewById(R.id.activityChatPersonal_profilePicture);
         send = findViewById(R.id.activityChatPersonal_send);
         recyclerView = findViewById(R.id.activityChatPersonal_recyclerView);
+
         db = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(getIntent().getStringExtra("chatroom"));
         name = getIntent().getStringExtra("name");
         profilePicture = getIntent().getStringExtra("profilePicture");
         nameOfHostel.setText(name);
-        Picasso.get().load(profilePicture).into(profilePic);
+        if(!profilePicture.isEmpty())
+            Picasso.get().load(profilePicture).into(profilePic);
         Log.i("yash", "came1 ");
         initializeMessages();
         getMessages();
@@ -98,7 +101,7 @@ public class ChatPersonal extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
         recyclerView.setHasFixedSize(false);
         Log.i("yash", "came2 ");
-        adapter = new chatPersonalAdapter(chat);
+        adapter = new chatPersonalAdapter(chat , this);
         Log.i("yash", "came3 ");
         recyclerView.setAdapter(adapter);
         Log.i("yash", "came4 ");
@@ -110,7 +113,7 @@ public class ChatPersonal extends AppCompatActivity {
         Map object = new HashMap<>();
         if(!message.getText().toString().isEmpty())
             object.put("text", message.getText().toString());
-        object.put("sender", "U");
+        object.put("sender", "H");
         object.put("time", "time");
         db1.updateChildren(object);
         message.setText(null);

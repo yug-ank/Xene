@@ -1,14 +1,21 @@
 package com.xenecompany.xinihostel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
@@ -19,16 +26,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import java.util.Map;
 
 import static android.view.View.GONE;
 
 public class studentDetails extends AppCompatActivity {
     ImageView studentDetailImage;
-    TextView studentDetailDescription;
+//    TextView studentDetailDescription;
     ImageView studentAadharCard;
+    FloatingActionButton starchat;
     ImageView studentInstituteCard;
     Button book_button;
     Button wishlist_button;
@@ -40,9 +46,10 @@ public class studentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_details);
         studentDetailImage=(ImageView)findViewById(R.id.studentDetailImage);
-        studentDetailDescription=(TextView)findViewById(R.id.studentDetailDescription);
+//        studentDetailDescription=(TextView)findViewById(R.id.studentDetailDescription);
         studentAadharCard=(ImageView)findViewById(R.id.studentAadharCard);
         studentInstituteCard=(ImageView)findViewById(R.id.studentInstituteCard);
+        starchat = findViewById(R.id.layoutPgPictures_startchat);
         sessionManager= new SessionManager(studentDetails.this);
         sessionData=sessionManager.getUserDetailFromSession();
         final String ItemId= getIntent().getStringExtra("ItemId");
@@ -116,7 +123,7 @@ public class studentDetails extends AppCompatActivity {
                 data+="Gaurdian Name: "+value.get("gaurdianName").toString()+"\n";
                 data+="Gaurdian PhoneNo: "+value.get("gaurdianContactNo").toString()+"\n";
                 data+="Gaurdian Address: "+value.get("gaurdianAddress").toString()+"\n";
-                studentDetailDescription.setText(data);
+//                studentDetailDescription.setText(data);
             }
         });
 
@@ -232,5 +239,102 @@ public class studentDetails extends AppCompatActivity {
             }
         });
         ///book button code
+
+        ///startchat code
+        starchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String studentMobNo = getIntent().getStringExtra("ItemId");
+                String currentHostelOwnerMobNo = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
+                DatabaseReference db0 = FirebaseDatabase.getInstance().getReference("hostel\n"+currentHostelOwnerMobNo+"\n"+studentMobNo);
+                DatabaseReference db1 = db0.child("chatroomId");
+//                String chatroomId = db1.push().getKey();
+                String chatroomId = studentMobNo+currentHostelOwnerMobNo;
+                Map obj = new HashMap<>();
+                obj.put(chatroomId, true);
+                db1.updateChildren(obj);
+                obj.clear();
+                obj.put("userNumber", studentMobNo);
+                db0.updateChildren(obj);
+                obj.clear();
+
+                db0 = FirebaseDatabase.getInstance().getReference().child("user").child(studentMobNo).child(currentHostelOwnerMobNo);
+                db1 = db0.child("chatroomId");
+                obj.put(chatroomId, true);
+                db1.updateChildren(obj);
+                obj.clear();
+                obj.put("hostelNo", currentHostelOwnerMobNo);
+                db0.updateChildren(obj);
+                obj.clear();
+
+                db0 = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatroomId);
+//                String msgId = db0.push().getKey();
+                String msgId = chatroomId;
+                db1 = db0.child(msgId);
+                obj.put("sender", "z");
+                obj.put("text", false);
+                obj.put("time", "time");
+                db1.updateChildren(obj);
+
+
+                FirebaseFirestore.getInstance().collection("Student").document(studentMobNo).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(value.exists()){
+                            Intent intent = new Intent(v.getContext(), ChatPersonal.class);
+                            intent.putExtra("name" , value.get("name").toString());
+                            intent.putExtra("profilePicture", value.get("profilePicture").toString());
+                            intent.putExtra("chatroom", chatroomId);
+                            v.getContext().startActivity(intent);
+                        }
+                    }
+                });
+                /*else {
+                    db0.child("chatroomId").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            if (snapshot.exists()) {
+                                String chatroomId = snapshot.getKey();
+                                FirebaseFirestore.getInstance().collection("Student").document(studentMobNo).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        if(value.exists()){
+                                            Intent intent = new Intent(v.getContext(), ChatPersonal.class);
+                                            intent.putExtra("name" , value.get("name").toString());
+                                            intent.putExtra("profilePicture", value.get("profilePicture").toString());
+                                            intent.putExtra("chatroom", chatroomId);
+                                            v.getContext().startActivity(intent);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }*/
+
+            }
+        });
+        ///startchat code
+
     }
 }
