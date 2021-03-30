@@ -534,9 +534,9 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                         }
                     });
             HashMap<String , String> locationDetail=sessionManager.getUserLocationFromSession();
-            Log.i("rectify" , Longitude+" "+Latitude);
-           // Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
-           // Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));
+       //     Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
+       //     Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));
+           Log.i("rectify" , ""+locationDetail);
            Latitude=26.922070;
            Longitude=75.778885;
            SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
