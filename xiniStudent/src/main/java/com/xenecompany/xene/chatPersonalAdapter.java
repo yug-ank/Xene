@@ -1,9 +1,12 @@
 package com.xenecompany.xene;
 
-import android.util.Log;
+import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,10 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import static androidx.core.content.ContextCompat.getColor;
+
 public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapter.viewHolder> {
     ArrayList<chat_object> chat;
+    Context context;
 
-    public chatPersonalAdapter(ArrayList<chat_object> chat){ this.chat = chat; }
+    public chatPersonalAdapter(ArrayList<chat_object> chat , Context context){
+        setHasStableIds(true);
+        this.chat = chat;
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -26,17 +36,22 @@ public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapte
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+        holder.linearLayout.removeAllViews();
+        TextView msg = new TextView(context);
+        msg.setLayoutParams( new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT ));
         if(chat.get(position).sender.equals("U")){
-//            holder.msgSend.setEnabled(true);
-            holder.msgSend.setVisibility(View.VISIBLE);
-            Log.i("yashwant", "done");
-            holder.msgSend.setText(chat.get(position).getText());
+            msg.setBackgroundResource(R.drawable.sent_message);
+            msg.setTextColor(getColor(context, R.color.black));
+            msg.setText(chat.get(position).getText());
+            holder.linearLayout.setGravity(Gravity.END);
         }
         if(chat.get(position).sender.equals("H")) {
-//            holder.msgRecieve.setEnabled(true);
-            holder.msgRecieve.setVisibility(View.VISIBLE);
-            holder.msgRecieve.setText(chat.get(position).getText());
+            msg.setBackgroundResource(R.drawable.received_message);
+            msg.setTextColor(getColor(context, R.color.white));
+            msg.setText(chat.get(position).getText());
         }
+        holder.linearLayout.addView(msg);
+
     }
 
     @Override
@@ -44,13 +59,21 @@ public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapte
         return chat.size();
     }
 
-    public class viewHolder extends RecyclerView.ViewHolder {
-        private TextView msgSend , msgRecieve;
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    public class viewHolder extends RecyclerView.ViewHolder {
+        private LinearLayout linearLayout;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            msgSend = itemView.findViewById(R.id.textMessageSend);
-            msgRecieve = itemView.findViewById(R.id.textMessageRecieve);
+            linearLayout = itemView.findViewById(R.id.textView_LinearLayout);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.xenecompany.xene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,22 +11,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.xenecompany.xene.adapter.pgDetailsAdapter;
@@ -33,13 +30,8 @@ import com.xenecompany.xene.model.pgDetailsModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
+import java.util.Map;
 
 public class pgDetails extends AppCompatActivity {
     Button wishlist_button , book_button;
@@ -81,9 +73,10 @@ public class pgDetails extends AppCompatActivity {
                 String currentUserMobNo = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
                 db0 = FirebaseDatabase.getInstance().getReference().child("user").child(currentUserMobNo).child(hostelMobNo);
                 DatabaseReference db1 = db0.child("chatroomId");
-                String chatrromId = db1.push().getKey();
+//                String chatroomId = db1.push().getKey();
+                String chatroomId = currentUserMobNo+hostelMobNo;
                 Map obj = new HashMap<>();
-                obj.put(chatrromId, true);
+                obj.put(chatroomId, true);
                 db1.updateChildren(obj);
                 obj.clear();
                 obj.put("hostelNo", hostelMobNo);
@@ -92,19 +85,34 @@ public class pgDetails extends AppCompatActivity {
 
                 db0 = FirebaseDatabase.getInstance().getReference().child("hostel").child(hostelMobNo).child(currentUserMobNo);
                 db1 = db0.child("chatroomId");
-                obj.put(chatrromId, true);
+                obj.put(chatroomId, true);
                 db1.updateChildren(obj);
+                obj.clear();
                 obj.put("userNumber", currentUserMobNo);
                 db0.updateChildren(obj);
                 obj.clear();
 
-                db0 = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatrromId);
-                String msgId = db0.push().getKey();
+                db0 = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatroomId);
+//                String msgId = db0.push().getKey();
+                String msgId = chatroomId;
                 db1 = db0.child(msgId);
                 obj.put("sender", "z");
                 obj.put("text", false);
                 obj.put("time", "time");
                 db1.updateChildren(obj);
+
+                FirebaseFirestore.getInstance().collection("Hostels").document(hostelMobNo).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(value.exists()){
+                            Intent intent = new Intent(v.getContext(), ChatPersonal.class);
+                            intent.putExtra("name" , value.get("hostelName").toString());
+                            intent.putExtra("profilePicture", value.get("profilePicture").toString());
+                            intent.putExtra("chatroom", chatroomId);
+                            v.getContext().startActivity(intent);
+                        }
+                    }
+                });
             }
         });
 

@@ -3,25 +3,23 @@ package com.xenecompany.xinihostel;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class chatAll extends AppCompatActivity {
     ArrayList<ChatObject> chatList;
@@ -41,19 +39,22 @@ public class chatAll extends AppCompatActivity {
 
     void getCHatList(){
         chatList = new ArrayList<>();
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+//        Log.i("mob no", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+//        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child("917339703405");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Log.i("data snaphot exist", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+//                    Log.i("data snaphot exist", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
                     for(DataSnapshot childrens : snapshot.getChildren()){
                         String temp = "";
                         for(DataSnapshot chatroom : childrens.child("chatroomId").getChildren())
                             temp = chatroom.getKey();
                         final ChatObject obj = new ChatObject( temp , childrens.child("userNumber").getValue().toString());
-                        DocumentReference db = FirebaseFirestore.getInstance().collection("Student").document(obj.getUserNo());
-                        FirebaseFirestore.getInstance().collection("Hostels").document(obj.getUserNo()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    Log.i("chatroom and number ",obj.getChatroomId()+" "+obj.getUserNo());
+//                        DocumentReference db = FirebaseFirestore.getInstance().collection("Student").document(obj.getUserNo());
+                        FirebaseFirestore.getInstance().collection("Student").document(obj.getUserNo()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                                 if(value.exists()){
@@ -61,6 +62,7 @@ public class chatAll extends AppCompatActivity {
                                         obj.setUserName(value.get("name").toString());
                                     if(value.get("profilePicture") != null)
                                         obj.setProfilePicture(value.get("profilePicture").toString());
+                                    Log.i("name", obj.getUserName()+" "+obj.getProfilePicture());
                                     chatList.add(obj);
                                     adapter.notifyDataSetChanged();
                                 }
