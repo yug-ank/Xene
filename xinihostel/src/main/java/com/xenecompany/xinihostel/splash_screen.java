@@ -1,12 +1,10 @@
 package com.xenecompany.xinihostel;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class splash_screen extends AppCompatActivity {
 
@@ -20,16 +18,16 @@ public class splash_screen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
-                    Intent intent = new Intent(splash_screen.this, HomePage.class);
+                SessionManager sessionManager= new SessionManager(splash_screen.this);
+                if(sessionManager.checkLogin()){
+                    Intent intent = new Intent(splash_screen.this , HomePage.class);
+                    intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    finish();
                 }
-                else
-                {
-                    Intent intent = new Intent(splash_screen.this, Loginpage.class);
+                else{
+                    Intent intent = new Intent(splash_screen.this , Loginpage.class);
+                    intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    finish();
                 }
             }
         },2000);

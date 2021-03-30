@@ -10,6 +10,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
@@ -80,6 +81,17 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
     EditText profileDescription;
     TextView profileMou;
     MaterialCheckBox profileFacilityBed;
+    MaterialCheckBox profileFacilityTable;
+    MaterialCheckBox profileFacilityChair;
+    MaterialCheckBox profileFacilityLaundry;
+    MaterialCheckBox profileFacilityMess;
+    MaterialCheckBox profileFacilityAC;
+    MaterialCheckBox profileFacilityCooler;
+    MaterialCheckBox profileFacilityCCTV;
+    MaterialCheckBox profileFacilitySecurityGaurd;
+    MaterialCheckBox profileFacilityParking;
+    MaterialCheckBox profileFacilityHousekeeping;
+    MaterialCheckBox profileFacilityAlmirah;
     ImageView profileHostelImage1;
     ImageView profileHostelImage2;
     ImageView profileHostelImage3;
@@ -112,6 +124,17 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
         profileDescription = (EditText) findViewById(R.id.profileDescription);
         profileMou = (TextView) findViewById(R.id.profileMou);
         profileFacilityBed = (MaterialCheckBox) findViewById(R.id.profileFacilityBed);
+        profileFacilityTable= (MaterialCheckBox) findViewById(R.id.profileFacilityTable);
+        profileFacilityChair= (MaterialCheckBox) findViewById(R.id.profileFacilityChair);
+        profileFacilityLaundry= (MaterialCheckBox) findViewById(R.id.profileFacilityLaundry);
+        profileFacilityMess= (MaterialCheckBox) findViewById(R.id.profileFacilityMess);
+        profileFacilityAC= (MaterialCheckBox) findViewById(R.id.profileFacilityAC);
+        profileFacilityCooler= (MaterialCheckBox) findViewById(R.id.profileFacilityCooler);
+        profileFacilityCCTV= (MaterialCheckBox) findViewById(R.id.profileFacilityCCTV);
+        profileFacilitySecurityGaurd= (MaterialCheckBox) findViewById(R.id.profileFacilitySecurityGaurd);
+        profileFacilityParking= (MaterialCheckBox) findViewById(R.id.profileFacilityParking);
+        profileFacilityHousekeeping= (MaterialCheckBox) findViewById(R.id.profileFacilityHousekeeping);
+        profileFacilityAlmirah=(MaterialCheckBox)findViewById(R.id.profileFacilityAlmirah);
         profileHostelImage1 = (ImageView) findViewById(R.id.profileHostelImage1);
         profileHostelImage2 = (ImageView) findViewById(R.id.profileHostelImage2);
         profileHostelImage3 = (ImageView) findViewById(R.id.profileHostelImage3);
@@ -125,7 +148,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         final int width = displayMetrics.widthPixels;
         final int height = displayMetrics.heightPixels;
-
+        profileContact.setText(sessionData.get(SessionManager.Key_Phone_no));
        if (getIntent().getStringExtra("from").equals("otp")) {
             edit_profile_picture.setVisibility(View.VISIBLE);
             profileNextButton.setVisibility(View.VISIBLE);
@@ -134,6 +157,18 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             profileHostelName.setEnabled(true);
             profileHostelAddress.setEnabled(true);
             profileFacilityBed.setEnabled(true);
+            profileFacilityChair.setEnabled(true);
+            profileFacilityTable.setEnabled(true);
+            profileFacilityAlmirah.setEnabled(true);
+            profileFacilityLaundry.setEnabled(true);
+            profileFacilityMess.setEnabled(true);
+            profileFacilityAC.setEnabled(true);
+            profileFacilityCooler.setEnabled(true);
+            profileFacilityCCTV.setEnabled(true);
+            profileFacilitySecurityGaurd.setEnabled(true);
+            profileFacilityParking.setEnabled(true);
+            profileFacilityHousekeeping.setEnabled(true);
+
             profileRent.setEnabled(true);
             profileDescription.setEnabled(true);
             auth = FirebaseAuth.getInstance();
@@ -301,6 +336,28 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     ArrayList<String> facilities = new ArrayList<>();
                     if (profileFacilityBed.isChecked())
                         facilities.add(profileFacilityBed.getText().toString());
+                    if (profileFacilityTable.isChecked())
+                        facilities.add(profileFacilityTable.getText().toString());
+                    if (profileFacilityChair.isChecked())
+                        facilities.add(profileFacilityChair.getText().toString());
+                    if (profileFacilityLaundry.isChecked())
+                        facilities.add(profileFacilityLaundry.getText().toString());
+                    if (profileFacilityMess.isChecked())
+                        facilities.add(profileFacilityMess.getText().toString());
+                    if (profileFacilityAlmirah.isChecked())
+                        facilities.add(profileFacilityAlmirah.getText().toString());
+                    if (profileFacilityAC.isChecked())
+                        facilities.add(profileFacilityAC.getText().toString());
+                    if (profileFacilityCooler.isChecked())
+                        facilities.add(profileFacilityCooler.getText().toString());
+                    if (profileFacilityCCTV.isChecked())
+                        facilities.add(profileFacilityCCTV.getText().toString());
+                    if (profileFacilitySecurityGaurd.isChecked())
+                        facilities.add(profileFacilitySecurityGaurd.getText().toString());
+                    if (profileFacilityParking.isChecked())
+                        facilities.add(profileFacilityParking.getText().toString());
+                    if (profileFacilityHousekeeping.isChecked())
+                        facilities.add(profileFacilityHousekeeping.getText().toString());
                     data.put("hostelFacilities", facilities);
                     db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).update(data)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -333,6 +390,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                         Longitude=address.getLongitude();
                         data.put("lat", Latitude);
                         data.put("lot", Longitude);
+                        sessionManager.enterLocation(Latitude.toString() , Longitude.toString());
                         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
                         assert supportMapFragment != null;
                         supportMapFragment.getMapAsync(profile.this);
@@ -353,19 +411,49 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                                 profileContact.setText(value.get("phoneNo").toString());
                                 profileHostelName.setText(value.get("hostelName").toString());
                                 profileHostelAddress.setText(value.get("hostelAddress").toString());
-                                Latitude = (Double) value.get("lat");
-                                Longitude = (Double) value.get("lot");
+                                setLatitude((Double) value.get("lat"));
+                                setLongitude((Double) value.get("lot"));
                                 profileRent.setText(value.get(("price")).toString());
                                 profileDescription.setText(value.get("description").toString());
                                 List<String> facilities = (List<String>) value.get("hostelFacilities");
                                 for (String i : facilities) {
-                                    if (i.equals("BED")) {
+                                    if (i.equals(profileFacilityBed.getText().toString())) {
                                         profileFacilityBed.setChecked(true);
                                     }
+                                    if (i.equals(profileFacilityTable.getText().toString())) {
+                                        profileFacilityTable.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityChair.getText().toString())) {
+                                        profileFacilityChair.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityAlmirah.getText().toString())) {
+                                        profileFacilityAlmirah.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityLaundry.getText().toString())) {
+                                        profileFacilityLaundry.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityMess.getText().toString())) {
+                                        profileFacilityMess.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityAC.getText().toString())) {
+                                        profileFacilityAC.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityCooler.getText().toString())) {
+                                        profileFacilityCooler.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityCCTV.getText().toString())) {
+                                        profileFacilityCCTV.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilitySecurityGaurd.getText().toString())) {
+                                        profileFacilitySecurityGaurd.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityParking.getText().toString())) {
+                                        profileFacilityParking.setChecked(true);
+                                    }
+                                    if (i.equals(profileFacilityHousekeeping.getText().toString())) {
+                                        profileFacilityHousekeeping.setChecked(true);
+                                    }
                                 }
-                                SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
-                                assert supportMapFragment != null;
-                                supportMapFragment.getMapAsync(profile.this);
                                 if (value.get("profilePicture").toString().length() > 0) {
                                     Picasso.get().load(value.get("profilePicture").toString()).noFade().into(profileImage, new Callback() {
                                         @Override
@@ -445,7 +533,16 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
 
                         }
                     });
-            profileImage.setOnClickListener(new View.OnClickListener() {
+            HashMap<String , String> locationDetail=sessionManager.getUserLocationFromSession();
+            Log.i("rectify" , Longitude+" "+Latitude);
+           // Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
+           // Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));
+           Latitude=26.922070;
+           Longitude=75.778885;
+           SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
+           assert supportMapFragment != null;
+           supportMapFragment.getMapAsync(profile.this);
+           profileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View holder) {
                     View view = getLayoutInflater().inflate(R.layout.imageviewer, null);
@@ -758,16 +855,6 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
         googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
@@ -919,6 +1006,16 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
+
+    public void setLatitude(Double latitude) {
+        Latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        Longitude = longitude;
+    }
+
+
     private String getExtension(Uri uri){
         try{
             ContentResolver contentResolver=getContentResolver();

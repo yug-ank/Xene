@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +24,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static android.view.View.GONE;
-
 public class studentDetails extends AppCompatActivity {
     ImageView studentDetailImage;
     TextView studentDetailDescription;
@@ -35,12 +34,31 @@ public class studentDetails extends AppCompatActivity {
     Button cancel_button;
     SessionManager sessionManager;
     HashMap<String , String> sessionData;
+    EditText profileName;
+    EditText editdetailEmail;
+    EditText editdetailPhoneNumber;
+    EditText editdetailAdharNumber;
+    EditText editdetailInstituteName;
+    EditText editdetailInstituteAddress;
+    EditText editdetailInstituteIDNumber;
+    EditText editdetailGuardianName;
+    EditText editdetailGuardianContact;
+    EditText editdetailGuardianAddress;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_details);
         studentDetailImage=(ImageView)findViewById(R.id.studentDetailImage);
-        studentDetailDescription=(TextView)findViewById(R.id.studentDetailDescription);
+        profileName=(EditText)findViewById(R.id.profileName);
+        editdetailEmail=(EditText)findViewById(R.id.editdetailEmail);
+        editdetailPhoneNumber=(EditText)findViewById(R.id.editdetailPhoneNumber);
+        editdetailAdharNumber=(EditText)findViewById(R.id.editdetailAdharNumber);
+        editdetailInstituteName=(EditText)findViewById(R.id.editdetailInstituteName);
+        editdetailInstituteAddress=(EditText)findViewById(R.id.editdetailInstituteAddress);
+        editdetailInstituteIDNumber=(EditText)findViewById(R.id.editdetailInstituteIDNumber);
+        editdetailGuardianName=(EditText)findViewById(R.id.editdetailGuardianName);
+        editdetailGuardianContact=(EditText)findViewById(R.id.editdetailGuardianContact);
+        editdetailGuardianAddress=(EditText)findViewById(R.id.editdetailGuardianAddress);
         studentAadharCard=(ImageView)findViewById(R.id.studentAadharCard);
         studentInstituteCard=(ImageView)findViewById(R.id.studentInstituteCard);
         sessionManager= new SessionManager(studentDetails.this);
@@ -106,17 +124,36 @@ public class studentDetails extends AppCompatActivity {
                         .into(studentInstituteCard);
             }
                 String data="";
-                data+="Name: "+value.get("name").toString()+"\n";
-                data+="Email: "+value.get("email").toString()+"\n";
-                data+="PhoneNo: "+value.get("phoneNo").toString()+"\n";
-                data+="AadharNO: "+value.get("aadharNo").toString()+"\n";
-                data+="Institute Name: "+value.get("instituteName").toString()+"\n";
-                data+="Institute Address: "+value.get("instituteAddress").toString()+"\n";
-                data+="Institute Id: "+value.get("instituteId").toString()+"\n";
-                data+="Gaurdian Name: "+value.get("gaurdianName").toString()+"\n";
-                data+="Gaurdian PhoneNo: "+value.get("gaurdianContactNo").toString()+"\n";
-                data+="Gaurdian Address: "+value.get("gaurdianAddress").toString()+"\n";
-                studentDetailDescription.setText(data);
+                if(value.get("name").toString().trim().length()>0){
+                    profileName.setText(value.get("name").toString());
+                }
+                if(value.get("email").toString().trim().length()>0){
+                    editdetailEmail.setText(value.get("email").toString());
+                }
+                if(value.get("phoneNo").toString().trim().length()>0){
+                    editdetailPhoneNumber.setText(value.get("phoneNo").toString());
+                }
+                if(value.get("aadharNo").toString().trim().length()>0){
+                    editdetailAdharNumber.setText(value.get("aadharNo").toString());
+                }
+                if(value.get("instituteName").toString().trim().length()>0){
+                    editdetailInstituteName.setText(value.get("instituteName").toString());
+                }
+                if(value.get("instituteAddress").toString().trim().length()>0){
+                    editdetailInstituteAddress.setText(value.get("instituteAddress").toString());
+                }
+                if(value.get("instituteId").toString().trim().length()>0){
+                    editdetailInstituteIDNumber.setText(value.get("instituteId").toString());
+                }
+                if(value.get("gaurdianName").toString().trim().length()>0){
+                    editdetailGuardianName.setText(value.get("gaurdianName").toString());
+                }
+                if(value.get("gaurdianContactNo").toString().trim().length()>0){
+                    editdetailGuardianContact.setText(value.get("gaurdianContactNo").toString());
+                }
+                if(value.get("gaurdianAddress").toString().trim().length()>0){
+                    editdetailGuardianAddress.setText(value.get("gaurdianAddress").toString());
+                }
             }
         });
 
@@ -210,9 +247,9 @@ public class studentDetails extends AppCompatActivity {
                     db.collection("Student").document(ItemId)
                             .update("accepted", FieldValue.arrayRemove("+91" + sessionData.get(SessionManager.Key_Phone_no)));
                     Toast.makeText(studentDetails.this, "Press back to get to homepage", Toast.LENGTH_SHORT).show();
-                    book_button.setVisibility(GONE);
-                    wishlist_button.setVisibility(GONE);
-                    cancel_button.setVisibility(GONE);
+                    book_button.setVisibility(View.GONE);
+                    wishlist_button.setVisibility(View.GONE);
+                    cancel_button.setVisibility(View.GONE);
                 }
             }
         });

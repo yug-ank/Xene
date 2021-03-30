@@ -491,10 +491,9 @@
             app:layout_constraintWidth_percent="0.27" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/profileFAcilityMess"
+            android:id="@+id/profileFacilityMess"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/ic_spoon"
             android:enabled="false"
@@ -510,6 +509,7 @@
             app:layout_constraintWidth_percent="0.25" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityAC"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="10dp"
@@ -523,12 +523,112 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@id/profileFacilityTable"
             app:layout_constraintStart_toEndOf="@id/profileFacilityTable"
-            app:layout_constraintTop_toBottomOf="@id/profileFAcilityMess"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityMess"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.25" />
 
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityCooler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_spoon"
+            android:enabled="false"
+            android:text="Cooler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/profileFacilityTable"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityTable"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityAC"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.28" />
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityCCTV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:drawableLeft="@drawable/ic_washing_machine"
+            android:enabled="false"
+            android:text="CCTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityLaundry"
+            app:layout_constraintTop_toTopOf="@id/facilitiesContainer"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.27" />
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilitySecurityGaurd"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_spoon"
+            android:enabled="false"
+            android:text="Security Gaurd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/profileFacilityMess"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityMess"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityCCTV"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.45" />
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityParking"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_spoon"
+            android:enabled="false"
+            android:text="Parking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/profileFacilityMess"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityMess"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilitySecurityGaurd"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.35" />
 
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/profileFacilityHousekeeping"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/ic_spoon"
+            android:enabled="false"
+            android:text="House Keeping"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/profileFacilityMess"
+            app:layout_constraintStart_toEndOf="@id/profileFacilityMess"
+            app:layout_constraintTop_toBottomOf="@id/profileFacilityParking"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.45" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="#000000"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.98"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/facilitiesContainer"
+        app:layout_constraintBottom_toTopOf="@id/descriptionContainer"
+        />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/descriptionContainer"
         android:layout_width="match_parent"
@@ -545,15 +645,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp">
 
             <EditText
                 android:id="@+id/profileDescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/description_border"
                 android:enabled="false"
                 android:inputType="textMultiLine"
+                android:minLines="11"
                 android:isScrollContainer="true"
                 android:nestedScrollingEnabled="true"
                 android:text="Your hostel description here......" />
@@ -565,7 +667,9 @@
         android:layout_height="0dp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintTop_toBottomOf="@id/descriptionContainer">
+        app:layout_constraintTop_toBottomOf="@id/descriptionContainer"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/profileHostelImage1"
@@ -577,8 +681,8 @@
             app:layout_constraintWidth_percent=".25"
             android:src="@drawable/add_image"
             android:scaleType="fitCenter"
-            android:background="@drawable/dashed_border"
-            android:padding="30dp"/>
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"/>
         <ImageView
             android:id="@+id/profileHostelImage2"
             android:layout_width="0dp"
@@ -589,8 +693,8 @@
             app:layout_constraintWidth_percent=".25"
             android:src="@drawable/add_image"
             android:scaleType="fitCenter"
-            android:background="@drawable/dashed_border"
-            android:padding="30dp"/>
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"/>
         <ImageView
             android:id="@+id/profileHostelImage3"
             android:layout_width="0dp"
@@ -601,8 +705,8 @@
             app:layout_constraintWidth_percent=".25"
             android:src="@drawable/add_image"
             android:scaleType="fitCenter"
-            android:background="@drawable/dashed_border"
-            android:padding="30dp"/>
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"/>
         <ImageView
             android:id="@+id/profileHostelImage4"
             android:layout_width="0dp"
@@ -613,11 +717,25 @@
             app:layout_constraintWidth_percent=".25"
             android:src="@drawable/add_image"
             android:scaleType="fitCenter"
-            android:background="@drawable/dashed_border"
-            android:padding="30dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="#000000"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.98"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintTop_toBottomOf="@id/imageContainer"
+        app:layout_constraintBottom_toTopOf="@id/mapContainer"
+        />
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mapContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_default="percent"

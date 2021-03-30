@@ -111,7 +111,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_default="percent"
-                app:layout_constraintHeight_percent=".04"
+                app:layout_constraintHeight_percent=".025"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/studentDetailImage"
@@ -155,7 +155,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailEmail"
                 app:layout_constraintTop_toBottomOf="@id/profileName"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailPhoneNumber"
@@ -192,7 +193,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailPhoneNumber"
                 app:layout_constraintTop_toBottomOf="@id/editdetailEmail"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailAdharNumber"
@@ -211,7 +213,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailPhoneNumber"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.25" />
+                app:layout_constraintWidth_percent="0.25"
+                android:enabled="false"/>
 
             <EditText
                 android:id="@+id/editdetailAdharNumber"
@@ -229,7 +232,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailAdharNumber"
                 app:layout_constraintTop_toBottomOf="@id/editdetailPhoneNumber"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailnstitute"
@@ -283,7 +287,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailInstituteName"
                 app:layout_constraintTop_toBottomOf="@id/detailnstitute"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailInstituteAddress"
@@ -318,7 +323,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailInstituteAddress"
                 app:layout_constraintTop_toBottomOf="@id/editdetailInstituteName"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailInstituteIDNumber"
@@ -353,7 +359,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailInstituteIDNumber"
                 app:layout_constraintTop_toBottomOf="@id/editdetailInstituteAddress"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailGuardians"
@@ -407,7 +414,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailGuardianName"
                 app:layout_constraintTop_toBottomOf="@id/detailGuardians"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailGuardianContact"
@@ -442,7 +450,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailGuardianContact"
                 app:layout_constraintTop_toBottomOf="@id/detailGuardianName"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
             <TextView
                 android:id="@+id/detailGuardianAddress"
@@ -477,7 +486,8 @@
                 app:layout_constraintStart_toEndOf="@id/detailGuardianAddress"
                 app:layout_constraintTop_toBottomOf="@id/editdetailGuardianContact"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.65" />
+                app:layout_constraintWidth_percent="0.65"
+                android:enabled="false"/>
 
 
 

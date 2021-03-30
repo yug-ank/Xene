@@ -3,6 +3,7 @@ package com.xenecompany.xinihostel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -98,18 +99,20 @@ public class otp_page extends Activity {
                 if(task.isSuccessful()){
                     SessionManager sessionManager=new SessionManager(otp_page.this);
                     sessionManager.createLoginSession(phoneNo);
+
                     final FirebaseFirestore db=FirebaseFirestore.getInstance();
+                    final String token= FirebaseInstanceId.getInstance().getToken();
                     db.collection("Hostels").document(userId).addSnapshotListener(
                             new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    String token= FirebaseInstanceId.getInstance().getToken();
                                     if(value.exists()){
                                         Toast.makeText(otp_page.this , "Login sucessful" , Toast.LENGTH_SHORT).show();
+                                        Log.i("rectify" , "intent working");
                                         Intent intent=new Intent(otp_page.this , HomePage.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        db.collection("Hostels").document(userId).update("token" , token);
                                         startActivity(intent);
+                                        finish();
                                     }
                                     else{
                                         Map<String , Object> data=new HashMap<>();
@@ -132,6 +135,9 @@ public class otp_page extends Activity {
                                         data.put("description" , "");
                                         data.put("rating" , 0);
                                         data.put("token" , token);
+                                        data.put("wishlist" , Arrays.asList());
+                                        data.put("requested" , Arrays.asList());
+                                        data.put("accepted" , Arrays.asList());
                                         db.collection("Hostels").document(userId).set(data , SetOptions.merge())
                                                 .addOnSuccessListener(
                                                         new OnSuccessListener<Void>() {
@@ -142,6 +148,7 @@ public class otp_page extends Activity {
                                                                 intent.putExtra("from" , "otp");
                                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                                 startActivity(intent);
+                                                                finish();
                                                             }
                                                         }
                                                 ).addOnFailureListener(new OnFailureListener() {
@@ -154,11 +161,11 @@ public class otp_page extends Activity {
                                 }
                             }
                     );
+
                 }
                 else{
                     Toast.makeText(otp_page.this , task.getException().getMessage() , Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }

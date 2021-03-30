@@ -62,14 +62,16 @@
         android:padding="15dp"
         android:text="It is an online platform which acts as a bridge between renters and tenants. Here is an easy way to find a place in an unknown city that fits your criteria. Now you don't have to loose your sweat visiting and finding hostels all day but you can search them through our app, connect with owners and book them with just one click."
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="25dp"
+        android:textSize="23dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.589"
         app:layout_constraintWidth_default="percent"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintWidth_percent="1"
-        app:layout_constraintHeight_percent="0.4"/>
+        app:layout_constraintWidth_percent="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
