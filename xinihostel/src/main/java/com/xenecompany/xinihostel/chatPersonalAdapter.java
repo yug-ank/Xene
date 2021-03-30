@@ -31,6 +31,7 @@ public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapte
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
+        holder.linearLayout.removeAllViews();
         TextView msg = new TextView(context);
         msg.setLayoutParams( new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT ));
         if(chat.get(position).sender.equals("H")){

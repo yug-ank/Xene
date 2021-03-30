@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,8 +41,8 @@ public class chatAll extends AppCompatActivity {
     void getCHatList(){
         chatList = new ArrayList<>();
 //        Log.i("mob no", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-//        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child("917339703405");
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+//        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child("917339703405");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
