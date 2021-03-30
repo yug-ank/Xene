@@ -14,18 +14,22 @@
 
     <ImageView
         android:id="@+id/activityChatCard_profilePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_male_avatr" />
+        app:srcCompat="@drawable/ic_male_avatr"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintWidth_percent="0.14"/>
 
     <TextView
         android:id="@+id/activityChatCard_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width='0dp'
+        android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:hint="NAME"
@@ -33,12 +37,16 @@
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/activityChatCard_profilePicture"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_percent="0.3"
+        />
 
     <TextView
         android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:hint="most rescent message"
@@ -47,7 +55,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/activityChatCard_profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/activityChatCard_name"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintVertical_bias="0.324"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintWidth_percent="0.5"/>
 
     <ImageView
         android:id="@+id/imageView14"

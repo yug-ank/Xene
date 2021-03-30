@@ -21,12 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -63,6 +57,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -125,17 +124,17 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
         profileDescription = (EditText) findViewById(R.id.profileDescription);
         profileMou = (TextView) findViewById(R.id.profileMou);
         profileFacilityBed = (MaterialCheckBox) findViewById(R.id.profileFacilityBed);
-        profileFacilityTable = (MaterialCheckBox) findViewById(R.id.profileFacilityTable);
-        profileFacilityChair = (MaterialCheckBox) findViewById(R.id.profileFacilityChair);
-        profileFacilityLaundry = (MaterialCheckBox) findViewById(R.id.profileFacilityLaundry);
-        profileFacilityMess = (MaterialCheckBox) findViewById(R.id.profileFacilityMess);
-        profileFacilityAC = (MaterialCheckBox) findViewById(R.id.profileFacilityAC);
-        profileFacilityCooler = (MaterialCheckBox) findViewById(R.id.profileFacilityCooler);
-        profileFacilityCCTV = (MaterialCheckBox) findViewById(R.id.profileFacilityCCTV);
-        profileFacilitySecurityGaurd = (MaterialCheckBox) findViewById(R.id.profileFacilitySecurityGaurd);
-        profileFacilityParking = (MaterialCheckBox) findViewById(R.id.profileFacilityParking);
-        profileFacilityHousekeeping = (MaterialCheckBox) findViewById(R.id.profileFacilityHousekeeping);
-        profileFacilityAlmirah = (MaterialCheckBox) findViewById(R.id.profileFacilityAlmirah);
+        profileFacilityTable= (MaterialCheckBox) findViewById(R.id.profileFacilityTable);
+        profileFacilityChair= (MaterialCheckBox) findViewById(R.id.profileFacilityChair);
+        profileFacilityLaundry= (MaterialCheckBox) findViewById(R.id.profileFacilityLaundry);
+        profileFacilityMess= (MaterialCheckBox) findViewById(R.id.profileFacilityMess);
+        profileFacilityAC= (MaterialCheckBox) findViewById(R.id.profileFacilityAC);
+        profileFacilityCooler= (MaterialCheckBox) findViewById(R.id.profileFacilityCooler);
+        profileFacilityCCTV= (MaterialCheckBox) findViewById(R.id.profileFacilityCCTV);
+        profileFacilitySecurityGaurd= (MaterialCheckBox) findViewById(R.id.profileFacilitySecurityGaurd);
+        profileFacilityParking= (MaterialCheckBox) findViewById(R.id.profileFacilityParking);
+        profileFacilityHousekeeping= (MaterialCheckBox) findViewById(R.id.profileFacilityHousekeeping);
+        profileFacilityAlmirah=(MaterialCheckBox)findViewById(R.id.profileFacilityAlmirah);
         profileHostelImage1 = (ImageView) findViewById(R.id.profileHostelImage1);
         profileHostelImage2 = (ImageView) findViewById(R.id.profileHostelImage2);
         profileHostelImage3 = (ImageView) findViewById(R.id.profileHostelImage3);
@@ -150,7 +149,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
         final int width = displayMetrics.widthPixels;
         final int height = displayMetrics.heightPixels;
         profileContact.setText(sessionData.get(SessionManager.Key_Phone_no));
-        if (getIntent().getStringExtra("from").equals("otp")) {
+       if (getIntent().getStringExtra("from").equals("otp")) {
             edit_profile_picture.setVisibility(View.VISIBLE);
             profileNextButton.setVisibility(View.VISIBLE);
             profileName.setEnabled(true);
@@ -374,31 +373,31 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     });
                 }
             });
-            searchLocation = (Button) findViewById(R.id.profileSearchLocation);
-            searchLocation.setVisibility(View.VISIBLE);
-            EditText searchAddress = (EditText) findViewById(R.id.profileSearchLocationAddress);
-            searchAddress.setVisibility(View.VISIBLE);
-            searchLocation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String location = searchAddress.getText().toString();
-                    if (location != null || !location.equals("")) {
-                        Geocoder geocoder = new Geocoder(profile.this);
-                        try {
-                            List<Address> addressList = geocoder.getFromLocationName(location, 1);
-                            Address address = addressList.get(0);
-                            Latitude = address.getLatitude();
-                            Longitude = address.getLongitude();
-                            data.put("lat", Latitude);
-                            data.put("lot", Longitude);
-                            sessionManager.enterLocation(Latitude.toString(), Longitude.toString());
-                            SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
-                            assert supportMapFragment != null;
-                            supportMapFragment.getMapAsync(profile.this);
-                        } catch (IOException e) {
-                            Toast.makeText(profile.this, "" + e, Toast.LENGTH_SHORT).show();
-                        }
+        searchLocation=(Button)findViewById(R.id.profileSearchLocation);
+        searchLocation.setVisibility(View.VISIBLE);
+        EditText searchAddress=(EditText)findViewById(R.id.profileSearchLocationAddress);
+        searchAddress.setVisibility(View.VISIBLE);
+           searchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String location=searchAddress.getText().toString();
+                if(location!=null || !location.equals("")){
+                    Geocoder geocoder=new Geocoder(profile.this);
+                    try {
+                        List<Address> addressList=geocoder.getFromLocationName(location , 1);
+                        Address address=addressList.get(0);
+                        Latitude=address.getLatitude();
+                        Longitude=address.getLongitude();
+                        data.put("lat", Latitude);
+                        data.put("lot", Longitude);
+                        sessionManager.enterLocation(Latitude.toString() , Longitude.toString());
+                        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
+                        assert supportMapFragment != null;
+                        supportMapFragment.getMapAsync(profile.this);
+                    }catch (IOException e){
+                        Toast.makeText(profile.this , ""+e , Toast.LENGTH_SHORT).show();
                     }
+                }
                 }
             });
         } else {
@@ -535,9 +534,9 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                         }
                     });
             HashMap<String, String> locationDetail = sessionManager.getUserLocationFromSession();
-            Log.i("rectify", Longitude + " " + Latitude);
+
             // Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
-            // Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));
+            // Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));Log.i("rectify" , ""+locationDetail);
             Latitude = 26.922070;
             Longitude = 75.778885;
             SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
@@ -835,7 +834,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
             return;
         }
-        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+       Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -848,7 +847,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
                     assert supportMapFragment != null;
                     supportMapFragment.getMapAsync(profile.this);
-                }
+               }
             }
         });
     }
