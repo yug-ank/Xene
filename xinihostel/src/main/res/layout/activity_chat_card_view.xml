@@ -41,6 +41,7 @@
         app:layout_constraintHeight_default="percent"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintWidth_percent="0.2"
         />
 
     <TextView

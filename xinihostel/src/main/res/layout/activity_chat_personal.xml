@@ -29,24 +29,25 @@
         app:srcCompat="@drawable/ic_male_avatr"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHeight_percent="0.07"
         app:layout_constraintWidth_percent="0.15"/>
 
     <TextView
         android:id="@+id/activityChatPersonal_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHorizontal_bias="0.1"
         android:hint="Name"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/activityChatPersonal_chatToolbar"
         app:layout_constraintEnd_toStartOf="@+id/imageView10"
-        app:layout_constraintStart_toEndOf="@+id/activityChatPersonal_profilePicture"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_default="percent"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.035"
-        app:layout_constraintWidth_percent="0.45"/>
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toEndOf="@+id/activityChatPersonal_profilePicture"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.428"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.45" />
 
     <ImageView
         android:id="@+id/imageView11"
