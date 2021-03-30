@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -19,17 +20,22 @@ import java.util.ArrayList;
 public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.viewHolder> {
     private ArrayList<ChatObject> chatList;
     private Context context;
+    private int width;
+    private int height;
 
-    public chat_all_adapter(ArrayList<ChatObject> chatList , Context context) {
-        setHasStableIds(true);
+    public chat_all_adapter(ArrayList<ChatObject> chatList, Context context, int width, int height) {
         this.chatList = chatList;
         this.context = context;
+        this.width = width;
+        this.height = height;
     }
 
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_chat_card_view, null);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(width , height/10);
+        view.setLayoutParams(layoutParams);
         return new viewHolder(view);
     }
 

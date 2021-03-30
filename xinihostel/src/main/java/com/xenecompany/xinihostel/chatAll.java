@@ -1,6 +1,7 @@
 package com.xenecompany.xinihostel;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -33,8 +34,12 @@ public class chatAll extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.activityChatAll_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(false);
+        DisplayMetrics displayMetrics= new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width=displayMetrics.widthPixels;
+        int height=displayMetrics.heightPixels;
         getCHatList();
-        adapter = new chat_all_adapter(chatList , this);
+        adapter = new chat_all_adapter(chatList , this , width , height);
         recyclerView.setAdapter(adapter);
     }
 
