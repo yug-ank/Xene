@@ -12,7 +12,7 @@
     android:layout_height="match_parent"
     tools:context=".chatCardView">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/activityChatCard_profilePicture"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -52,14 +52,14 @@
         android:layout_marginTop="5dp"
         android:hint="most rescent message"
         android:textColor="@color/secondary"
-        android:textSize="15dp"
+        android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/activityChatCard_profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/activityChatCard_name"
         app:layout_constraintVertical_bias="0.324"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintWidth_default="percent"
-        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintHeight_percent="0.25"
         app:layout_constraintWidth_percent="0.5"/>
 
     <ImageView

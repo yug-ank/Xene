@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".chatAll"/>
-        <activity android:name=".ChatPersonal"/>
+        <activity android:name=".ChatPersonal" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,17 +1,11 @@
 package com.xenecompany.xinihostel;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class ChatPersonal extends AppCompatActivity {
 //    private EditText messagebox;
     EditText message;
@@ -35,12 +35,14 @@ public class ChatPersonal extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference db;
     chatPersonalAdapter adapter;
-
+    int width;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_personal);
-
+        DisplayMetrics displayMetrics= new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        width=displayMetrics.widthPixels;
         message = findViewById(R.id.activityChatPersonal_editText);
         nameOfHostel = findViewById(R.id.activityChatPersonal_name);
         profilePic = findViewById(R.id.activityChatPersonal_profilePicture);
@@ -53,24 +55,18 @@ public class ChatPersonal extends AppCompatActivity {
         nameOfHostel.setText(name);
         if(!profilePicture.isEmpty())
             Picasso.get().load(profilePicture).into(profilePic);
-        Log.i("yash", "came1 ");
         initializeMessages();
         getMessages();
     }
 
     private void getMessages() {
-        Log.i("yash", "came9 ");
         DatabaseReference db1 = db;
-        Log.i("yash", "came10 ");
         db1.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
-                    Log.i("yash", snapshot.child("text").getValue().toString());
                     chat.add(new chat_object(snapshot.child("text").getValue().toString(), snapshot.child("time").getValue().toString(), snapshot.child("sender").getValue().toString()));
-                    Log.i("yash", "came12 ");
                     adapter.notifyDataSetChanged();
-                    Log.i("yash", "came13 ");
                 }
             }
 
@@ -100,11 +96,9 @@ public class ChatPersonal extends AppCompatActivity {
         chat = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
         recyclerView.setHasFixedSize(false);
-        Log.i("yash", "came2 ");
-        adapter = new chatPersonalAdapter(chat , this);
-        Log.i("yash", "came3 ");
+        adapter = new chatPersonalAdapter(chat , this , width);
         recyclerView.setAdapter(adapter);
-        Log.i("yash", "came4 ");
+
     }
 
     public void sendMessage(View view) {

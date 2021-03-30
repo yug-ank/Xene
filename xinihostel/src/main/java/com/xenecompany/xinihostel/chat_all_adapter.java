@@ -5,17 +5,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.viewHolder> {
     private ArrayList<ChatObject> chatList;
@@ -66,7 +66,7 @@ public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.view
 
     public class viewHolder extends RecyclerView.ViewHolder {
         private TextView name;
-        private ImageView profilePic;
+        private CircleImageView profilePic;
         private CardView cardView;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
