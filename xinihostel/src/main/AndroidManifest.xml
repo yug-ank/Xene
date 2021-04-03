@@ -49,7 +49,9 @@
 
         </activity>
         <activity android:name=".About_Us"/>
-        <activity android:name=".contact_us"></activity>
+        <activity android:name=".contact_us"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity android:name=".my_deals"/>
         <activity android:name=".wishlist"/>
         <activity android:name=".faq"/>
