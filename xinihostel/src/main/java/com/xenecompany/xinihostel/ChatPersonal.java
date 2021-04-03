@@ -2,27 +2,31 @@ package com.xenecompany.xinihostel;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatPersonal extends AppCompatActivity {
 //    private EditText messagebox;
@@ -43,10 +47,10 @@ public class ChatPersonal extends AppCompatActivity {
         DisplayMetrics displayMetrics= new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         width=displayMetrics.widthPixels;
-        message = findViewById(R.id.activityChatPersonal_editText);
+         message = findViewById(R.id.activityChatPersonal_editText);
         nameOfHostel = findViewById(R.id.activityChatPersonal_name);
         profilePic = findViewById(R.id.activityChatPersonal_profilePicture);
-        send = findViewById(R.id.activityChatPersonal_send);
+         send = findViewById(R.id.activityChatPersonal_send);
         recyclerView = findViewById(R.id.activityChatPersonal_recyclerView);
 
         db = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(getIntent().getStringExtra("chatroom"));
@@ -55,8 +59,32 @@ public class ChatPersonal extends AppCompatActivity {
         nameOfHostel.setText(name);
         if(!profilePicture.isEmpty())
             Picasso.get().load(profilePicture).into(profilePic);
+        initializeEditText();
         initializeMessages();
         getMessages();
+    }
+
+    private void initializeEditText() {
+        db.child(getIntent().getStringExtra("chatroom")).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    if((Boolean) snapshot.child("text").getValue()){
+                        message.setEnabled(true);
+                        message.setVisibility(View.VISIBLE);
+                        send.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        findViewById(R.id.activityChatPersonal_flag).setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getMessages() {
@@ -67,6 +95,8 @@ public class ChatPersonal extends AppCompatActivity {
                 if(snapshot.exists()){
                     chat.add(new chat_object(snapshot.child("text").getValue().toString(), snapshot.child("time").getValue().toString(), snapshot.child("sender").getValue().toString()));
                     adapter.notifyDataSetChanged();
+                    Log.i("yash", "came13 ");
+                    recyclerView.smoothScrollToPosition(chat.size()-1);
                 }
             }
 
@@ -94,11 +124,12 @@ public class ChatPersonal extends AppCompatActivity {
 
     private void initializeMessages() {
         chat = new ArrayList<>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(false);
         adapter = new chatPersonalAdapter(chat , this , width);
         recyclerView.setAdapter(adapter);
-
     }
 
     public void sendMessage(View view) {
@@ -107,8 +138,10 @@ public class ChatPersonal extends AppCompatActivity {
         Map object = new HashMap<>();
         if(!message.getText().toString().isEmpty())
             object.put("text", message.getText().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+        String currentDateandTime = sdf.format(new Date());
         object.put("sender", "H");
-        object.put("time", "time");
+        object.put("time", currentDateandTime);
         db1.updateChildren(object);
         message.setText(null);
     }

@@ -10,14 +10,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
@@ -226,6 +230,7 @@ public class studentDetails extends AppCompatActivity {
                     List<String> wishlist= (List<String>) value.get("accepted");
                     if(wishlist.contains(ItemId)){
                         book_button.setText("REMOVE CONNECTION");
+                        startchat.setVisibility(View.VISIBLE);
                         cancel_button.setText("SEND MESSAGE");
                     }
                 }
@@ -258,6 +263,24 @@ public class studentDetails extends AppCompatActivity {
                     book_button.setVisibility(View.GONE);
                     wishlist_button.setVisibility(View.GONE);
                     cancel_button.setVisibility(View.GONE);
+                    startchat.setVisibility(View.GONE);
+
+                    /// stop chat of that person
+                    DatabaseReference flag = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(ItemId+"+91"+sessionData.get(SessionManager.Key_Phone_no)).child(ItemId+"+91"+sessionData.get(SessionManager.Key_Phone_no)).child("text");
+                    flag.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                flag.setValue(false);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    /// stop chat of that person
                 }
             }
         });
@@ -310,7 +333,7 @@ public class studentDetails extends AppCompatActivity {
                 String msgId = chatroomId;
                 db1 = db0.child(msgId);
                 obj.put("sender", "z");
-                obj.put("text", false);
+                obj.put("text", true);
                 obj.put("time", "time");
                 db1.updateChildren(obj);
 
