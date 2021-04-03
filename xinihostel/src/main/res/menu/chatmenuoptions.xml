@@ -2,14 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/toolbar_wishlist"
+        android:id="@+id/chatToolbar_profile"
         app:showAsAction="never"
-        app:actionLayout="@layout/toolbar_heart"
         android:title="View profile"
         />
     <item
-        android:id="@+id/toolbar_message"
+        android:id="@+id/chatToolbar_Delete"
         app:showAsAction="never"
-        app:actionLayout="@layout/toolbar_message"
         android:title="Delete Chat" />
+    <item
+        android:id="@+id/chatToolbar_call"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_chat_phone"
+        android:title="Call"/>
 </menu>

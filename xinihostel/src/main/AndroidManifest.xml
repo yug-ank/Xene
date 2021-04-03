@@ -50,7 +50,7 @@
         </activity>
         <activity android:name=".About_Us"/>
         <activity android:name=".contact_us"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".my_deals"/>
         <activity android:name=".wishlist"/>

@@ -8,12 +8,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,17 +22,26 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ChatPersonal extends AppCompatActivity {
 //    private EditText messagebox;
     EditText message;
     ImageView send;
     TextView nameOfHostel;
-    ImageView profilePic;
+    CircleImageView profilePic;
     String name ,profilePicture ,messageId;
     ArrayList<chat_object> chat;
     RecyclerView recyclerView;
     DatabaseReference db;
     chatPersonalAdapter adapter;
+    Toolbar toolbar;
     int width;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class ChatPersonal extends AppCompatActivity {
         setContentView(R.layout.activity_chat_personal);
         DisplayMetrics displayMetrics= new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        toolbar=(androidx.appcompat.widget.Toolbar)findViewById(R.id.activityChatPersonal_chatToolbar);
+        toolbar.inflateMenu(R.menu.chatmenuoptions);
         width=displayMetrics.widthPixels;
          message = findViewById(R.id.activityChatPersonal_editText);
         nameOfHostel = findViewById(R.id.activityChatPersonal_name);
