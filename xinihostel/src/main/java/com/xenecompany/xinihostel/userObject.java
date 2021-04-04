@@ -1,8 +1,8 @@
 package com.xenecompany.xinihostel;
 
-public class ChatObject {
+public class userObject {
     private String chatroomId , userNo, profilePicture , userName;
-    public ChatObject(String chatroomId , String userNo){
+    public userObject(String chatroomId , String userNo){
         this.chatroomId = chatroomId;
         this.userNo = userNo;
     }

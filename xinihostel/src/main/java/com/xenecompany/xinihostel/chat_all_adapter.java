@@ -7,27 +7,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.viewHolder> {
-    private ArrayList<ChatObject> chatList;
+    private ArrayList<userObject> chatList;
     private Context context;
     private int width;
     private int height;
 
-    public chat_all_adapter(ArrayList<ChatObject> chatList, Context context, int width, int height) {
+    public chat_all_adapter(ArrayList<userObject> chatList, Context context, int width, int height) {
         this.chatList = chatList;
         this.context = context;
         this.width = width;
         this.height = height;
+    }
+
+    public void filteredList(ArrayList<userObject> filterList){
+        this.chatList = filterList;
+        notifyDataSetChanged();
     }
 
     @NonNull
