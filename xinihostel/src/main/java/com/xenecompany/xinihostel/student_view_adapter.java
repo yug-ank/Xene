@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.like.LikeButton;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -71,6 +72,7 @@ public class student_view_adapter extends FirestorePagingAdapter<StudentCardView
                                         if (value.exists()) {
                                             List<String> requested = (List<String>) value.get("requested");
                                             List<String> accepted = (List<String>) value.get("accepted");
+                                            List<String> wishlist=(List<String>) value.get("wishlist");
                                             if (requested.contains(model.getItemID())) {
                                                 holder.studentStatus.setText("requested");
                                                 holder.studentStatus.setTextColor(Color.RED);
@@ -78,6 +80,9 @@ public class student_view_adapter extends FirestorePagingAdapter<StudentCardView
                                             else{
                                                 holder.studentStatus.setText("accepted");
                                                 holder.studentStatus.setTextColor(Color.BLUE);
+                                            }
+                                            if(wishlist.contains(model.getItemID())){
+                                                holder.studentLike.setLiked(true);
                                             }
                                         }
                                     }
@@ -146,12 +151,14 @@ public class student_view_adapter extends FirestorePagingAdapter<StudentCardView
             TextView  studentName;
             TextView studentInstituteName;
             TextView studentStatus;
+            LikeButton studentLike;
             public hostel_view_holder(@NonNull View itemView) {
                 super(itemView);
                 studentImage=(ImageView)itemView.findViewById(R.id.studentImage);
                 studentName=(TextView)itemView.findViewById(R.id.studentName);
                 studentInstituteName=(TextView)itemView.findViewById(R.id.studentInstituteName);
                 studentStatus=(TextView)itemView.findViewById(R.id.studentStatus);
+                studentLike=(LikeButton)itemView.findViewById(R.id.studentLike);
             }
         }
 }

@@ -2,6 +2,7 @@ package com.xenecompany.xinihostel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -20,6 +21,7 @@ public class SessionManager {
             editor.commit();
     }
     public void enterLocation(String lat , String lon){
+        Log.i("rectify",lat+" "+lon);
         editor.putString(Key_Latitude , lat);
         editor.putString(Key_Longtitude , lon);
         editor.commit();
@@ -31,8 +33,8 @@ public class SessionManager {
     }
     public HashMap<String , String> getUserLocationFromSession(){
         HashMap<String , String> userdata=new HashMap<String , String>();
-        userdata.put(Key_Latitude , sharedPreferences.getString(Key_Latitude , null));
-        userdata.put(Key_Longtitude , sharedPreferences.getString(Key_Longtitude , null));
+        userdata.put(Key_Latitude , sharedPreferences.getString(Key_Latitude , ""));
+        userdata.put(Key_Longtitude , sharedPreferences.getString(Key_Longtitude , ""));
         return userdata;
     }
     public boolean checkLogin(){

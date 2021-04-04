@@ -3,9 +3,9 @@ package com.xenecompany.xinihostel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chaos.view.PinView;
@@ -35,6 +35,7 @@ import androidx.annotation.Nullable;
 
 public class otp_page extends Activity {
 
+    private TextView resend;
     private PinView otpEntered;
     private  String verificationCodeBySystem;
     private ProgressBar progressBar;
@@ -48,10 +49,12 @@ public class otp_page extends Activity {
         otpEntered=(PinView)findViewById(R.id.otpinput);
         progressBar=(ProgressBar)findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
+        resend=(TextView)findViewById(R.id.resend);
         mAuth= FirebaseAuth.getInstance();
         phoneNo=getIntent().getStringExtra("phoneNo");
         userId="+91"+phoneNo;
         sendVerificationCodeToUser(phoneNo);
+
     }
 
     private void sendVerificationCodeToUser(String phoneNo) {
@@ -108,7 +111,6 @@ public class otp_page extends Activity {
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                                     if(value.exists()){
                                         Toast.makeText(otp_page.this , "Login sucessful" , Toast.LENGTH_SHORT).show();
-                                        Log.i("rectify" , "intent working");
                                         Intent intent=new Intent(otp_page.this , HomePage.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
