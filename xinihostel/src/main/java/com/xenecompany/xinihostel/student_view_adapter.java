@@ -2,6 +2,7 @@ package com.xenecompany.xinihostel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,18 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.List;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +58,30 @@ public class student_view_adapter extends FirestorePagingAdapter<StudentCardView
     protected void onBindViewHolder(@NonNull hostel_view_holder holder, int position, @NonNull final StudentCardViewModel model) {
                         holder.studentName.setText(model.getName());
                         holder.studentInstituteName.setText(model.getInstituteName());
+                        SessionManager sessionManager;
+                        HashMap<String , String> sessionData;
+                        sessionManager= new SessionManager(context);
+                        sessionData=sessionManager.getUserDetailFromSession();
+                        FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+                        firebaseFirestore.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no))
+                                .addSnapshotListener(
+                                new EventListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        if (value.exists()) {
+                                            List<String> requested = (List<String>) value.get("requested");
+                                            List<String> accepted = (List<String>) value.get("accepted");
+                                            if (requested.contains(model.getItemID())) {
+                                                holder.studentStatus.setText("requested");
+                                                holder.studentStatus.setTextColor(Color.RED);
+                                            }
+                                            else{
+                                                holder.studentStatus.setText("accepted");
+                                                holder.studentStatus.setTextColor(Color.BLUE);
+                                            }
+                                        }
+                                    }
+                                });
                         if(model.getProfilePicture().length()>0) {
                             Picasso.get().load(model.getProfilePicture()).fit().into(holder.studentImage, new Callback() {
                                 @Override
@@ -112,11 +145,13 @@ public class student_view_adapter extends FirestorePagingAdapter<StudentCardView
             ImageView studentImage;
             TextView  studentName;
             TextView studentInstituteName;
+            TextView studentStatus;
             public hostel_view_holder(@NonNull View itemView) {
                 super(itemView);
                 studentImage=(ImageView)itemView.findViewById(R.id.studentImage);
                 studentName=(TextView)itemView.findViewById(R.id.studentName);
                 studentInstituteName=(TextView)itemView.findViewById(R.id.studentInstituteName);
+                studentStatus=(TextView)itemView.findViewById(R.id.studentStatus);
             }
         }
 }

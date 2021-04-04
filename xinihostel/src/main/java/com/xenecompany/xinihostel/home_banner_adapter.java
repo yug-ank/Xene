@@ -28,7 +28,7 @@ public class home_banner_adapter extends PagerAdapter {
             View view = LayoutInflater.from(container.getContext()).inflate(R.layout.home_banner_slider_dataview , container , false);
             ImageView banner =view.findViewById(R.id.home_banner_imageview);
             Picasso.get().load(modelClassList.get(position).getBanner()).fit().noFade().transform(
-                    new RoundedTransformation(50 ,  0)).into(banner, new Callback() {
+                    new RoundedTransformation(40 ,  0)).into(banner, new Callback() {
                 @Override
                 public void onSuccess() {
 
