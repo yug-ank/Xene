@@ -99,6 +99,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
     Button profileNextButton;
     Button searchLocation;
     FloatingActionButton edit_profile_picture;
+    SessionManager sessionManager;
     String emailregex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Pattern emailPattern = Pattern.compile(emailregex);
     String errorMessage = "";
@@ -391,6 +392,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                         data.put("lat", Latitude);
                         data.put("lot", Longitude);
                         sessionManager.enterLocation(Latitude.toString() , Longitude.toString());
+                        Log.i("rectify" , ""+sessionManager.getUserLocationFromSession());
                         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
                         assert supportMapFragment != null;
                         supportMapFragment.getMapAsync(profile.this);
@@ -535,10 +537,8 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     });
             HashMap<String, String> locationDetail = sessionManager.getUserLocationFromSession();
 
-            // Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
-            // Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));Log.i("rectify" , ""+locationDetail);
-            Latitude = 26.922070;
-            Longitude = 75.778885;
+             Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
+            Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));Log.i("rectify" , ""+locationDetail);
             SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
             assert supportMapFragment != null;
             supportMapFragment.getMapAsync(profile.this);
@@ -839,11 +839,14 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
+                    SessionManager sessionManagertemp=new SessionManager(profile.this);
                     Latitude = location.getLatitude();
                     Longitude = location.getLongitude();
                     Toast.makeText(getApplicationContext(), Latitude + "" + Longitude, Toast.LENGTH_SHORT).show();
+                    sessionManagertemp.enterLocation(String.valueOf(Latitude) , String.valueOf(Longitude));
                     data.put("lat", Latitude);
                     data.put("lot", Longitude);
+                    Log.i("rectify" ,""+Latitude+" "+Longitude);
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
                     assert supportMapFragment != null;
                     supportMapFragment.getMapAsync(profile.this);

@@ -110,6 +110,7 @@ public class wishlist extends AppCompatActivity {
                                         })
                                         .build();
                                 student_view_adapter student_view_adapter= new student_view_adapter(options);
+                                student_view_adapter.notifyDataSetChanged();
                                 student_view_adapter.startListening();
                                 student_view_adapter.setScreenwidth(width);
                                 student_view_adapter.setContext(wishlist.this);
