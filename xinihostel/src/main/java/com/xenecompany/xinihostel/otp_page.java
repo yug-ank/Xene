@@ -110,6 +110,7 @@ public class otp_page extends Activity {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                                     if(value.exists()){
+                                        sessionManager.enterLocation(value.get("lat").toString() , value.get("lot").toString());
                                         Toast.makeText(otp_page.this , "Login sucessful" , Toast.LENGTH_SHORT).show();
                                         Intent intent=new Intent(otp_page.this , HomePage.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);

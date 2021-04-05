@@ -10,10 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +29,10 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class studentDetails extends AppCompatActivity {
     ImageView studentDetailImage;
@@ -210,8 +210,8 @@ public class studentDetails extends AppCompatActivity {
         ///wishlist buttons code
 
         ///book button code
-        book_button=(Button) findViewById(R.id.book_button);
-        cancel_button=(Button) findViewById(R.id.cancel_button);
+        book_button=(Button) findViewById(R.id.button_accept);
+        cancel_button=(Button) findViewById(R.id.button_reject);
         db.collection("Hostels").document("+91" + sessionData.get(SessionManager.Key_Phone_no)).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
