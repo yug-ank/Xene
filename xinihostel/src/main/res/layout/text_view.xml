@@ -8,38 +8,88 @@
     android:orientation="horizontal"
     tools:ignore="RtlHardcoded"
     android:layout_marginTop="25dp">
-    <TextView
-        android:id="@+id/chatSentMessageTextView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="left"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintWidth_max="wrap"
+        >
+        <TextView
+        android:id="@+id/chatSentMessageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/received_message"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
         android:textColor="@color/colorPrimary"
         android:gravity="left"
-        android:layout_marginLeft="5dp"
+        android:text="yugank"
         android:textSize="17dp"
         android:padding="10dp"
         app:layout_constraintWidth_max="wrap"
+        android:visibility="gone"
         />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_done_all_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/chatSentMessageTextView"
+            app:layout_constraintEnd_toEndOf="@+id/chatSentMessageTextView"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintHorizontal_bias="0.882"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintWidth_default="percent"
+    app:layout_constraintWidth_percent="0.7"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginLeft="5dp"
+    app:layout_constraintWidth_max="wrap"
+    >
     <TextView
         android:id="@+id/chatRecievedMessageTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.7"
-        app:layout_constraintWidth_max="wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/sent_message"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        android:gravity="right"
+        android:textColor="@color/colorPrimary"
+        android:gravity="left"
+        android:text="yugank"
         android:textSize="17dp"
-        android:layout_marginRight="5dp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        app:layout_constraintWidth_max="wrap"
+        android:visibility="visible"
+        />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_done_all_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/chatRecievedMessageTextView"
+            app:layout_constraintEnd_toEndOf="@+id/chatRecievedMessageTextView"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintHorizontal_bias="0.882"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
