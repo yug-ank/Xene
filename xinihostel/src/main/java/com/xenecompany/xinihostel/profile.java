@@ -537,7 +537,7 @@ public class profile extends AppCompatActivity implements OnMapReadyCallback {
                     });
             HashMap<String, String> locationDetail = sessionManager.getUserLocationFromSession();
 
-             Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
+            Longitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Longtitude));
             Latitude=Double.parseDouble(locationDetail.get(SessionManager.Key_Latitude));Log.i("rectify" , ""+locationDetail);
             SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
             assert supportMapFragment != null;

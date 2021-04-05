@@ -6,4 +6,5 @@
     <color name="secondary">#4E6E6B</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="colorAccentDark">#067A6F</color>
 </resources>
