@@ -59,7 +59,9 @@
         app:layout_constraintHeight_percent="0.06"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="1.0" />
+        app:layout_constraintWidth_percent="1.0"
+        android:iconifiedByDefault="false"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activityChatAll_recyclerView"

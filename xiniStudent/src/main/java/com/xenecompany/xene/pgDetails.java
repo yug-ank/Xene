@@ -66,6 +66,7 @@ public class pgDetails extends AppCompatActivity {
         viewPagerConfig();
         setUtilitiesIcon();
 
+        /// start chat
         startchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +98,8 @@ public class pgDetails extends AppCompatActivity {
                 String msgId = chatroomId;
                 db1 = db0.child(msgId);
                 obj.put("sender", "z");
-                obj.put("text", false);
+                obj.put("text", true);
+                obj.put("seen", false);
                 obj.put("time", "time");
                 db1.updateChildren(obj);
 
@@ -115,6 +117,7 @@ public class pgDetails extends AppCompatActivity {
                 });
             }
         });
+        /// start chat
 
 
         ///wishlist buttons code

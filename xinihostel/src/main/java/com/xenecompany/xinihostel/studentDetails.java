@@ -1,5 +1,6 @@
 package com.xenecompany.xinihostel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,10 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import java.util.Map;
 
 public class studentDetails extends AppCompatActivity {
     ImageView studentDetailImage;
@@ -57,7 +60,7 @@ public class studentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_details);
         studentDetailImage=(ImageView)findViewById(R.id.studentDetailImage);
-      //  startchat = findViewById(R.id.layoutPgPictures_startchat);
+        startchat = findViewById(R.id.layoutPgPictures_startchat);
         profileName=(EditText)findViewById(R.id.profileName);
         editdetailEmail=(EditText)findViewById(R.id.editdetailEmail);
         editdetailPhoneNumber=(EditText)findViewById(R.id.editdetailPhoneNumber);
@@ -216,6 +219,7 @@ public class studentDetails extends AppCompatActivity {
                     List<String> wishlist= (List<String>) value.get("requested");
                     if(wishlist.contains(ItemId)){
                         book_button.setText("ACCEPT REQUEST");
+                        startchat.setVisibility(View.GONE);
                     }
                 }
             }
@@ -227,7 +231,7 @@ public class studentDetails extends AppCompatActivity {
                     List<String> wishlist= (List<String>) value.get("accepted");
                     if(wishlist.contains(ItemId)){
                         book_button.setText("REMOVE CONNECTION");
-         //                        startchat.setVisibility(View.VISIBLE);
+                        startchat.setVisibility(View.VISIBLE);
                         cancel_button.setText("SEND MESSAGE");
                     }
                 }
@@ -260,7 +264,6 @@ public class studentDetails extends AppCompatActivity {
                     book_button.setVisibility(View.GONE);
                     wishlist_button.setVisibility(View.GONE);
                     cancel_button.setVisibility(View.GONE);
-                    startchat.setVisibility(View.GONE);
 
                     /// stop chat of that person
                     DatabaseReference flag = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(ItemId+"+91"+sessionData.get(SessionManager.Key_Phone_no)).child(ItemId+"+91"+sessionData.get(SessionManager.Key_Phone_no)).child("text");
@@ -299,12 +302,13 @@ public class studentDetails extends AppCompatActivity {
         ///book button code
 
         ///startchat code
-    /*    startchat.setOnClickListener(new View.OnClickListener() {
+        startchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String studentMobNo = getIntent().getStringExtra("ItemId");
                 String currentHostelOwnerMobNo = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
-                DatabaseReference db0 = FirebaseDatabase.getInstance().getReference("hostel\n"+currentHostelOwnerMobNo+"\n"+studentMobNo);
+//                DatabaseReference db0 = FirebaseDatabase.getInstance().getReference("hostel\n"+currentHostelOwnerMobNo+"\n"+studentMobNo);
+                DatabaseReference db0 = FirebaseDatabase.getInstance().getReference().child("hostel").child(currentHostelOwnerMobNo).child(studentMobNo);
                 DatabaseReference db1 = db0.child("chatroomId");
 //                String chatroomId = db1.push().getKey();
                 String chatroomId = studentMobNo+currentHostelOwnerMobNo;
@@ -332,6 +336,7 @@ public class studentDetails extends AppCompatActivity {
                 obj.put("sender", "z");
                 obj.put("text", true);
                 obj.put("time", "time");
+                obj.put("seen", false);
                 db1.updateChildren(obj);
 
 
@@ -390,8 +395,8 @@ public class studentDetails extends AppCompatActivity {
                     });
                 }*/
 ////
-      ////      }
-     //   });
+            }
+        });
         ///startchat code
 
 

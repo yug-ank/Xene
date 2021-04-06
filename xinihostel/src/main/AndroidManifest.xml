@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".chatAll"/>
+        <activity android:name=".chatAll" android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ChatPersonal" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".splash_screen">
             <intent-filter>

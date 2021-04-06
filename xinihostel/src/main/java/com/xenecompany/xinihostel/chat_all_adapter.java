@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,11 @@ public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.view
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, final int position) {
         holder.name.setText(chatList.get(position).getUserName());
+        if(chatList.get(position).getIsOnline())
+            holder.isOnline.setImageResource(R.drawable.darkcircle);
+        else
+            holder.isOnline.setImageResource(R.drawable.redcircle);
+
         if(!chatList.get(position).getProfilePicture().isEmpty())
             Picasso.get().load(chatList.get(position).getProfilePicture()).into(holder.profilePic);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -74,11 +80,13 @@ public class chat_all_adapter extends RecyclerView.Adapter<chat_all_adapter.view
         private TextView name;
         private CircleImageView profilePic;
         private CardView cardView;
+        private ImageView isOnline;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.activityChatCard_name);
             profilePic = itemView.findViewById(R.id.activityChatCard_profilePicture);
             cardView = itemView.findViewById(R.id.activityChatCard_cardView);
+            isOnline = itemView.findViewById(R.id.chatCardView_isOnline);
         }
     }
 }

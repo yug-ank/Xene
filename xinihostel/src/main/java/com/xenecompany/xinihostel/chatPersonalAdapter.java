@@ -5,13 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapter.viewHolder> {
     ArrayList<chat_object> chat;
@@ -40,6 +41,10 @@ public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapte
             Log.i("rectify" , "sent");
             holder.recievedMessageTextView.setVisibility(View.VISIBLE);
             holder.recievedMessageTextView.setText(chat.get(position).getText());
+            holder.doubleTick.setVisibility(View.VISIBLE);
+            if(chat.get(position).getSeen())
+                holder.doubleTick.setImageResource(R.drawable.ic_baseline_done_all_blue);
+
         }
         if(chat.get(position).sender.equals("U")) {
             Log.i("rectify" , "received");
@@ -66,8 +71,10 @@ public class chatPersonalAdapter extends RecyclerView.Adapter<chatPersonalAdapte
     public class viewHolder extends RecyclerView.ViewHolder {
         private TextView sentMessageTextView;
         private TextView recievedMessageTextView;
+        private ImageView doubleTick;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
+            doubleTick = itemView.findViewById(R.id.chatRecievedMessage_doubleTick);
             sentMessageTextView=itemView.findViewById(R.id.chatSentMessageTextView);
             recievedMessageTextView=itemView.findViewById(R.id.chatRecievedMessageTextView);
         }

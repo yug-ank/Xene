@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,6 +34,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -217,5 +219,29 @@ public class HomePage extends Activity implements NavigationView.OnNavigationIte
                 doubleBackPressed=false;
                 }
                 } , 2000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Map<String , Object> status = new HashMap<>();
+        status.put("status", true);
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child("user")
+                .child("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                .updateChildren(status);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Map<String , Object> status = new HashMap<>();
+        status.put("status", false);
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child("user")
+                .child("+91"+sessionData.get(SessionManager.Key_Phone_no))
+                .updateChildren(status);
     }
 }

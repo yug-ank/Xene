@@ -35,20 +35,6 @@
         android:visibility="gone"
         />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_baseline_done_all_grey"
-            app:layout_constraintBottom_toBottomOf="@+id/chatSentMessageTextView"
-            app:layout_constraintEnd_toEndOf="@+id/chatSentMessageTextView"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.2"
-            app:layout_constraintHorizontal_bias="0.882"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.9"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="0dp"
@@ -73,11 +59,13 @@
         android:textSize="17dp"
         android:padding="10dp"
         app:layout_constraintWidth_max="wrap"
-        android:visibility="visible"
+        android:visibility="gone"
         />
         <ImageView
+            android:id="@+id/chatRecievedMessage_doubleTick"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="gone"
             android:src="@drawable/ic_baseline_done_all_grey"
             app:layout_constraintBottom_toBottomOf="@+id/chatRecievedMessageTextView"
             app:layout_constraintEnd_toEndOf="@+id/chatRecievedMessageTextView"

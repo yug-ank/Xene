@@ -33,9 +33,9 @@ public class ChatPersonal extends AppCompatActivity {
     String name ,profilePicture ,messageId;
     ArrayList<chat_object> chat;
     RecyclerView recyclerView;
-    DatabaseReference db;
+    DatabaseReference db , db1;
     chatPersonalAdapter adapter;
-
+    ChildEventListener childEventListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,22 +52,37 @@ public class ChatPersonal extends AppCompatActivity {
         Picasso.get().load(profilePicture).into(profilePic);
         Log.i("yash", "came1 ");
         initializeMessages();
-        getMessages();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        db1.addChildEventListener(childEventListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        db1.removeEventListener(childEventListener);
     }
 
     private void getMessages() {
-        Log.i("yash", "came9 ");
-        DatabaseReference db1 = db;
-        Log.i("yash", "came10 ");
-        db1.addChildEventListener(new ChildEventListener() {
+        db1 = db;
+        Map<String , Object> temp = new HashMap<>();
+        temp.put("seen", true);
+        childEventListener =  new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
-                    Log.i("yash", snapshot.child("text").getValue().toString());
-                    chat.add(new chat_object(snapshot.child("text").getValue().toString(), snapshot.child("time").getValue().toString(), snapshot.child("sender").getValue().toString()));
-                    Log.i("yash", "came12 ");
+                    if(snapshot.child("sender").getValue().toString().equals("H")) {
+                        db1.child(snapshot.getKey()).updateChildren(temp);
+                    }
+                    chat.add(
+                            new chat_object(snapshot.child("text").getValue().toString()
+                                    , snapshot.child("time").getValue().toString()
+                                    , snapshot.child("sender").getValue().toString()
+                                    , (Boolean) snapshot.child("seen").getValue()));
                     adapter.notifyDataSetChanged();
-                    Log.i("yash", "came13 ");
                 }
             }
 
@@ -90,18 +105,15 @@ public class ChatPersonal extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
     }
 
     private void initializeMessages() {
         chat = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         recyclerView.setHasFixedSize(false);
-        Log.i("yash", "came2 ");
         adapter = new chatPersonalAdapter(chat , this);
-        Log.i("yash", "came3 ");
         recyclerView.setAdapter(adapter);
-        Log.i("yash", "came4 ");
     }
 
     public void sendMessage(View view) {
@@ -111,6 +123,7 @@ public class ChatPersonal extends AppCompatActivity {
         if(!message.getText().toString().isEmpty())
             object.put("text", message.getText().toString());
         object.put("sender", "U");
+        object.put("seen", false);
         object.put("time", "time");
         db1.updateChildren(object);
         message.setText(null);

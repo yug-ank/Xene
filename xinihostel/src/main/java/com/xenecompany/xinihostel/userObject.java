@@ -2,13 +2,18 @@ package com.xenecompany.xinihostel;
 
 public class userObject {
     private String chatroomId , userNo, profilePicture , userName;
+    private Boolean isOnline;
     public userObject(String chatroomId , String userNo){
         this.chatroomId = chatroomId;
         this.userNo = userNo;
+        this.isOnline = false;
+
     }
 
     public String getChatroomId() { return chatroomId; }
 
+    public  void setIsOnline(Boolean isOnline){ this.isOnline = isOnline;}
+    public Boolean getIsOnline(){ return this.isOnline;}
     public String getUserNo(){
         return userNo;
     }

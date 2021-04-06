@@ -31,7 +31,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatPersonal extends AppCompatActivity {
-//    private EditText messagebox;
+    //    private EditText messagebox;
     EditText message;
     ImageView send;
     TextView nameOfHostel;
@@ -39,9 +39,10 @@ public class ChatPersonal extends AppCompatActivity {
     String name ,profilePicture ,messageId;
     ArrayList<chat_object> chat;
     RecyclerView recyclerView;
-    DatabaseReference db;
+    DatabaseReference db , db1;
     chatPersonalAdapter adapter;
     Toolbar toolbar;
+    ChildEventListener childEventListener;
     int width;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +53,10 @@ public class ChatPersonal extends AppCompatActivity {
         toolbar=(androidx.appcompat.widget.Toolbar)findViewById(R.id.activityChatPersonal_chatToolbar);
         toolbar.inflateMenu(R.menu.chatmenuoptions);
         width=displayMetrics.widthPixels;
-         message = findViewById(R.id.activityChatPersonal_editText);
+        message = findViewById(R.id.activityChatPersonal_editText);
         nameOfHostel = findViewById(R.id.activityChatPersonal_name);
         profilePic = findViewById(R.id.activityChatPersonal_profilePicture);
-         send = findViewById(R.id.activityChatPersonal_send);
+        send = findViewById(R.id.activityChatPersonal_send);
         recyclerView = findViewById(R.id.activityChatPersonal_recyclerView);
 
         db = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(getIntent().getStringExtra("chatroom"));
@@ -67,6 +68,18 @@ public class ChatPersonal extends AppCompatActivity {
         initializeEditText();
         initializeMessages();
         getMessages();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        db1.addChildEventListener(childEventListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        db1.removeEventListener(childEventListener);
     }
 
     private void initializeEditText() {
@@ -81,8 +94,10 @@ public class ChatPersonal extends AppCompatActivity {
                     }
                     else{
                         findViewById(R.id.activityChatPersonal_flag).setEnabled(true);
+                        findViewById(R.id.activityChatPersonal_flag).setVisibility(View.VISIBLE);
                     }
                 }
+
             }
 
             @Override
@@ -93,12 +108,21 @@ public class ChatPersonal extends AppCompatActivity {
     }
 
     private void getMessages() {
-        DatabaseReference db1 = db;
-        db1.addChildEventListener(new ChildEventListener() {
+        db1 = db;
+        Map<String , Object> temp = new HashMap<>();
+        temp.put("seen", true);
+        childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists()){
-                    chat.add(new chat_object(snapshot.child("text").getValue().toString(), snapshot.child("time").getValue().toString(), snapshot.child("sender").getValue().toString()));
+                    if(snapshot.child("sender").getValue().toString().equals("U")) {
+                        db1.child(snapshot.getKey()).updateChildren(temp);
+                    }
+                    chat.add(
+                            new chat_object(snapshot.child("text").getValue().toString()
+                                    , snapshot.child("time").getValue().toString()
+                                    , snapshot.child("sender").getValue().toString()
+                                    , (Boolean) snapshot.child("seen").getValue()));
                     adapter.notifyDataSetChanged();
                     recyclerView.smoothScrollToPosition(chat.size()-1);
                 }
@@ -123,7 +147,7 @@ public class ChatPersonal extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
     }
 
     private void initializeMessages() {
@@ -145,6 +169,7 @@ public class ChatPersonal extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
         String currentDateandTime = sdf.format(new Date());
         object.put("sender", "H");
+        object.put("seen", false);
         object.put("time", currentDateandTime);
         db1.updateChildren(object);
         message.setText(null);

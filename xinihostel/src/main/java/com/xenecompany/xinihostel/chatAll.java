@@ -7,6 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,12 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class chatAll extends AppCompatActivity {
     ArrayList<userObject> chatList;
@@ -57,9 +57,6 @@ public class chatAll extends AppCompatActivity {
                 searchIcon.setVisibility(View.GONE);
                 findViewById(R.id.activityChatAll_textViewMessage).setVisibility(View.GONE);
                 searchView.setVisibility(View.VISIBLE);
-                searchView.setIconifiedByDefault(false);
-                searchView.requestFocus();
-                Log.i("yash", searchView.isInEditMode()+"");
             }
         });
 
@@ -76,6 +73,15 @@ public class chatAll extends AppCompatActivity {
             }
         });
 
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchView.setVisibility(View.GONE);
+                searchIcon.setVisibility(View.VISIBLE);
+                findViewById(R.id.activityChatAll_textViewMessage).setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
 
     }
 
@@ -91,19 +97,38 @@ public class chatAll extends AppCompatActivity {
 
     void getCHatList(){
         chatList = new ArrayList<>();
-//        Log.i("mob no", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber()));
-//        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("hostel").child("917339703405");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot childrens : snapshot.getChildren()){
+                        if(childrens.getKey().toString().charAt(0) == 's') continue;
                         String temp = "";
                         for(DataSnapshot chatroom : childrens.child("chatroomId").getChildren())
                             temp = chatroom.getKey();
                         final userObject obj = new userObject( temp , childrens.child("userNumber").getValue().toString());
-                    Log.i("chatroom and number ",obj.getChatroomId()+" "+obj.getUserNo());
+                        // is the user online
+                        FirebaseDatabase.getInstance().getReference().child("user").child(obj.getUserNo()).child("status")
+                                .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    obj.setIsOnline((Boolean) snapshot.getValue());
+                                    Log.i("rectify", obj.getIsOnline()+"");
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                        //is the user online
+
+
                         FirebaseFirestore.getInstance().collection("Student").document(obj.getUserNo()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -112,7 +137,6 @@ public class chatAll extends AppCompatActivity {
                                         obj.setUserName(value.get("name").toString());
                                     if(value.get("profilePicture") != null)
                                         obj.setProfilePicture(value.get("profilePicture").toString());
-                                    Log.i("name", obj.getUserName()+" "+obj.getProfilePicture());
                                     chatList.add(obj);
                                     adapter.notifyDataSetChanged();
                                 }
