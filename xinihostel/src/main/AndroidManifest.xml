@@ -45,9 +45,8 @@
             android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".studentDetails">
-
-        </activity>
+        <activity android:name=".studentDetails"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".About_Us"/>
         <activity android:name=".contact_us"
             android:windowSoftInputMode="adjustPan">

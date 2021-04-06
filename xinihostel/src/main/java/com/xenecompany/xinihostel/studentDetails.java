@@ -1,6 +1,5 @@
 package com.xenecompany.xinihostel;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +26,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,7 +57,7 @@ public class studentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_details);
         studentDetailImage=(ImageView)findViewById(R.id.studentDetailImage);
-        startchat = findViewById(R.id.layoutPgPictures_startchat);
+      //  startchat = findViewById(R.id.layoutPgPictures_startchat);
         profileName=(EditText)findViewById(R.id.profileName);
         editdetailEmail=(EditText)findViewById(R.id.editdetailEmail);
         editdetailPhoneNumber=(EditText)findViewById(R.id.editdetailPhoneNumber);
@@ -230,7 +227,7 @@ public class studentDetails extends AppCompatActivity {
                     List<String> wishlist= (List<String>) value.get("accepted");
                     if(wishlist.contains(ItemId)){
                         book_button.setText("REMOVE CONNECTION");
-                        startchat.setVisibility(View.VISIBLE);
+         //                        startchat.setVisibility(View.VISIBLE);
                         cancel_button.setText("SEND MESSAGE");
                     }
                 }
@@ -302,7 +299,7 @@ public class studentDetails extends AppCompatActivity {
         ///book button code
 
         ///startchat code
-        startchat.setOnClickListener(new View.OnClickListener() {
+    /*    startchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String studentMobNo = getIntent().getStringExtra("ItemId");
@@ -392,9 +389,9 @@ public class studentDetails extends AppCompatActivity {
                         }
                     });
                 }*/
-
-            }
-        });
+////
+      ////      }
+     //   });
         ///startchat code
 
 

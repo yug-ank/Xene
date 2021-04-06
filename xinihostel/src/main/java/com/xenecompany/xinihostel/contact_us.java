@@ -69,6 +69,10 @@ public class contact_us extends AppCompatActivity {
                                                 send.setBackgroundResource(R.drawable.sign_up_button);
                                                 }
                                         }
+                                        else{
+                                            send.setEnabled(false);
+                                            send.setBackgroundResource(R.drawable.sign_up_button_notactive);
+                                        }
                                     }
                                     @Override
                                     public void afterTextChanged(Editable editable) {

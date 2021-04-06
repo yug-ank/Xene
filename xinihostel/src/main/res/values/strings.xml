@@ -47,9 +47,19 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="faq_q1">How to amend hostel details?</string>
-    <string name="faq_a1">ans here</string>
+    <string name="faq_a1">You have to send us mail through ‘Contact Us’ option in side navigation bar then the authentication will be done and then the amendments will be done automatically</string>
 
+    <string name="faq_q2">How to accept a request ?</string>
+    <string name="faq_a2">You’ll get a notification when a person is interested in your property, open his profile to accept the request.</string>
 
+    <string name="faq_q3">How to start chatting with a customer?</string>
+    <string name="faq_a3">To start chatting functionality you have to first accept the request then the icon will automatically appear.</string>
+
+    <string name="faq_q4">How to save a profile for later?</string>
+    <string name="faq_a4">When you open a request, an heart sign will appear between ACCEPT and REJECT option, upon clicking the profile will be wishlisted and you can access it from wishlist in toolbar anytime.</string>
+
+    <string name="faq_q5">How to see all the chats?</string>
+    <string name="faq_a5">A.All the chats can be accessed through message icon in toolbar.</string>
 
 
 </resources>

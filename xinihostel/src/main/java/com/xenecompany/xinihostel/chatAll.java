@@ -7,12 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +20,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class chatAll extends AppCompatActivity {
     ArrayList<userObject> chatList;
@@ -98,14 +98,12 @@ public class chatAll extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-//                    Log.i("data snaphot exist", FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
                     for(DataSnapshot childrens : snapshot.getChildren()){
                         String temp = "";
                         for(DataSnapshot chatroom : childrens.child("chatroomId").getChildren())
                             temp = chatroom.getKey();
                         final userObject obj = new userObject( temp , childrens.child("userNumber").getValue().toString());
                     Log.i("chatroom and number ",obj.getChatroomId()+" "+obj.getUserNo());
-//                        DocumentReference db = FirebaseFirestore.getInstance().collection("Student").document(obj.getUserNo());
                         FirebaseFirestore.getInstance().collection("Student").document(obj.getUserNo()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
