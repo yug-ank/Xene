@@ -112,15 +112,18 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/toolbar_heart"
-                    android:src="@drawable/toolbar_heart"
+                    android:background="@drawable/toolbar_heart_selected"
+                    android:src="@drawable/toolbar_heart_selected"
                     app:layout_constraintEnd_toStartOf="@id/button_reject"
                     app:layout_constraintHeight_default="percent"
                     app:layout_constraintHeight_percent="0.12"
                     app:layout_constraintStart_toEndOf="@id/button_accept"
                     app:layout_constraintTop_toBottomOf="@id/profileName"
                     app:layout_constraintWidth_default="percent"
-                    app:layout_constraintWidth_percent="0.1" />
+                    app:layout_constraintWidth_percent="0.1"
+                    android:text="ADD TO WISHLIST"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="1dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -131,14 +134,14 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_default="percent"
                 app:layout_constraintHeight_percent="0.2"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailAdharCard"
                 app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.9" />
+                app:layout_constraintWidth_percent="0.35"
+                android:layout_marginLeft="20dp"/>
 
             <TextView
                 android:id="@+id/detailAdharCard"
@@ -151,32 +154,31 @@
                 android:textColor="@color/secondary"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_default="percent"
                 app:layout_constraintHeight_percent="0.025"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailGuardianAddress"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.95"
+                app:layout_constraintWidth_percent="0.45"
                 />
 
             <TextView
                 android:id="@+id/detailInstituteID"
                 android:layout_width="365dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="4dp"
                 android:drawablePadding="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Institute ID"
                 android:textColor="@color/secondary"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/detailAdharCard"
                 app:layout_constraintHeight_default="percent"
                 app:layout_constraintHeight_percent="0.025"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/studentAadharCard"
+                app:layout_constraintTop_toBottomOf="@id/detailGuardianAddress"
                 app:layout_constraintWidth_default="percent"
-                app:layout_constraintWidth_percent="0.9" />
+                app:layout_constraintWidth_percent="0.45" />
 
             <ImageView
                 android:id="@+id/studentInstituteCard"
@@ -186,11 +188,11 @@
                 app:layout_constraintHeight_default="percent"
                 app:layout_constraintWidth_default="percent"
                 app:layout_constraintHeight_percent="0.2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailInstituteID"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintLeft_toRightOf="@id/studentAadharCard"
+                app:layout_constraintWidth_percent="0.35"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="50dp"
                 />
 
 

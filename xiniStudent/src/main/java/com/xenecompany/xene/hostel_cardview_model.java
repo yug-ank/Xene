@@ -2,15 +2,15 @@ package com.xenecompany.xene;
 
 public class hostel_cardview_model {
     private String hostelImage1;
-    private String name;
+    private String hostelName;
     private String hostelAddress;
     private float rating;
     private String itemID;
     private  String token;
 
-    public hostel_cardview_model(String hostelImage1, String name, String hostelAddress, float rating, String itemID, String token) {
+    public hostel_cardview_model(String hostelImage1, String hostelName, String hostelAddress, float rating, String itemID, String token) {
         this.hostelImage1 = hostelImage1;
-        this.name = name;
+        this.hostelName = hostelName;
         this.hostelAddress = hostelAddress;
         this.rating = rating;
         this.itemID = itemID;
@@ -24,8 +24,8 @@ public class hostel_cardview_model {
         return hostelImage1;
     }
 
-    public String getName() {
-        return name;
+    public String getHostelName() {
+        return hostelName;
     }
 
     public String getHostelAddress() {
@@ -48,8 +48,8 @@ public class hostel_cardview_model {
         this.hostelImage1 = hostelImage1;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHostelName(String hostelName) {
+        this.hostelName = hostelName;
     }
 
     public void setHostelAddress(String hostelAddress) {

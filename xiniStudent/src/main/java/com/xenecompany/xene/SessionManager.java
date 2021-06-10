@@ -33,6 +33,6 @@ public class SessionManager {
     }
     public void logOutUser(){
         editor.clear();
-        editor.clear();
+        editor.commit();
     }
 }

@@ -1,5 +1,6 @@
 package com.xenecompany.xene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -42,16 +43,6 @@ public class wishlist extends AppCompatActivity {
         ImageView imageView=(ImageView)wishlistLayout.findViewById(R.id.toolbarHeartImageView);
         imageView.setImageResource(R.drawable.toolbar_heart_selected);
 
-        FrameLayout notificationLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_notification).getActionView();
-        notificationLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView textView=(TextView)view.findViewById(R.id.notificationCount);
-                textView.setText("0");
-                ImageView imageView=(ImageView)findViewById(R.id.toolbarNotificationImageView);
-                imageView.setImageResource(R.drawable.toolbar_notification_selected);
-            }
-        });
 
         FrameLayout messageLayout=(FrameLayout)toolbar.getMenu().findItem(R.id.toolbar_message).getActionView();
         messageLayout.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +50,7 @@ public class wishlist extends AppCompatActivity {
             public void onClick(View view) {
                 TextView textView=(TextView)view.findViewById(R.id.messageCount);
                 textView.setText("0");
-                ImageView imageView=(ImageView)findViewById(R.id.toolbarMessageImageView);
-                imageView.setImageResource(R.drawable.toolbar_message_selected);
+                startActivity(new Intent(view.getContext(), chatAll.class));
             }
         });
         ////////toolbar
@@ -91,10 +81,10 @@ public class wishlist extends AppCompatActivity {
                                          .setQuery(query, config, new SnapshotParser<hostel_cardview_model>() {
                                              @NonNull
                                              @Override
-                                             public hostel_cardview_model parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                                                 hostel_cardview_model hostelCardviewModel = snapshot.toObject(hostel_cardview_model.class);
-                                                 hostelCardviewModel.setItemID(snapshot.getId());
-                                                 return hostelCardviewModel;
+                                             public hostel_cardview_model parseSnapshot(@NonNull DocumentSnapshot snapshot){
+                                                     hostel_cardview_model hostelCardviewModel = snapshot.toObject(hostel_cardview_model.class);
+                                                     hostelCardviewModel.setItemID(snapshot.getId());
+                                                     return hostelCardviewModel;
                                              }
                                          })
                                          .build();

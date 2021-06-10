@@ -29,7 +29,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_model , hostel_view_adapter.hostel_view_holder> {
@@ -63,7 +62,7 @@ public class hostel_view_adapter extends FirestorePagingAdapter<hostel_cardview_
     }
     @Override
     protected void onBindViewHolder(@NonNull final hostel_view_holder holder, int position, @NonNull final hostel_cardview_model model) {
-                        holder.hostelName.setText(model.getName());
+                        holder.hostelName.setText(model.getHostelName());
                         holder.hostelAddress.setText(model.getHostelAddress());
                         holder.hostelRating.setRating(model.getRating());
                         Picasso.get().load(model.getHostelImage1()).fit().into(holder.hostelImage, new Callback() {

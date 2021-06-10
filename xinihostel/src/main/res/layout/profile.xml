@@ -50,13 +50,13 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_camera"
+            android:src="@drawable/ic_camera1"
             app:borderWidth="0dp"
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="@+id/profileImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:rippleColor="@color/colorPrimaryDark"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

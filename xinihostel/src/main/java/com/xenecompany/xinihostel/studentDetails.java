@@ -10,10 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +29,10 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class studentDetails extends AppCompatActivity {
     ImageView studentDetailImage;
@@ -192,6 +192,7 @@ public class studentDetails extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(studentDetails.this, "Successfully added to wishlist", Toast.LENGTH_SHORT).show();
                             wishlist_button.setText("REMOVE FROM WISHLIST");
+                            wishlist_button.setBackgroundResource(R.drawable.toolbar_heart);
                         }
                     });
                 }
@@ -202,6 +203,8 @@ public class studentDetails extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(studentDetails.this, "Successfully removed from wishlist", Toast.LENGTH_SHORT).show();
                             wishlist_button.setText("ADD TO WISHLIST");
+                            wishlist_button.setBackgroundResource(R.drawable.toolbar_heart_selected);
+
                         }
                     });
                 }

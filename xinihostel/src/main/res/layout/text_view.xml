@@ -28,7 +28,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/colorPrimary"
         android:gravity="left"
-        android:text="yugank"
         android:textSize="17dp"
         android:padding="10dp"
         app:layout_constraintWidth_max="wrap"
@@ -55,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/colorPrimary"
         android:gravity="left"
-        android:text="yugank"
+        android:text="yugank sharma doesnt care that much about anyone so dont bother that he"
         android:textSize="17dp"
         android:padding="10dp"
         app:layout_constraintWidth_max="wrap"
@@ -70,13 +69,13 @@
             app:layout_constraintBottom_toBottomOf="@+id/chatRecievedMessageTextView"
             app:layout_constraintEnd_toEndOf="@+id/chatRecievedMessageTextView"
             app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintHeight_percent="0.3"
             app:layout_constraintHorizontal_bias="0.882"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.2" />
+            app:layout_constraintWidth_percent="0.3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
