@@ -2,6 +2,7 @@
 package com.xenecompany.xene;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -35,26 +36,48 @@ public class chatAll extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.activityChatAll_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(false);
+
         getCHatList();
-        adapter = new chat_all_adapter(chatList , this);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+        adapter = new chat_all_adapter(
+                chatList , this , width , height);
+
         recyclerView.setAdapter(adapter);
     }
 
     void getCHatList(){
         chatList = new ArrayList<>();
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference()
+                .child("user")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot childrens : snapshot.getChildren()){
-                        if(childrens.getKey().toString().charAt(0) == 's') continue;
+
+                        if(childrens.getKey().charAt(0) == 's') {
+                            continue;
+                        }
+
                         String temp = "";
-                        for(DataSnapshot chatroom : childrens.child("chatroomId").getChildren())
+
+                        for(DataSnapshot chatroom : childrens.child("chatroomId").getChildren()) {
                             temp = chatroom.getKey();
-                        final userObject obj = new userObject( temp , childrens.child("hostelNo").getValue().toString());
+                        }
+                        final userObject obj =
+                                new userObject(temp , childrens.child("hostelNo").getValue().toString());
+
                         // is the user online
-                        FirebaseDatabase.getInstance().getReference().child("hostel").child(obj.getHostelNo()).child("status")
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("hostel")
+                                .child(obj.getHostelNo())
+                                .child("status")
                                 .addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,19 +96,25 @@ public class chatAll extends AppCompatActivity {
 
                         //is the user online
 
-                        DocumentReference db = FirebaseFirestore.getInstance().collection("Hostels").document(obj.getHostelNo());
-                        FirebaseFirestore.getInstance().collection("Hostels").document(obj.getHostelNo()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                if(value.exists()){
-                                    obj.setHostelName(value.get("hostelName").toString());
-                                    obj.setProfilePicture(value.get("profilePicture").toString());
-                                    chatList.add(obj);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            }
-                        });
+                        DocumentReference db = FirebaseFirestore.getInstance()
+                                .collection("Hostels")
+                                .document(obj.getHostelNo());
 
+                        FirebaseFirestore.getInstance()
+                                .collection("Hostels")
+                                .document(obj.getHostelNo())
+                                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        if(value.exists()){
+                                            obj.setHostelName(value.get("hostelName").toString());
+                                            obj.setProfilePicture(value.get("profilePicture").toString());
+                                            chatList.add(obj);
+                                            Log.i("object received :", ""+obj.getHostelName());
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                });
                     }
                 }
             }

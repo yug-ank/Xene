@@ -124,13 +124,10 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
-        android:elevation="3dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
+        android:layout_margin="5dp"
+        android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,13 +136,7 @@
             android:id="@+id/pgPicturesUtilitiesLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <ImageView
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/bed"/>
-        </LinearLayout>
+            android:orientation="horizontal"/>
     </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

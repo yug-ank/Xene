@@ -34,35 +34,56 @@ import java.util.List;
 import java.util.Map;
 
 public class pgDetails extends AppCompatActivity {
-    Button wishlist_button , book_button;
-    FirebaseFirestore db;
-    SessionManager sessionManager;
-    HashMap<String , String> sessionData;
+    private Button wishlist_button;
+    private Button book_button;
+    private FirebaseFirestore db;
+    private SessionManager sessionManager;
+    private HashMap<String , String> sessionData;
     private ArrayList<pgDetailsModel> data;
     private ViewPager2 pager;
     private TabLayout tablayout;
-    private LinearLayout linearLayout ,linearLayout1;
+    private LinearLayout linearLayout;
+    private LinearLayout linearLayout1;
     private ImageView utilitiesIcon;
-    private TextView nameOfPg ,areaOfPg ,rent ,description;
+    private TextView nameOfPg;
+    private TextView areaOfPg;
+    private TextView rent;
+    private TextView description;
     private RatingBar ratingBar;
     private ScrollView scrollView;
     private DatabaseReference db0;
     private Button startchat;
-    Integer[] icons={R.drawable.ic_bed,R.drawable.ic_cabinet,R.drawable.ic_desk,
-                     R.drawable.ic_revolving_chair,R.drawable.ic_washing_machine,
-                     R.drawable.ic_spoon};
+    private Map<String , Integer> iconString2Int;
+    private Integer[] icons={
+            R.drawable.ic_bed
+            ,R.drawable.ic_cabinet
+            ,R.drawable.ic_desk
+            ,R.drawable.ic_revolving_chair
+            ,R.drawable.ic_washing_machine
+            ,R.drawable.ic_spoon
+            ,R.drawable.ic_cooler
+            ,R.drawable.ic_camera
+            ,R.drawable.ic_security_gate
+            ,R.drawable.ic_parking
+            ,R.drawable.ic_maid
+    };
     private String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pg_details);
-        db=FirebaseFirestore.getInstance();
-        sessionManager= new SessionManager(pgDetails.this);
+
+        db = FirebaseFirestore.getInstance();
+        sessionManager = new SessionManager(pgDetails.this);
         sessionData=sessionManager.getUserDetailFromSession();
+
         final String hostelId=getIntent().getStringExtra("ItemId");
-        token=getIntent().getStringExtra("token");
+
+        token = getIntent().getStringExtra("token");
         setViews();
         setValues();
+        initialiseIconString2Int();
         viewPagerConfig();
         setUtilitiesIcon();
 
@@ -71,31 +92,49 @@ public class pgDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String hostelMobNo = getIntent().getStringExtra("ItemId");
-                String currentUserMobNo = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
-                db0 = FirebaseDatabase.getInstance().getReference().child("user").child(currentUserMobNo).child(hostelMobNo);
+                String currentUserMobNo = FirebaseAuth.getInstance()
+                        .getCurrentUser()
+                        .getPhoneNumber();
+
+                db0 = FirebaseDatabase.getInstance().getReference()
+                        .child("user")
+                        .child(currentUserMobNo)
+                        .child(hostelMobNo);
+
                 DatabaseReference db1 = db0.child("chatroomId");
-//                String chatroomId = db1.push().getKey();
                 String chatroomId = currentUserMobNo+hostelMobNo;
+
                 Map obj = new HashMap<>();
+
                 obj.put(chatroomId, true);
                 db1.updateChildren(obj);
                 obj.clear();
+
                 obj.put("hostelNo", hostelMobNo);
                 db0.updateChildren(obj);
                 obj.clear();
 
-                db0 = FirebaseDatabase.getInstance().getReference().child("hostel").child(hostelMobNo).child(currentUserMobNo);
+                db0 = FirebaseDatabase.getInstance().getReference()
+                        .child("hostel")
+                        .child(hostelMobNo)
+                        .child(currentUserMobNo);
+
                 db1 = db0.child("chatroomId");
+
                 obj.put(chatroomId, true);
                 db1.updateChildren(obj);
                 obj.clear();
+
                 obj.put("userNumber", currentUserMobNo);
                 db0.updateChildren(obj);
                 obj.clear();
 
-                db0 = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatroomId);
-//                String msgId = db0.push().getKey();
+                db0 = FirebaseDatabase.getInstance().getReference()
+                        .child("chatrooms")
+                        .child(chatroomId);
+
                 String msgId = chatroomId;
+
                 db1 = db0.child(msgId);
                 obj.put("sender", "z");
                 obj.put("text", true);
@@ -103,14 +142,22 @@ public class pgDetails extends AppCompatActivity {
                 obj.put("time", "time");
                 db1.updateChildren(obj);
 
-                FirebaseFirestore.getInstance().collection("Hostels").document(hostelMobNo).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                FirebaseFirestore.getInstance().collection("Hostels")
+                        .document(hostelMobNo)
+                        .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(value.exists()){
                             Intent intent = new Intent(v.getContext(), ChatPersonal.class);
-                            intent.putExtra("name" , value.get("hostelName").toString());
-                            intent.putExtra("profilePicture", value.get("profilePicture").toString());
-                            intent.putExtra("chatroom", chatroomId);
+                            intent.putExtra(
+                                    "name"
+                                    ,value.get("hostelName").toString()
+                            );
+                            intent.putExtra(
+                                    "profilePicture"
+                                    ,value.get("profilePicture").toString()
+                            );
+                            intent.putExtra("chatroom" ,chatroomId);
                             v.getContext().startActivity(intent);
                         }
                     }
@@ -232,6 +279,21 @@ public class pgDetails extends AppCompatActivity {
         ///book button code
     }
 
+    private void initialiseIconString2Int() {
+        iconString2Int = new HashMap<>();
+        iconString2Int.put("bed" , 0);
+        iconString2Int.put("almirah" , 1);
+        iconString2Int.put("table" , 2);
+        iconString2Int.put("chair" , 3);
+        iconString2Int.put("laundry" , 4);
+        iconString2Int.put("mess" , 5);
+        iconString2Int.put("Cooler" , 6);
+        iconString2Int.put("CCTV" , 7);
+        iconString2Int.put("Security Gaurd" , 8);
+        iconString2Int.put("Parking" , 9);
+        iconString2Int.put("House Keeping" , 10);
+    }
+
     private void setViews(){
         startchat = (Button) findViewById(R.id.layoutPgPictures_startchat);
         ratingBar = (RatingBar) findViewById(R.id.layoutPgPictures_RatingBar);
@@ -243,7 +305,10 @@ public class pgDetails extends AppCompatActivity {
 
     private void setValues(){
 
-        FirebaseFirestore.getInstance().collection("Hostels").document(getIntent().getStringExtra("ItemId")).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        FirebaseFirestore.getInstance()
+                .collection("Hostels")
+                .document(getIntent().getStringExtra("ItemId"))
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value.exists()){
@@ -260,12 +325,26 @@ public class pgDetails extends AppCompatActivity {
 
     private void setUtilitiesIcon(){
         linearLayout = findViewById(R.id.pgPicturesUtilitiesLayout);
-        for(int i=0;i<5;i++){
-            utilitiesIcon = new ImageView(this);
-            utilitiesIcon.setImageResource(R.drawable.bed);
-            utilitiesIcon.setPadding(5,5,5,5);
-            linearLayout.addView(utilitiesIcon);
-        }
+        FirebaseFirestore.getInstance()
+                .collection("Hostels")
+                .document(getIntent().getStringExtra("ItemId"))
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if(value.exists()) {
+                            ArrayList<String> utilities;
+                            utilities = (ArrayList<String>) value.get("hostelFacilities");
+                            for( String i : utilities){
+                                utilitiesIcon = new ImageView(pgDetails.this);
+                                if(iconString2Int.get(i) != null) {
+                                    utilitiesIcon.setImageResource(icons[iconString2Int.get(i)]);
+                                }
+                                utilitiesIcon.setPadding(12,6,12,0);
+                                linearLayout.addView(utilitiesIcon);
+                            }
+                        }
+                    }
+                });
     }
 
     private void viewPagerConfig(){
@@ -284,21 +363,6 @@ public class pgDetails extends AppCompatActivity {
 
         pager = findViewById(R.id.viewPager22);
         pager.setAdapter(new pgDetailsAdapter(data,this));
-
-//        CompositePageTransformer transformer = new CompositePageTransformer();
-//        transformer.addTransformer(new MarginPageTransformer((8)));
-//        transformer.addTransformer(new ViewPager2.PageTransformer() {
-//            @Override
-//            public void transformPage(@NonNull View page, float position) {
-//                float v = 1 - Math.abs(position);
-//                page.setScaleY(0.8f+v*0.2f);
-//            }
-//        });
-//        pager.setPageTransformer(transformer);
-
-//        tablayout = (TabLayout) findViewById(R.id.layoutPgPicturesTabLayout);
-//        new TabLayoutMediator(tablayout ,pager ,
-//                (tab , position) -> tab.select()).attach();
     }
 
 }

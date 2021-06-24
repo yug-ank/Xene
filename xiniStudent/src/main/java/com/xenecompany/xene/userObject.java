@@ -25,4 +25,6 @@ public class userObject {
     public void setHostelName(String hostelName){ this.hostelName = hostelName; }
 
     public void setProfilePicture(String profilePicture){ this.profilePicture = profilePicture; }
+
+    public void setChatroomId(String chatroomId){ this.chatroomId = chatroomId;}
 }

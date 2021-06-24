@@ -1,6 +1,8 @@
 package com.xenecompany.xene;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -45,13 +47,19 @@ public class ChatPersonal extends AppCompatActivity {
         profilePic = findViewById(R.id.activityChatPersonal_profilePicture);
         send = findViewById(R.id.activityChatPersonal_send);
         recyclerView = findViewById(R.id.activityChatPersonal_recyclerView);
-        db = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(getIntent().getStringExtra("chatroom"));
-        name = getIntent().getStringExtra("name");
-        profilePicture = getIntent().getStringExtra("profilePicture");
+
+        Intent intent = getIntent();
+        db = FirebaseDatabase.getInstance().getReference()
+                .child("chatrooms")
+                .child(intent.getStringExtra("chatroom"));
+
+        name = intent.getStringExtra("name");
+        profilePicture = intent.getStringExtra("profilePicture");
         nameOfHostel.setText(name);
         Picasso.get().load(profilePicture).into(profilePic);
         Log.i("yash", "came1 ");
         initializeMessages();
+        getMessages();
     }
 
     @Override
@@ -110,9 +118,16 @@ public class ChatPersonal extends AppCompatActivity {
 
     private void initializeMessages() {
         chat = new ArrayList<>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(false);
-        adapter = new chatPersonalAdapter(chat , this);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+
+        adapter = new chatPersonalAdapter(chat , this , width);
         recyclerView.setAdapter(adapter);
     }
 

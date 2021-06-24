@@ -31,7 +31,6 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatPersonal extends AppCompatActivity {
-    //    private EditText messagebox;
     EditText message;
     ImageView send;
     TextView nameOfHostel;
