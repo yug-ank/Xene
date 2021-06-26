@@ -7,9 +7,10 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/profileMap"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -18,8 +19,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        tools:context=".MapLocationActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent" />
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"

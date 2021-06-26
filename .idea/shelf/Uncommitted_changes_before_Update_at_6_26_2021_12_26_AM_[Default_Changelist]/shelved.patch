@@ -1,0 +1,213 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM_[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM_[Default_Changelist]/shelved.patch	(revision 5a3036beb687c288d8c4bcf2ab820904e96c12b2)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM_[Default_Changelist]/shelved.patch	(revision 5a3036beb687c288d8c4bcf2ab820904e96c12b2)
+@@ -1,198 +0,0 @@
+-Index: xinihostel/src/main/java/com/xenecompany/xinihostel/faq.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+>package com.xenecompany.xinihostel;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport com.xenecompany.xinihostel.adapter.faq_adapter;\r\nimport com.xenecompany.xinihostel.model.faq_model;\r\n\r\nimport java.util.ArrayList;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\npublic class faq extends AppCompatActivity {\r\n    private RecyclerView l;\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_faq);\r\n        ArrayList<faq_model> faq = new ArrayList<>(20);\r\n        for(int i=0;i<20;i++)\r\n            faq.add(new faq_model(getString(R.string.faq_q1),getString(R.string.faq_a1)));\r\n        faq_adapter f = new faq_adapter(faq);\r\n        l = findViewById(R.id.listview1);\r\n        l.setLayoutManager(new LinearLayoutManager(this));\r\n        l.setAdapter(f);\r\n    }\r\n\r\n}
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- xinihostel/src/main/java/com/xenecompany/xinihostel/faq.java	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-+++ xinihostel/src/main/java/com/xenecompany/xinihostel/faq.java	(date 1617624147050)
+-@@ -17,9 +17,17 @@
+-     protected void onCreate(Bundle savedInstanceState) {
+-         super.onCreate(savedInstanceState);
+-         setContentView(R.layout.activity_faq);
+--        ArrayList<faq_model> faq = new ArrayList<>(20);
+--        for(int i=0;i<20;i++)
+--            faq.add(new faq_model(getString(R.string.faq_q1),getString(R.string.faq_a1)));
+-+        ArrayList<faq_model> faq = new ArrayList<>(5);
+-+                faq.add(new faq_model("How to amend hostel details?" ,
+-+                        "You have to send us mail through ‘Contact Us’ option in side navigation bar then the " +
+-+                                "authentication will be done and then the amendments will be done automatically"));
+-+                faq.add((new faq_model("How to accept a request ?" , "You’ll get a notification when a person is interested in your property, " +
+-+                                                                "open his profile to accept the request.")));
+-+                faq.add(new faq_model("How to start chatting with a customer?" , "To start chatting functionality you have to first accept the request " +
+-+                                                "then the icon will automatically appear."));
+-+                faq.add(new faq_model("How to save a profile for later?" , "When you open a request, an heart sign will appear between ACCEPT and REJECT " +
+-+                                               "option, upon clicking the profile will be wishlisted and you can access it from wishlist in toolbar anytime."));
+-+                faq.add(new faq_model("How to see all the chats?" , ".All the chats can be accessed through message icon in toolbar."));
+-         faq_adapter f = new faq_adapter(faq);
+-         l = findViewById(R.id.listview1);
+-         l.setLayoutManager(new LinearLayoutManager(this));
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM__Default_Changelist_.xml
+-===================================================================
+---- .idea/shelf/Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM__Default_Changelist_.xml	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-+++ .idea/shelf/Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM__Default_Changelist_.xml	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-@@ -1,4 +0,0 @@
+--<changelist name="Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM_[Default_Changelist]" date="1617106766851" recycled="true" deleted="true">
+--  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM_[Default_Changelist]/shelved.patch" />
+--  <option name="DESCRIPTION" value="Uncommitted changes before Update at 30-03-2021 05:45 PM [Default Changelist]" />
+--</changelist>
+-\ No newline at end of file
+-Index: .idea/shelf/Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM_[Default_Changelist]/shelved.patch
+-===================================================================
+---- .idea/shelf/Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM_[Default_Changelist]/shelved.patch	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-+++ .idea/shelf/Uncommitted_changes_before_Update_at_30-03-2021_05_45_PM_[Default_Changelist]/shelved.patch	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-@@ -1,63 +0,0 @@
+--Index: xinihostel/src/main/java/com/xenecompany/xinihostel/ChatPersonal.java
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+>package com.xenecompany.xinihostel;\r\n\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.EditText;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.google.firebase.database.ChildEventListener;\r\nimport com.google.firebase.database.DataSnapshot;\r\nimport com.google.firebase.database.DatabaseError;\r\nimport com.google.firebase.database.DatabaseReference;\r\nimport com.google.firebase.database.FirebaseDatabase;\r\nimport com.squareup.picasso.Picasso;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.HashMap;\r\nimport java.util.Map;\r\n\r\npublic class ChatPersonal extends AppCompatActivity {\r\n//    private EditText messagebox;\r\n    EditText message;\r\n    ImageView send;\r\n    TextView nameOfHostel;\r\n    ImageView profilePic;\r\n    String name ,profilePicture ,messageId;\r\n    ArrayList<chat_object> chat;\r\n    RecyclerView recyclerView;\r\n    DatabaseReference db;\r\n    chatPersonalAdapter adapter;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_chat_personal);\r\n\r\n        message = findViewById(R.id.activityChatPersonal_editText);\r\n        nameOfHostel = findViewById(R.id.activityChatPersonal_name);\r\n        profilePic = findViewById(R.id.activityChatPersonal_profilePicture);\r\n        send = findViewById(R.id.activityChatPersonal_send);\r\n        recyclerView = findViewById(R.id.activityChatPersonal_recyclerView);\r\n\r\n        db = FirebaseDatabase.getInstance().getReference().child(\"chatrooms\").child(getIntent().getStringExtra(\"chatroom\"));\r\n        name = getIntent().getStringExtra(\"name\");\r\n        profilePicture = getIntent().getStringExtra(\"profilePicture\");\r\n        nameOfHostel.setText(name);\r\n        if(!profilePicture.isEmpty())\r\n            Picasso.get().load(profilePicture).into(profilePic);\r\n        Log.i(\"yash\", \"came1 \");\r\n        initializeMessages();\r\n        getMessages();\r\n    }\r\n\r\n    private void getMessages() {\r\n        Log.i(\"yash\", \"came9 \");\r\n        DatabaseReference db1 = db;\r\n        Log.i(\"yash\", \"came10 \");\r\n        db1.addChildEventListener(new ChildEventListener() {\r\n            @Override\r\n            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {\r\n                if(snapshot.exists()){\r\n                    Log.i(\"yash\", snapshot.child(\"text\").getValue().toString());\r\n                    chat.add(new chat_object(snapshot.child(\"text\").getValue().toString(), snapshot.child(\"time\").getValue().toString(), snapshot.child(\"sender\").getValue().toString()));\r\n                    Log.i(\"yash\", \"came12 \");\r\n                    adapter.notifyDataSetChanged();\r\n                    Log.i(\"yash\", \"came13 \");\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onChildRemoved(@NonNull DataSnapshot snapshot) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onCancelled(@NonNull DatabaseError error) {\r\n\r\n            }\r\n        });\r\n    }\r\n\r\n    private void initializeMessages() {\r\n        chat = new ArrayList<>();\r\n        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));\r\n        recyclerView.setHasFixedSize(false);\r\n        Log.i(\"yash\", \"came2 \");\r\n        adapter = new chatPersonalAdapter(chat , this);\r\n        Log.i(\"yash\", \"came3 \");\r\n        recyclerView.setAdapter(adapter);\r\n        Log.i(\"yash\", \"came4 \");\r\n    }\r\n\r\n    public void sendMessage(View view) {\r\n        messageId = db.push().getKey();\r\n        DatabaseReference db1 = db.child(messageId);\r\n        Map object = new HashMap<>();\r\n        if(!message.getText().toString().isEmpty())\r\n            object.put(\"text\", message.getText().toString());\r\n        object.put(\"sender\", \"H\");\r\n        object.put(\"time\", \"time\");\r\n        db1.updateChildren(object);\r\n        message.setText(null);\r\n    }\r\n}
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+----- xinihostel/src/main/java/com/xenecompany/xinihostel/ChatPersonal.java	(revision 2781681c019f8358465829a394ff3ad360dca92c)
+--+++ xinihostel/src/main/java/com/xenecompany/xinihostel/ChatPersonal.java	(date 1617106241693)
+--@@ -20,7 +20,9 @@
+-- import com.google.firebase.database.FirebaseDatabase;
+-- import com.squareup.picasso.Picasso;
+-- 
+--+import java.text.SimpleDateFormat;
+-- import java.util.ArrayList;
+--+import java.util.Date;
+-- import java.util.HashMap;
+-- import java.util.Map;
+-- 
+--@@ -71,6 +73,7 @@
+--                     Log.i("yash", "came12 ");
+--                     adapter.notifyDataSetChanged();
+--                     Log.i("yash", "came13 ");
+--+                    recyclerView.smoothScrollToPosition(chat.size()-1);
+--                 }
+--             }
+-- 
+--@@ -104,6 +107,7 @@
+--         adapter = new chatPersonalAdapter(chat , this);
+--         Log.i("yash", "came3 ");
+--         recyclerView.setAdapter(adapter);
+--+//        recyclerView.smoothScrollToPosition(chat.size()-1);
+--         Log.i("yash", "came4 ");
+--     }
+-- 
+--@@ -113,8 +117,10 @@
+--         Map object = new HashMap<>();
+--         if(!message.getText().toString().isEmpty())
+--             object.put("text", message.getText().toString());
+--+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+--+        String currentDateandTime = sdf.format(new Date());
+--         object.put("sender", "H");
+---        object.put("time", "time");
+--+        object.put("time", currentDateandTime);
+--         db1.updateChildren(object);
+--         message.setText(null);
+--     }
+--Index: xinihostel/src/main/res/layout/text_view.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:id=\"@+id/sendMessageLinearLayout\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:gravity=\"right\"\r\n    android:orientation=\"vertical\"/>\r\n\r\n
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+----- xinihostel/src/main/res/layout/text_view.xml	(revision 2781681c019f8358465829a394ff3ad360dca92c)
+--+++ xinihostel/src/main/res/layout/text_view.xml	(date 1617101952607)
+--@@ -4,6 +4,5 @@
+--     xmlns:app="http://schemas.android.com/apk/res-auto"
+--     android:layout_width="match_parent"
+--     android:layout_height="wrap_content"
+---    android:gravity="right"
+--     android:orientation="vertical"/>
+-- 
+-Index: .idea/gradle.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n            <option value=\"$PROJECT_DIR$/xiniStudent\" />\r\n            <option value=\"$PROJECT_DIR$/xinihostel\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/gradle.xml	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-+++ .idea/gradle.xml	(date 1621231114752)
+-@@ -16,6 +16,7 @@
+-           </set>
+-         </option>
+-         <option name="resolveModulePerSourceSet" value="false" />
+-+        <option name="useQualifiedModuleNames" value="true" />
+-       </GradleProjectSettings>
+-     </option>
+-   </component>
+-Index: xinihostel/src/main/res/layout/text_view.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/sendMessageLinearLayout\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:orientation=\"horizontal\"\r\n    tools:ignore=\"RtlHardcoded\"\r\n    android:layout_marginTop=\"25dp\">\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        app:layout_constraintWidth_default=\"percent\"\r\n        app:layout_constraintWidth_percent=\"0.7\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        android:gravity=\"left\"\r\n        android:layout_marginLeft=\"5dp\"\r\n        app:layout_constraintWidth_max=\"wrap\"\r\n        >\r\n        <TextView\r\n        android:id=\"@+id/chatSentMessageTextView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:background=\"@drawable/received_message\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        android:textColor=\"@color/colorPrimary\"\r\n        android:gravity=\"left\"\r\n        android:text=\"yugank\"\r\n        android:textSize=\"17dp\"\r\n        android:padding=\"10dp\"\r\n        app:layout_constraintWidth_max=\"wrap\"\r\n        android:visibility=\"gone\"\r\n        />\r\n\r\n        <ImageView\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"0dp\"\r\n            android:src=\"@drawable/ic_baseline_done_all_grey\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/chatSentMessageTextView\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/chatSentMessageTextView\"\r\n            app:layout_constraintHeight_default=\"percent\"\r\n            app:layout_constraintHeight_percent=\"0.2\"\r\n            app:layout_constraintHorizontal_bias=\"0.882\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.9\"\r\n            app:layout_constraintWidth_default=\"percent\"\r\n            app:layout_constraintWidth_percent=\"0.2\" />\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n    android:layout_width=\"0dp\"\r\n    android:layout_height=\"wrap_content\"\r\n    app:layout_constraintWidth_default=\"percent\"\r\n    app:layout_constraintWidth_percent=\"0.7\"\r\n    app:layout_constraintEnd_toEndOf=\"parent\"\r\n    app:layout_constraintTop_toTopOf=\"parent\"\r\n    android:layout_marginLeft=\"5dp\"\r\n    app:layout_constraintWidth_max=\"wrap\"\r\n    >\r\n    <TextView\r\n        android:id=\"@+id/chatRecievedMessageTextView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:background=\"@drawable/sent_message\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        android:textColor=\"@color/colorPrimary\"\r\n        android:gravity=\"left\"\r\n        android:text=\"yugank\"\r\n        android:textSize=\"17dp\"\r\n        android:padding=\"10dp\"\r\n        app:layout_constraintWidth_max=\"wrap\"\r\n        android:visibility=\"visible\"\r\n        />\r\n        <ImageView\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"0dp\"\r\n            android:src=\"@drawable/ic_baseline_done_all_grey\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/chatRecievedMessageTextView\"\r\n            app:layout_constraintEnd_toEndOf=\"@+id/chatRecievedMessageTextView\"\r\n            app:layout_constraintHeight_default=\"percent\"\r\n            app:layout_constraintHeight_percent=\"0.2\"\r\n            app:layout_constraintHorizontal_bias=\"0.882\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintVertical_bias=\"0.9\"\r\n            app:layout_constraintWidth_default=\"percent\"\r\n            app:layout_constraintWidth_percent=\"0.2\" />\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n\r\n\r\n\r\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- xinihostel/src/main/res/layout/text_view.xml	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-+++ xinihostel/src/main/res/layout/text_view.xml	(date 1617705234028)
+-@@ -28,7 +28,6 @@
+-         app:layout_constraintTop_toTopOf="parent"
+-         android:textColor="@color/colorPrimary"
+-         android:gravity="left"
+--        android:text="yugank"
+-         android:textSize="17dp"
+-         android:padding="10dp"
+-         app:layout_constraintWidth_max="wrap"
+-@@ -69,7 +68,7 @@
+-         app:layout_constraintTop_toTopOf="parent"
+-         android:textColor="@color/colorPrimary"
+-         android:gravity="left"
+--        android:text="yugank"
+-+        android:text="yugank sharma doesnt care that much about anyone so dont bother that he"
+-         android:textSize="17dp"
+-         android:padding="10dp"
+-         app:layout_constraintWidth_max="wrap"
+-@@ -82,13 +81,13 @@
+-             app:layout_constraintBottom_toBottomOf="@+id/chatRecievedMessageTextView"
+-             app:layout_constraintEnd_toEndOf="@+id/chatRecievedMessageTextView"
+-             app:layout_constraintHeight_default="percent"
+--            app:layout_constraintHeight_percent="0.2"
+-+            app:layout_constraintHeight_percent="0.3"
+-             app:layout_constraintHorizontal_bias="0.882"
+-             app:layout_constraintStart_toStartOf="parent"
+-             app:layout_constraintTop_toTopOf="parent"
+-             app:layout_constraintVertical_bias="0.9"
+-             app:layout_constraintWidth_default="percent"
+--            app:layout_constraintWidth_percent="0.2" />
+-+            app:layout_constraintWidth_percent="0.3" />
+-     </androidx.constraintlayout.widget.ConstraintLayout>
+- </androidx.constraintlayout.widget.ConstraintLayout>
+- 
+-Index: xinihostel/src/main/res/values/strings.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><resources>\r\n    <string name=\"xene\">XINI</string>\r\n    <string name=\"app_name\">XINI Hostel</string>\r\n    <string name=\"_91\">+91</string>\r\n    <string name=\"title_activity_main_navigation\">main_activity_navigation</string>\r\n    <string name=\"navigation_drawer_open\">Open navigation drawer</string>\r\n    <string name=\"navigation_drawer_close\">Close navigation drawer</string>\r\n    <string name=\"nav_header_title\">Android Studio</string>\r\n    <string name=\"nav_header_subtitle\">android.studio@android.com</string>\r\n    <string name=\"nav_header_desc\">Navigation header</string>\r\n    <string name=\"action_settings\">Settings</string>\r\n\r\n    <string name=\"navigation_header_profilepic_description\">User\\'s Profile Picture</string>\r\n    <string name=\"navigation_header_deals\">Deals</string>\r\n    <string name=\"navigation_header_email\">yashtejwani00@gmail.com</string>\r\n    <string name=\"navigation_header_messages\">Messages</string>\r\n    <string name=\"navigation_header_name\"></string>\r\n    <string name=\"navigation_header_deals_count\">5</string>\r\n    <string name=\"navigation_header_messages_count\">2</string>\r\n\r\n    <string name=\"card_view_image_contentDescription\">picture of pg</string>\r\n    <string name=\"card_view_name_of_pg\">Name of PG</string>\r\n    <string name=\"card_view_area_of_pg\">Area of PG</string>\r\n    <string name=\"slide_bar_menu_1\">My Profile</string>\r\n    <string name=\"slide_bar_menu_2\">My Deals</string>\r\n    <string name=\"slide_bar_menu_3\">Help</string>\r\n    <string name=\"layout_pg_pictures_likeButton_description\">add to favourate button</string>\r\n    <string name=\"layout_pg_pictures_name\">Name of pg</string>\r\n    <string name=\"layout_pg_pictures_area\">Area of pg</string>\r\n    <string name=\"layout_pg_pictures_rent_text\">Rent per Month</string>\r\n    <string name=\"layout_pg_pictures_rent\">4000/-</string>\r\n    <string name=\"layout_pg_pictures_utilities\">Utilities :</string>\r\n    <string name=\"layout_pg_pictures_book\">Book</string>\r\n\r\n    <string name=\"layout_pg_description_filler_text\"><![CDATA[<this is filler text> Premium – Exclusive (PG) Co Living Acommodations in Bungalow Building Contemporary Planned Spacious Rooms Calm and Peaceful, Professionally Designed Luxurious Accommodation for Corporate Working Men. \\n\\nConceptually designed 4 Spacious (140–170 Sq. Ft. Carpet) Rooms on twin Sharing Basis. \\n\\n# Power bill will be borne by the Paying Guest* \\n\\n# Easy access to Local Market Streets, Restaurants, Gym, ATM, Metro Station, Airport ETC. \\n\\n# Rent includes Repair and Maintenance of the all appliances including the AC. (). \\n\\n# Bed sheet washing and changing. (Free of Cost) \\n\\n# Only for Verified Responsible and Disciplined Corporate Room-mates. \\n\\n# Plush upholstery with Marble flooring / Vitrified Tiles.]]></string>\r\n    <string name=\"layout_pg_description_description\">Description :</string>\r\n\r\n    <string name=\"layout_pg_location_location\">Location of pg :</string>\r\n\r\n    <string name=\"layout_pg_review_data_name\">yashwant tejwani</string>\r\n    <string name=\"layout_pg_review_data_filler_text\"><![CDATA[<this is filler text> saw this property , nice place to live the environment is peacful tu study.\\nI strongly recommend this pg]]></string>\r\n\r\n    <string name=\"layout_pg_reviews_reviews\">Reviews :</string>\r\n    <string name=\"notification_data_detail\">filler text the pg you applied for gave reponse.\\nclick here you check it out and start conversation with the owner.</string>\r\n    <string name=\"notification_data_heading\">filler text you got response</string>\r\n    <string name=\"layoutFaqData_Q\">Q :</string>\r\n    <string name=\"title_activity_maps\">Map</string>\r\n\r\n    <string name=\"faq_q1\">How to amend hostel details?</string>\r\n    <string name=\"faq_a1\">You have to send us mail through ‘Contact Us’ option in side navigation bar then the authentication will be done and then the amendments will be done automatically</string>\r\n\r\n    <string name=\"faq_q2\">How to accept a request ?</string>\r\n    <string name=\"faq_a2\">You’ll get a notification when a person is interested in your property, open his profile to accept the request.</string>\r\n\r\n    <string name=\"faq_q3\">How to start chatting with a customer?</string>\r\n    <string name=\"faq_a3\">To start chatting functionality you have to first accept the request then the icon will automatically appear.</string>\r\n\r\n    <string name=\"faq_q4\">How to save a profile for later?</string>\r\n    <string name=\"faq_a4\">When you open a request, an heart sign will appear between ACCEPT and REJECT option, upon clicking the profile will be wishlisted and you can access it from wishlist in toolbar anytime.</string>\r\n\r\n    <string name=\"faq_q5\">How to see all the chats?</string>\r\n    <string name=\"faq_a5\">A.All the chats can be accessed through message icon in toolbar.</string>\r\n\r\n\r\n</resources>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- xinihostel/src/main/res/values/strings.xml	(revision 4a83b6e5366dcbd76b0e78ad8254297cad2313b3)
+-+++ xinihostel/src/main/res/values/strings.xml	(date 1617624104751)
+-@@ -46,20 +46,6 @@
+-     <string name="layoutFaqData_Q">Q :</string>
+-     <string name="title_activity_maps">Map</string>
+- 
+--    <string name="faq_q1">How to amend hostel details?</string>
+--    <string name="faq_a1">You have to send us mail through ‘Contact Us’ option in side navigation bar then the authentication will be done and then the amendments will be done automatically</string>
+--
+--    <string name="faq_q2">How to accept a request ?</string>
+--    <string name="faq_a2">You’ll get a notification when a person is interested in your property, open his profile to accept the request.</string>
+--
+--    <string name="faq_q3">How to start chatting with a customer?</string>
+--    <string name="faq_a3">To start chatting functionality you have to first accept the request then the icon will automatically appear.</string>
+--
+--    <string name="faq_q4">How to save a profile for later?</string>
+--    <string name="faq_a4">When you open a request, an heart sign will appear between ACCEPT and REJECT option, upon clicking the profile will be wishlisted and you can access it from wishlist in toolbar anytime.</string>
+--
+--    <string name="faq_q5">How to see all the chats?</string>
+--    <string name="faq_a5">A.All the chats can be accessed through message icon in toolbar.</string>
+- 
+- 
+- </resources>
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM__Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM__Default_Changelist_.xml	(revision 5a3036beb687c288d8c4bcf2ab820904e96c12b2)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM__Default_Changelist_.xml	(revision 5a3036beb687c288d8c4bcf2ab820904e96c12b2)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM_[Default_Changelist]" date="1623241308406" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_9_2021_5_51_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 6/9/2021 5:51 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file

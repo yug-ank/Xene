@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
 import com.xenecompany.xene.R;
 import com.xenecompany.xene.model.pgDetailsModel;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class pgDetailsAdapter extends RecyclerView.Adapter<pgDetailsAdapter.viewHolder> {
     public ArrayList<pgDetailsModel> data;
@@ -33,7 +33,8 @@ public class pgDetailsAdapter extends RecyclerView.Adapter<pgDetailsAdapter.view
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Picasso.get().load(data.get(position).img).noFade().into(holder.img);
+        if(data.get(position).img.length()>0)
+             Picasso.get().load(data.get(position).img).noFade().into(holder.img);
     }
 
     @Override

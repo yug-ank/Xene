@@ -1,7 +1,10 @@
 package com.xenecompany.xene;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,10 +14,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +39,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class pgDetails extends AppCompatActivity {
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
+public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
+
+    Double Latitude;
+    Double Longitude;
     private Button wishlist_button;
     private Button book_button;
     private FirebaseFirestore db;
@@ -53,6 +67,7 @@ public class pgDetails extends AppCompatActivity {
     private ScrollView scrollView;
     private DatabaseReference db0;
     private Button startchat;
+    private SupportMapFragment supportMapFragment;
     private Map<String , Integer> iconString2Int;
     private Integer[] icons={
             R.drawable.ic_bed
@@ -301,6 +316,8 @@ public class pgDetails extends AppCompatActivity {
         areaOfPg = (TextView) findViewById(R.id.layoutPgPictures_AreaOfPg);
         rent = (TextView) findViewById(R.id.price_pgdetails);
         description = (TextView) findViewById(R.id.layoutPgDescription_Description);
+        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
+        assert supportMapFragment != null;
     }
 
     private void setValues(){
@@ -317,12 +334,21 @@ public class pgDetails extends AppCompatActivity {
                     ratingBar.setRating(Float.parseFloat(value.get("rating").toString()));
                     rent.setText(value.get("price").toString());
                     description.setText(value.get("description").toString());
+                    Double Lat=Double.parseDouble(value.get("lat").toString());
+                    Double Lon=Double.parseDouble(value.get("lot").toString());
+                    Log.i("rectify" , ""+Latitude+" "+Longitude);
+                    callMap(Lat , Lon);
                 }
             }
         });
 
+      //  supportMapFragment.getMapAsync(pgDetails.this);
     }
-
+    private void callMap(Double Lat, Double Lon){
+        this.Latitude=Lat;
+        this.Longitude=Lon;
+        Log.i("rectify" , ""+Latitude+" "+Longitude);
+    }
     private void setUtilitiesIcon(){
         linearLayout = findViewById(R.id.pgPicturesUtilitiesLayout);
         FirebaseFirestore.getInstance()
@@ -365,4 +391,30 @@ public class pgDetails extends AppCompatActivity {
         pager.setAdapter(new pgDetailsAdapter(data,this));
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
+            googleMap.getUiSettings().setZoomGesturesEnabled(true);
+            Log.i("rectify" , ""+Latitude+" "+Longitude);
+            LatLng latLng = new LatLng(Latitude , Longitude);
+            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
+            CameraPosition cameraPosition=new CameraPosition.Builder().target(latLng).zoom(17).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            googleMap.addMarker(markerOptions);
+
+        }
 }
