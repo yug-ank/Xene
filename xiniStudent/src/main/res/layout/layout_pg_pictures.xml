@@ -95,18 +95,6 @@
         app:layout_constraintStart_toStartOf="@+id/layoutPgPictures_Rent"
         app:layout_constraintTop_toBottomOf="@+id/layoutPgPictures_Rent" />
 
-    <Button
-        android:id="@+id/layoutPgPictures_startchat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Chat"
-        android:background="@color/black"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/layoutPgPictures_RatingBar"
-        app:layout_constraintBottom_toTopOf="@id/editTextTextPersonName3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"/>
 
     <TextView
         android:id="@+id/editTextTextPersonName3"
@@ -120,7 +108,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutPgPictures_startchat" />
+        app:layout_constraintTop_toBottomOf="@id/layoutPgPictures_RatingBar"/>
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -138,5 +126,19 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"/>
     </HorizontalScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/layoutPgPictures_startchat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="15dp"
+        android:visibility="gone"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="#ededed"
+        android:elevation="2dp"
+        android:src="@drawable/messageicon"
+        app:fabSize="mini"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

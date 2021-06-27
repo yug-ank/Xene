@@ -14,6 +14,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,6 +27,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -38,11 +44,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager2.widget.ViewPager2;
 
 public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -66,7 +67,7 @@ public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
     private RatingBar ratingBar;
     private ScrollView scrollView;
     private DatabaseReference db0;
-    private Button startchat;
+    private FloatingActionButton startchat;
     private SupportMapFragment supportMapFragment;
     private Map<String , Integer> iconString2Int;
     private Integer[] icons={
@@ -231,6 +232,7 @@ public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
                         List<String> requested= (List<String>) value.get("requested");
                         if(requested.contains(hostelId)){
                             book_button.setText("CANCEL REQUEST");
+                            startchat.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -242,6 +244,8 @@ public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
                          List<String> accepted= (List<String>) value.get("accepted");
                         if(accepted.contains(hostelId)){
                             book_button.setText("REMOVE CONTACT");
+                            startchat.setVisibility(View.VISIBLE);
+
                         }
                     }
                 }
@@ -310,14 +314,13 @@ public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void setViews(){
-        startchat = (Button) findViewById(R.id.layoutPgPictures_startchat);
+        startchat = findViewById(R.id.layoutPgPictures_startchat);
         ratingBar = (RatingBar) findViewById(R.id.layoutPgPictures_RatingBar);
         nameOfPg = (TextView) findViewById(R.id.layoutPgPictures_NameOfPg);
         areaOfPg = (TextView) findViewById(R.id.layoutPgPictures_AreaOfPg);
         rent = (TextView) findViewById(R.id.price_pgdetails);
         description = (TextView) findViewById(R.id.layoutPgDescription_Description);
-        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
-        assert supportMapFragment != null;
+
     }
 
     private void setValues(){
@@ -347,7 +350,10 @@ public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
     private void callMap(Double Lat, Double Lon){
         this.Latitude=Lat;
         this.Longitude=Lon;
-        Log.i("rectify" , ""+Latitude+" "+Longitude);
+        Log.i("rectify1" , ""+Latitude+" "+Longitude);
+        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.profileMap);
+        assert supportMapFragment != null;
+        supportMapFragment.getMapAsync(this);
     }
     private void setUtilitiesIcon(){
         linearLayout = findViewById(R.id.pgPicturesUtilitiesLayout);
@@ -394,8 +400,11 @@ public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(
+                            this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -405,16 +414,20 @@ public class pgDetails extends AppCompatActivity implements OnMapReadyCallback {
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-            googleMap.setMyLocationEnabled(true);
-            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-            googleMap.getUiSettings().setZoomControlsEnabled(true);
-            googleMap.getUiSettings().setZoomGesturesEnabled(true);
-            Log.i("rectify" , ""+Latitude+" "+Longitude);
-            LatLng latLng = new LatLng(Latitude , Longitude);
-            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
-            CameraPosition cameraPosition=new CameraPosition.Builder().target(latLng).zoom(17).build();
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            googleMap.addMarker(markerOptions);
 
+            googleMap.setMyLocationEnabled(true);
+        Log.i("rectify3" , ""+Latitude+" "+Longitude);
+
+            if(Latitude != null && Longitude != null) {
+                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                googleMap.getUiSettings().setZoomControlsEnabled(true);
+                googleMap.getUiSettings().setZoomGesturesEnabled(true);
+                Log.i("rectify2", "" + Latitude + " " + Longitude);
+                LatLng latLng = new LatLng(Latitude, Longitude);
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(17).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                googleMap.addMarker(markerOptions);
+            }
         }
 }
